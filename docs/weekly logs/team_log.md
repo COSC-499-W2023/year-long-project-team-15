@@ -5,3 +5,5 @@ Team Members:
 
 
 ## Week 4(Sep 25 - Oct 1)
+
+This week we worked on and completed our project plan
