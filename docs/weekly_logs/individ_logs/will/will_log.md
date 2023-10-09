@@ -16,8 +16,8 @@ Goals:
 
 **Tasks**
 
-![wills tasks week 5](./screenshots/will_tasks_week5.png)
+![wills tasks week 5](./screenshots/wills_tasks_week5.png)
 
 Completed tasks 1-4. I am not including a screenshot of completed tasks as only task 5 is on project board and was not done.
 
-![wills completed tasks week5](./screenshots/will_inprogress_week5.png)
+![wills completed tasks week5](./screenshots/wills_inprogress_week5.png)
