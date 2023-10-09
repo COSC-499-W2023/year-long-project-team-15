@@ -20,14 +20,22 @@ Next week, we will begin setting up our repo so that we can translate our propos
 as beginning to learn the AWS and other JS softwares we will need to use for our project. 
 
 ## Week 5 (October 2nd - 8th)
+**Milestone Goals** 
+- User Database Structure / DB setup 
+- Create Account / Sign Up Page  
+- Basic account page to show sign in functionality
+- Associated testing?
 
-**Goals:**
+**This Week's Goals:**
 
 - Creat github project board for tasks to be completed for the entire project
 - assign tasks to miles stones
 - assign this milestones tasks to group members
 - set up AWS accounts
 - Set up *AWS Amplify*
+
+**BurnUp Chart** 
+![burnupweek5](./screenshots/week5_burnup.png)
 
 **Project Board**
 
