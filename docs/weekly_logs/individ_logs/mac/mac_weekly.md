@@ -22,7 +22,7 @@ Completed goals 1-4. We had some trouble accessing AWS services and I had to ema
 # Individual Log 6: Mac Vibert (mvibert88)
 
 This week I participated in the following tasks:
-![Mac's tasks week 4](./screenshots/tasks_week_6.png.png) 
+![Mac's tasks week 4](./screenshots/tasks_week_6.png) 
 
 Goals:
 - Get amplify working on aws
