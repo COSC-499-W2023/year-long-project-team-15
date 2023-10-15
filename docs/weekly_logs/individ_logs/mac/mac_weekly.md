@@ -1,4 +1,4 @@
-# Individual Log: Mac Vibert (mvibert88)
+# Individual Log 4: Mac Vibert (mvibert88)
 
 This week I participated in the following tasks:
 ![Mac's tasks week 4](./screenshots/mac_week_4_tasks.PNG)
