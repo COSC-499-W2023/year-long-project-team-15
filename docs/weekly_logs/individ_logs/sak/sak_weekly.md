@@ -15,3 +15,13 @@ Goals:
 
 ![Saksham's tasks week 5](./screenshots/sak_week5.png)
 
+## Week 6
+
+Goals: 
+- AWS account setup completed (delay due to email issue)
+- connecting to aws amplify for ci/cd
+- Learning React
+
+**Tasks**
+
+![Saksham's tasks week 6](./screenshots/sak_week6.png)
