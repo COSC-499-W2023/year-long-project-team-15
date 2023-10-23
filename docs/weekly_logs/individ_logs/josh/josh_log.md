@@ -45,8 +45,50 @@ Due to the nature of this week, not putting picture of task board since we didn'
 
 ## Goals for next week
 * Finish UI Design Layout
+* Setup AWS Ampifily / integrate into GitHub
+* Start coding a React.JS interface for Signin / Login page 
+
+
+# Individual Log: Joshua Farwig (JoshFarwig) 
+## Oct 8st - Oct 22nd 2023 / Week 6-7
+
+### Week 6-7 Tasks
+![josh_week5_tasks](./screenshots/josh_week6_7.png)
+
+## Goals from the last two weeks
+* Finish UI Design Layout
 * Setup AWS Ampifilty / integrate into GitHub
+* Learn React.JS Basics
 * Start coding a React.JS interface for Signin / Login page
+
+## Tasks In-Progress 
+* Complete UI Design Layout, With Amplify UI KIT This time: Figma 
+* Start coding a React.JS interface for Signin / Login page
+
+*filtered project board to show assigned tasks in the in-progess card*
+![josh_week5_board](./screenshots/josh_week6_7_tasks.png)
+
+## Tasks Completed 
+* Setup AWS Ampifily 
+* Learn React.JS Basics (For the most part, need to look a bit more into routing / escape hatches / useContext hook)
+* install NPM for create-react-app and other dependencies  
+
+For AWS amplifly there was a few issues when setting up with our repo and with certian permissions. We were able to get it set up and however we were having issues setting up AWS amplifly CLI. reverted to studio, then was able to do CLI init commands for amplify. Messed around with the interface, got a littler more familar with it on Saturday with Will and Mac.
+
+Learned basic React.JS concepts, however need to go more into state-management (Ways to pass props besides prop-drilling, useContext, useReference, etc.)
+
+For The UI, I created a few basic Frames, I.E Hero page, login/signup, 
+communication dashboard. However, Amplify has a pre-built figma-to-react SYNC as long as you use their figma UI Kit. So im re-doing the UI in this KIT instead so we can auto-generate components react components, then code the state management / buisness logic. 
+
+## Goals for next week
+* Finish Amplifiy UI KIT Design Layout 
+* Sync Figma to React Components, start working with generated components
+* Integrate pre-made auth components for a basic login / sign up page 
+* Look into testing for AWS components like Authenticator (cypress, selenium, or some aws-specific testing framework?)
+
+
+
+
 
 
 
