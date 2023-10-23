@@ -19,7 +19,7 @@ Goals:
 
 Completed goals 1-4. We had some trouble accessing AWS services and I had to email Scott Mcmillan to get it sorted out. Our account ended up being set to the wrong region and when we switched the problems were resolved. No coding tasks started for me this week. Learning react by doing an online course. 
 
-# Individual Log 6: Mac Vibert (mvibert88)
+# Individual Log 6-7: Mac Vibert (mvibert88)
 
 This week I participated in the following tasks:
 ![Mac's tasks week 4](./screenshots/tasks_week_6.png) 
