@@ -10,8 +10,7 @@ export const createUser = /* GraphQL */ `
       id
       email
       password
-      firstName
-      lastName
+      name
       dateJoined
       userType
       sentFriendRequests {
@@ -49,8 +48,7 @@ export const updateUser = /* GraphQL */ `
       id
       email
       password
-      firstName
-      lastName
+      name
       dateJoined
       userType
       sentFriendRequests {
@@ -88,8 +86,7 @@ export const deleteUser = /* GraphQL */ `
       id
       email
       password
-      firstName
-      lastName
+      name
       dateJoined
       userType
       sentFriendRequests {
@@ -131,8 +128,7 @@ export const createFriendRequest = /* GraphQL */ `
         id
         email
         password
-        firstName
-        lastName
+        name
         dateJoined
         userType
         createdAt
@@ -144,8 +140,7 @@ export const createFriendRequest = /* GraphQL */ `
         id
         email
         password
-        firstName
-        lastName
+        name
         dateJoined
         userType
         createdAt
@@ -172,8 +167,7 @@ export const updateFriendRequest = /* GraphQL */ `
         id
         email
         password
-        firstName
-        lastName
+        name
         dateJoined
         userType
         createdAt
@@ -185,8 +179,7 @@ export const updateFriendRequest = /* GraphQL */ `
         id
         email
         password
-        firstName
-        lastName
+        name
         dateJoined
         userType
         createdAt
@@ -213,8 +206,7 @@ export const deleteFriendRequest = /* GraphQL */ `
         id
         email
         password
-        firstName
-        lastName
+        name
         dateJoined
         userType
         createdAt
@@ -226,8 +218,7 @@ export const deleteFriendRequest = /* GraphQL */ `
         id
         email
         password
-        firstName
-        lastName
+        name
         dateJoined
         userType
         createdAt
@@ -256,8 +247,7 @@ export const createVideo = /* GraphQL */ `
         id
         email
         password
-        firstName
-        lastName
+        name
         dateJoined
         userType
         createdAt
@@ -290,8 +280,7 @@ export const updateVideo = /* GraphQL */ `
         id
         email
         password
-        firstName
-        lastName
+        name
         dateJoined
         userType
         createdAt
@@ -324,8 +313,7 @@ export const deleteVideo = /* GraphQL */ `
         id
         email
         password
-        firstName
-        lastName
+        name
         dateJoined
         userType
         createdAt
@@ -356,8 +344,7 @@ export const createVideoMessage = /* GraphQL */ `
         id
         email
         password
-        firstName
-        lastName
+        name
         dateJoined
         userType
         createdAt
@@ -369,8 +356,7 @@ export const createVideoMessage = /* GraphQL */ `
         id
         email
         password
-        firstName
-        lastName
+        name
         dateJoined
         userType
         createdAt
@@ -409,8 +395,7 @@ export const updateVideoMessage = /* GraphQL */ `
         id
         email
         password
-        firstName
-        lastName
+        name
         dateJoined
         userType
         createdAt
@@ -422,8 +407,7 @@ export const updateVideoMessage = /* GraphQL */ `
         id
         email
         password
-        firstName
-        lastName
+        name
         dateJoined
         userType
         createdAt
@@ -462,8 +446,7 @@ export const deleteVideoMessage = /* GraphQL */ `
         id
         email
         password
-        firstName
-        lastName
+        name
         dateJoined
         userType
         createdAt
@@ -475,8 +458,7 @@ export const deleteVideoMessage = /* GraphQL */ `
         id
         email
         password
-        firstName
-        lastName
+        name
         dateJoined
         userType
         createdAt

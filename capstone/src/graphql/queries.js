@@ -7,8 +7,7 @@ export const getUser = /* GraphQL */ `
       id
       email
       password
-      firstName
-      lastName
+      name
       dateJoined
       userType
       sentFriendRequests {
@@ -56,8 +55,7 @@ export const listUsers = /* GraphQL */ `
         id
         email
         password
-        firstName
-        lastName
+        name
         dateJoined
         userType
         createdAt
@@ -79,8 +77,7 @@ export const getFriendRequest = /* GraphQL */ `
         id
         email
         password
-        firstName
-        lastName
+        name
         dateJoined
         userType
         createdAt
@@ -92,8 +89,7 @@ export const getFriendRequest = /* GraphQL */ `
         id
         email
         password
-        firstName
-        lastName
+        name
         dateJoined
         userType
         createdAt
@@ -149,8 +145,7 @@ export const getVideo = /* GraphQL */ `
         id
         email
         password
-        firstName
-        lastName
+        name
         dateJoined
         userType
         createdAt
@@ -209,8 +204,7 @@ export const getVideoMessage = /* GraphQL */ `
         id
         email
         password
-        firstName
-        lastName
+        name
         dateJoined
         userType
         createdAt
@@ -222,8 +216,7 @@ export const getVideoMessage = /* GraphQL */ `
         id
         email
         password
-        firstName
-        lastName
+        name
         dateJoined
         userType
         createdAt

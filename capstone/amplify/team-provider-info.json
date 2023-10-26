@@ -22,7 +22,7 @@
       "function": {
         "newUserToDB": {
           "deploymentBucketName": "amplify-blurvidauth-dev-140815-deployment",
-          "s3Key": "amplify-builds/newUserToDB-68526863516f6a596873-build.zip"
+          "s3Key": "amplify-builds/newUserToDB-556f69727145334f3165-build.zip"
         }
       }
     }

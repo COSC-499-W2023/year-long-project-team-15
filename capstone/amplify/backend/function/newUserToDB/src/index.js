@@ -1,6 +1,5 @@
 var aws = require('aws-sdk');
 var ddb = new aws.DynamoDB();
-var ddb = new DynamoDB();
 
 exports.handler = async (event, context) => {
     
@@ -12,7 +11,7 @@ exports.handler = async (event, context) => {
             Item: {
                 'id': {S: event.request.userAttributes.sub},
                 '__typename': {S: 'User'},
-                'firstName': {S: event.request.userAttributes.fristName},
+                'name': {S: event.request.userAttributes.name},
                 'email': {S: event.request.userAttributes.email},
                 'createdAt': {S: date.toISOString()},
                 'updatedAt': {S: date.toISOString()},

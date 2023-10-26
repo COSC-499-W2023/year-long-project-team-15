@@ -3,9 +3,9 @@
 input AMPLIFY { globalAuthRule: AuthRule = { allow: public } } # FOR TESTING ONLY!
 type User @model {
   id: ID! @primaryKey
-  email: String
+  email: String!
   password: String!
-  name: String
+  name: String!
   dateJoined: AWSDate
   userType: UserType
   sentFriendRequests: [FriendRequest] @hasMany(indexName: "bySender", fields: ["id"])
