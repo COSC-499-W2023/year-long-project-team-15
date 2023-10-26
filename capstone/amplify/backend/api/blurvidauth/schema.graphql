@@ -1,0 +1,66 @@
+# This "input" configures a global authorization rule to enable public access to
+# all models in this schema. Learn more about authorization rules here: https://docs.amplify.aws/cli/graphql/authorization-rules
+input AMPLIFY { globalAuthRule: AuthRule = { allow: public } } # FOR TESTING ONLY!
+type User @model {
+  id: ID! @primaryKey
+  email: String
+  password: String!
+  name: String
+  dateJoined: AWSDate
+  userType: UserType
+  sentFriendRequests: [FriendRequest] @hasMany(indexName: "bySender", fields: ["id"])
+  receivedFriendRequests: [FriendRequest] @hasMany(indexName: "byReceiver", fields: ["id"])
+  uploadedVideos: [Video] @hasMany(indexName: "byUploader", fields: ["id"])
+  sentVideoMessages: [VideoMessage] @hasMany(indexName: "bySender", fields: ["id"])
+  receivedVideoMessages: [VideoMessage] @hasMany(indexName: "byReceiver", fields: ["id"])
+}
+
+enum UserType {
+  patient
+  doctor
+}
+
+type FriendRequest @model {
+  id: ID! @primaryKey
+  date: AWSDateTime!
+  status: FriendRequestStatus
+  sender: User @belongsTo(fields: ["senderID"])
+  senderID: ID! @index(name: "bySender")
+  receiver: User @belongsTo(fields: ["receiverID"])
+  receiverID: ID! @index(name: "byReceiver")
+}
+
+enum FriendRequestStatus {
+  Pending
+  Accepted
+  Declined
+}
+
+type Video @model {
+  id: ID! @primaryKey
+  uploadDate: AWSDateTime!
+  videoKey: String!  # S3 key for the video file
+  title: String
+  description: String
+  uploader: User @belongsTo(fields: ["uploaderID"])
+  uploaderID: ID! @index(name: "byUploader")
+  videoMessages: [VideoMessage] @hasMany(indexName: "byVideo", fields: ["id"])
+}
+
+type VideoMessage @model {
+  id: ID! @primaryKey
+  date: AWSDateTime!
+  status: VideoMessageStatus
+  sender: User @belongsTo(fields: ["senderID"])
+  senderID: ID! @index(name: "bySender")
+  receiver: User @belongsTo(fields: ["receiverID"])
+  receiverID: ID! @index(name: "byReceiver")
+  video: Video @belongsTo(fields: ["videoID"])
+  videoID: ID! @index(name: "byVideo")
+}
+
+enum VideoMessageStatus {
+  Sent
+  Delivered
+  Viewed
+}
