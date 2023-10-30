@@ -43,3 +43,19 @@ I have completed some React intro courses and watched some videos. I completed t
 **Done**
 
 ![wills week 6 done board](./screenshots/wills_done_week6.png)
+
+## Week 8
+
+Goals:
+
+finish linking cognito user pool sign up to our database.
+
+**Tasks**
+
+![wills week 8 tasks](./screenshots/wills_tasks_week8.png)
+
+This week myself and the team spent alot of time trying to get a lambda trigger to update our database after a user signs up with aws cognito services. So far sign up with verification and sign in forms display properly  and are functional and users can sign out, however lambda function is not updating the database. 
+
+**In Progress**
+
+![wills week 6 inprgress board](./screenshots/wills_inprogress_week8.png)
