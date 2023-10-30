@@ -50,6 +50,7 @@ exports.handler = async(event, context) => {
 
   const variables = {
     input: {
+      id: event.request.userAttributes.sub,
       email: event.request.userAttributes.email,
       password: event.request.userAttributes.password,
       firstName: event.request.userAttributes.given_name,
