@@ -1,8 +1,12 @@
 {
-  "request": {
-    "userAttributes": {
-      "email": "testEmail@domain.com"
-    }
+"request": {
+  "userAttributes": {
+    "email": "testEmail@domain.com",
+    "given_name": "Test",
+    "family_name": "User",
+    "password": "examplePassword"
   },
-  "response": {}
+  "validationData": null
+},
+"response": {}
 }
