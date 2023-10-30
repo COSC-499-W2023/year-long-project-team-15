@@ -20,7 +20,7 @@ Goals:
 
 ![Saksham's tasks week 5](./screenshots/sak_week5.png)
 
-## Week 6
+## Week 6 & 7
 
 Goals: 
 - AWS account setup completed (delay due to email issue)
@@ -29,4 +29,15 @@ Goals:
 
 **Tasks**
 
-![Saksham's tasks week 6](./screenshots/sak_week6.png)
+![Saksham's tasks week 6 & 7](./screenshots/sak_week6.png)
+
+## Week 8
+
+Goals: 
+- AWS cognito setup
+- Team meeting for presentation 
+- Learning React
+
+**Tasks**
+
+![Saksham's tasks week 8](./screenshots/sak_week8.png)
