@@ -4,8 +4,16 @@
     "apiName": "blurvid",
     "serviceName": "AppSync",
     "defaultAuthType": {
-      "mode": "API_KEY",
-      "expirationTime": 7
-    }
+      "mode": "AWS_IAM"
+    },
+    "conflictResolution": {},
+    "additionalAuthTypes": [
+      {
+        "mode": "API_KEY",
+        "expirationTime": 7,
+        "apiKeyExpirationDate": "2023-11-06T03:21:00.956Z",
+        "keyDescription": "graphQl auth"
+      }
+    ]
   }
 }

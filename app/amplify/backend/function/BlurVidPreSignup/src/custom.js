@@ -12,9 +12,8 @@ exports.handler = async(event, context) => {
   const createUser = /* GraphQL */ `
   mutation CreateUser(
     $input: CreateUserInput!
-    $condition: ModelUserConditionInput
   ) {
-    createUser(input: $input, condition: $condition) {
+    createUser(input: $input) {
       id
       email
       password

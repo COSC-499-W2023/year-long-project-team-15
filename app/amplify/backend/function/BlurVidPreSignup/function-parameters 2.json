@@ -1,0 +1,23 @@
+{
+  "trigger": true,
+  "modules": [
+    "custom"
+  ],
+  "parentResource": "BlurVid",
+  "functionName": "BlurVidPreSignup",
+  "resourceName": "BlurVidPreSignup",
+  "parentStack": "auth",
+  "triggerEnvs": "[]",
+  "triggerDir": "/snapshot/amplify-cli/build/node_modules/@aws-amplify/amplify-category-auth/provider-utils/awscloudformation/triggers/PreSignup",
+  "triggerTemplate": "PreSignup.json.ejs",
+  "triggerEventPath": "PreSignup.event.json",
+  "roleName": "BlurVidPreSignup",
+  "skipEdit": true,
+  "permissions": {
+    "api": {
+      "blurvid": [
+        "Mutation"
+      ]
+    }
+  }
+}
