@@ -31,3 +31,15 @@ Goals:
 This week I completed my goals. We worked with Bowen to fix a problem with giving AWS access to our github repo. I started learning react as it is what we chose to use for our frontend framework. I bought an online course and I'm working through it. Still no actual coding tasks for me, hoping to start coding next week and work on the login page! 
 
 
+
+# Individual Log 8: Mac Vibert (mvibert88)
+
+This week I participated in the following tasks:
+![Mac's tasks week 8](./screenshots/tasks_week_8.png) 
+
+Goals:
+- setup cognito loping with lambda function to send user credentials to db 
+
+I didn't accomplish my goal this week. Been a struggle. Spent many hours debugging trying to get lambda function to trigger and send signup info to database. My groupmates are also trying to accomplish the same thing with no success. It's a hard problem to solve because there's so console errors or stack trace. Not too much documentation to help and a lot of solutions are deprocated. Hopefully we'll figure it out soon. 
+
+![Mac's git in progress](./screenshots/week_8_git.png) 
