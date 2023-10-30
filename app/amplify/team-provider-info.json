@@ -1,0 +1,30 @@
+{
+  "staging": {
+    "awscloudformation": {
+      "AuthRoleName": "amplify-blurvid-staging-02254-authRole",
+      "UnauthRoleArn": "arn:aws:iam::825689036794:role/amplify-blurvid-staging-02254-unauthRole",
+      "AuthRoleArn": "arn:aws:iam::825689036794:role/amplify-blurvid-staging-02254-authRole",
+      "Region": "ca-central-1",
+      "DeploymentBucketName": "amplify-blurvid-staging-02254-deployment",
+      "UnauthRoleName": "amplify-blurvid-staging-02254-unauthRole",
+      "StackName": "amplify-blurvid-staging-02254",
+      "StackId": "arn:aws:cloudformation:ca-central-1:825689036794:stack/amplify-blurvid-staging-02254/784422f0-76ba-11ee-9ce4-0215add18354",
+      "AmplifyAppId": "d31whydgchqmad",
+      "AuthTriggerTemplateURL": "https://s3.amazonaws.com/amplify-blurvid-staging-02254-deployment/amplify-cfn-templates/auth/auth-trigger-cloudformation-template.json"
+    },
+    "categories": {
+      "auth": {
+        "BlurVid": {}
+      },
+      "api": {
+        "blurvid": {}
+      },
+      "function": {
+        "BlurVidPreSignup": {
+          "deploymentBucketName": "amplify-blurvid-staging-02254-deployment",
+          "s3Key": "amplify-builds/BlurVidPreSignup-32306163584a7a357251-build.zip"
+        }
+      }
+    }
+  }
+}
