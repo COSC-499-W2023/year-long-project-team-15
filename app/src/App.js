@@ -2,15 +2,19 @@ import logo from './logo.svg';
 import './App.css';
 
 import "@aws-amplify/ui-react/styles.css";
-import { withAuthenticator } from "@aws-amplify/ui-react";
+import { Authenticator } from "@aws-amplify/ui-react";
 
 function App() {
   return (
-    <div className="App">
-      <h1>Welcome to BlurVid!</h1>
-      
-    </div>
+    <Authenticator>
+      {({ signOut, user }) => (
+        <div className="App">
+          <h1>Welcome to BlurVid!</h1>
+          <button onClick={signOut}>Sign out</button>
+        </div>
+      )}
+    </Authenticator>
   );
 }
 
-export default withAuthenticator(App);
+export default App;

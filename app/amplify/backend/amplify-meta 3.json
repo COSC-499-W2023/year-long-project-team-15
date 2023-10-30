@@ -1,0 +1,143 @@
+{
+  "providers": {
+    "awscloudformation": {
+      "AuthRoleName": "amplify-blurvid-staging-02254-authRole",
+      "UnauthRoleArn": "arn:aws:iam::825689036794:role/amplify-blurvid-staging-02254-unauthRole",
+      "AuthRoleArn": "arn:aws:iam::825689036794:role/amplify-blurvid-staging-02254-authRole",
+      "Region": "ca-central-1",
+      "DeploymentBucketName": "amplify-blurvid-staging-02254-deployment",
+      "UnauthRoleName": "amplify-blurvid-staging-02254-unauthRole",
+      "StackName": "amplify-blurvid-staging-02254",
+      "StackId": "arn:aws:cloudformation:ca-central-1:825689036794:stack/amplify-blurvid-staging-02254/784422f0-76ba-11ee-9ce4-0215add18354",
+      "AmplifyAppId": "d31whydgchqmad",
+      "AuthTriggerTemplateURL": "https://s3.amazonaws.com/amplify-blurvid-staging-02254-deployment/amplify-cfn-templates/auth/auth-trigger-cloudformation-template.json"
+    }
+  },
+  "auth": {
+    "BlurVid": {
+      "customAuth": false,
+      "dependsOn": [
+        {
+          "category": "function",
+          "resourceName": "BlurVidPreSignup",
+          "triggerProvider": "Cognito",
+          "attributes": [
+            "Arn",
+            "Name"
+          ]
+        }
+      ],
+      "frontendAuthConfig": {
+        "mfaConfiguration": "OPTIONAL",
+        "mfaTypes": [
+          "SMS"
+        ],
+        "passwordProtectionSettings": {
+          "passwordPolicyMinLength": 8,
+          "passwordPolicyCharacters": [
+            "REQUIRES_LOWERCASE",
+            "REQUIRES_NUMBERS",
+            "REQUIRES_SYMBOLS",
+            "REQUIRES_UPPERCASE"
+          ]
+        },
+        "signupAttributes": [
+          "EMAIL",
+          "FAMILY_NAME",
+          "GIVEN_NAME"
+        ],
+        "socialProviders": [],
+        "usernameAttributes": [
+          "EMAIL"
+        ],
+        "verificationMechanisms": [
+          "EMAIL"
+        ]
+      },
+      "providerPlugin": "awscloudformation",
+      "service": "Cognito",
+      "output": {
+        "CreatedSNSRole": "arn:aws:iam::825689036794:role/sns816dd24302254-staging",
+        "UserPoolId": "ca-central-1_QCcf2b6Mq",
+        "AppClientIDWeb": "65h80r3ghfn8t5g8a2hvlhiu8k",
+        "AppClientID": "r6tugcnvjbd7lrrivbecrhe61",
+        "IdentityPoolId": "ca-central-1:a576ea49-eb6a-4a91-9927-fe310fe5ddfb",
+        "UserPoolArn": "arn:aws:cognito-idp:ca-central-1:825689036794:userpool/ca-central-1_QCcf2b6Mq",
+        "IdentityPoolName": "testAuthIdentityPool__staging",
+        "UserPoolName": "BlurVid"
+      },
+      "lastPushTimeStamp": "2023-10-30T02:34:07.801Z",
+      "providerMetadata": {
+        "s3TemplateURL": "https://s3.amazonaws.com/amplify-blurvid-staging-02254-deployment/amplify-cfn-templates/auth/BlurVid-cloudformation-template.json",
+        "logicalId": "authBlurVid"
+      },
+      "lastPushDirHash": "x8Lc1xa+Ukq30pwjl2KWsbOuxuc="
+    }
+  },
+  "api": {
+    "blurvid": {
+      "service": "AppSync",
+      "providerPlugin": "awscloudformation",
+      "dependsOn": [],
+      "output": {
+        "authConfig": {
+          "defaultAuthentication": {
+            "authenticationType": "API_KEY",
+            "apiKeyConfig": {
+              "apiKeyExpirationDays": 7
+            }
+          },
+          "additionalAuthenticationProviders": []
+        },
+        "GraphQLAPIIdOutput": "v2iw25ejd5cghfewi6tryeuvb4",
+        "GraphQLAPIEndpointOutput": "https://gjrwsjgjxbaxbhiswyekel2dtq.appsync-api.ca-central-1.amazonaws.com/graphql",
+        "GraphQLAPIKeyOutput": "da2-6rel6q5oxzdnzcu7pbtekvch7a"
+      },
+      "providerMetadata": {
+        "s3TemplateURL": "https://s3.amazonaws.com/amplify-blurvid-staging-02254-deployment/amplify-cfn-templates/api/cloudformation-template.json",
+        "logicalId": "apiblurvid"
+      },
+      "lastPushTimeStamp": "2023-10-30T02:34:07.806Z",
+      "lastPushDirHash": "LJzR6AhsJhxpJX73tCxDsTXN+ZQ="
+    }
+  },
+  "function": {
+    "BlurVidPreSignup": {
+      "build": true,
+      "providerPlugin": "awscloudformation",
+      "service": "Lambda",
+      "dependsOn": [
+        {
+          "category": "api",
+          "resourceName": "blurvid",
+          "attributes": [
+            "GraphQLAPIIdOutput",
+            "GraphQLAPIEndpointOutput",
+            "GraphQLAPIKeyOutput"
+          ]
+        }
+      ],
+      "lastPushTimeStamp": "2023-10-30T02:34:10.933Z",
+      "lastBuildTimeStamp": "2023-10-30T02:31:58.094Z",
+      "lastBuildType": "PROD",
+      "lastPackageTimeStamp": "2023-10-30T02:31:58.259Z",
+      "distZipFilename": "BlurVidPreSignup-32306163584a7a357251-build.zip",
+      "s3Bucket": {
+        "deploymentBucketName": "amplify-blurvid-staging-02254-deployment",
+        "s3Key": "amplify-builds/BlurVidPreSignup-32306163584a7a357251-build.zip"
+      },
+      "providerMetadata": {
+        "s3TemplateURL": "https://s3.amazonaws.com/amplify-blurvid-staging-02254-deployment/amplify-cfn-templates/function/BlurVidPreSignup-cloudformation-template.json",
+        "logicalId": "functionBlurVidPreSignup"
+      },
+      "output": {
+        "LambdaExecutionRoleArn": "arn:aws:iam::825689036794:role/BlurVidPreSignup-staging",
+        "Region": "ca-central-1",
+        "Arn": "arn:aws:lambda:ca-central-1:825689036794:function:BlurVidPreSignup-staging",
+        "Name": "BlurVidPreSignup-staging",
+        "LambdaExecutionRole": "BlurVidPreSignup-staging"
+      },
+      "lastPushDirHash": "uM2yNuKQfAj6j9lq+0h/OCnJubc="
+    }
+  }
+}
