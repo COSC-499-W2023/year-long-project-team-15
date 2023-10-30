@@ -50,9 +50,9 @@ Due to the nature of this week, not putting picture of task board since we didn'
 
 
 # Individual Log: Joshua Farwig (JoshFarwig) 
-## Oct 8st - Oct 22nd 2023 / Week 6-7
+## Oct 8st - Oct 15th 2023 Week 6
 
-### Week 6-7 Tasks
+### Week 6 Tasks
 ![josh_week5_tasks](./screenshots/josh_week6_7.png)
 
 ## Goals from the last two weeks
@@ -84,7 +84,37 @@ communication dashboard. However, Amplify has a pre-built figma-to-react SYNC as
 * Finish Amplifiy UI KIT Design Layout 
 * Sync Figma to React Components, start working with generated components
 * Integrate pre-made auth components for a basic login / sign up page 
-* Look into testing for AWS components like Authenticator (cypress, selenium, or some aws-specific testing framework?)
+* Look into testing for AWS components like Authenticator (cypress, selenium, or some aws-specific testing framework?) 
+
+# Individual Log: Joshua Farwig (JoshFarwig) 
+## Oct 8st - Oct 22nd 2023 / Week 7-8
+
+### Week 7-8 Tasks
+![josh_week5_tasks](./screenshots/josh_week7-8.png)
+
+## Goals from the last two weeks
+* Finish Amplifiy UI KIT Design Layout 
+* Sync Figma to React Components, start working with generated components
+* Integrate pre-made auth components for a basic login / sign up page 
+* Look into testing for AWS components like Authenticator (cypress, selenium, or some aws-specific testing framework?) 
+
+## Tasks In-Progress 
+* Finish Amplifiy UI KIT Design Layout 
+* Sync Figma to React Components, start working with generated components
+* Integrate pre-made auth components for a basic login / sign up page  
+
+*filtered project board to show assigned tasks in the in-progess card*
+*Not including project board since it is the same as the last entry*
+
+## Tasks Completed 
+* None
+
+For the last two weeks, we have been struggling with setting up Authenticator / the AWS congito intergration. We need to create a Post Auth Confirmation Lambda trigger to create a user entry. Had bugs we couldn't figure out on last thursday (26th). I Haven't been able to put much work into the project for the last two weeks due to midterms and a paper. We will make sure we have everything ready by thursday but Im not sure if we are going to be able to create testing for the presentation.
+
+## Goals for next week
+* Integrate pre-made auth components for a basic login / sign up page 
+* Work on Figma design for Design milestone
+* Complete Sign in / Sign up auth + post confirmation lamba function working.
 
 
 
