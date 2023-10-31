@@ -17,7 +17,7 @@ type User @model @auth(rules: [{allow: public}]){
 }
 
 
-type FriendRequest @model {
+type FriendRequest @model @auth(rules: [{allow: public}]){
   id: ID! @primaryKey
   date: AWSDateTime!
   status: FriendRequestStatus
@@ -33,7 +33,7 @@ enum FriendRequestStatus {
   Declined
 }
 
-type Video @model {
+type Video @model @auth(rules: [{allow: public}]){
   id: ID! @primaryKey
   uploadDate: AWSDateTime!
   videoKey: String!  # S3 key for the video file
@@ -44,7 +44,7 @@ type Video @model {
   videoMessages: [VideoMessage] @hasMany(indexName: "byVideo", fields: ["id"])
 }
 
-type VideoMessage @model {
+type VideoMessage @model @auth(rules: [{allow: public}]){
   id: ID! @primaryKey
   date: AWSDateTime!
   status: VideoMessageStatus

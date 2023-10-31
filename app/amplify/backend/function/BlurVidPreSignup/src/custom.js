@@ -9,8 +9,8 @@ exports.handler = async(event, context) => {
   const GRAPHQL_API_KEY = process.env.API_BLURVID_GRAPHQLAPIKEYOUTPUT;
   
   const createUser = /* GraphQL */ `
-  mutation CreateUser($input: CreateUserInput!, $condition: ModelUserConditionInput) {
-    createUser(input: $input, condition: $condition) {
+  mutation CreateUser($input: CreateUserInput!) {
+    createUser(input: $input) {
       id
       email
       password
@@ -43,49 +43,61 @@ exports.handler = async(event, context) => {
     }
   }
 `;
-  let date = new Date();
 
-  const variables = {
-    input: {
-      id: event.request.userAttributes.sub,
-      email: event.request.userAttributes.email,
-      password: event.request.userAttributes.password,
-      firstName: event.request.userAttributes.given_name,
-      lastName: event.request.userAttributes.family_name,
-      dateJoined: date.toISOString(),
-    },
-  };
+let date = new Date();
 
-  const options = {
-    method: "POST",
-    headers: {
-      "x-api-key": GRAPHQL_API_KEY,
-      "Content-Type": "application/json",
-    },
-    body: JSON.stringify({ query: createUser, variables }),
-  };
+const variables = {
+  input: {
+    id: event.request.userAttributes.sub,
+    email: event.request.userAttributes.email,
+    password: event.request.userAttributes.password,
+    firstName: event.request.userAttributes.given_name,
+    lastName: event.request.userAttributes.family_name,
+    dateJoined: date.toISOString(),
+  },
+};
 
-  const response = {};
+console.log("Variables: ", variables);
 
-  try{
-    const res = await fetch(GRAPHQL_ENDPOINT, options);
-    response.data = await res.json();
-    if(response.data.errors) response.statusCode = 400;
-  }catch(error) {
+const options = {
+  method: "POST",
+  headers: {
+    "x-api-key": GRAPHQL_API_KEY,
+    "Content-Type": "application/json",
+  },
+  body: JSON.stringify({ query: createUser, variables }),
+};
+
+console.log("Options: ", options);
+
+const response = {};
+
+try {
+  const res = await fetch(GRAPHQL_ENDPOINT, options);
+  response.data = await res.json();
+
+  console.log("GraphQL Response: ", response.data);
+
+  if (response.data.errors) {
     response.statusCode = 400;
-    response.body = {
-      errors: [
-        {
-          message: error.message,
-          stack: error.stack,
-        },
-      ],
-    };
+    console.error("GraphQL Errors: ", response.data.errors);
   }
-
-
-  return {
-    ...response,
-    body: JSON.stringify(response.body),
+} catch (error) {
+  response.statusCode = 400;
+  response.body = {
+    errors: [
+      {
+        message: error.message,
+        stack: error.stack,
+      },
+    ],
   };
+
+  console.error("Error: ", error);
 }
+
+return {
+  ...response,
+  body: JSON.stringify(response.body),
+};
+};
