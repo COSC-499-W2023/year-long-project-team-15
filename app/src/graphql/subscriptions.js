@@ -1,6 +1,108 @@
 /* eslint-disable */
 // this is an auto generated file. This will be overwritten
 
+export const onCreateUser = /* GraphQL */ `
+  subscription OnCreateUser($filter: ModelSubscriptionUserFilterInput) {
+    onCreateUser(filter: $filter) {
+      id
+      email
+      firstName
+      lastName
+      dateJoined
+      sentFriendRequests {
+        nextToken
+        __typename
+      }
+      receivedFriendRequests {
+        nextToken
+        __typename
+      }
+      uploadedVideos {
+        nextToken
+        __typename
+      }
+      sentVideoMessages {
+        nextToken
+        __typename
+      }
+      receivedVideoMessages {
+        nextToken
+        __typename
+      }
+      createdAt
+      updatedAt
+      __typename
+    }
+  }
+`;
+export const onUpdateUser = /* GraphQL */ `
+  subscription OnUpdateUser($filter: ModelSubscriptionUserFilterInput) {
+    onUpdateUser(filter: $filter) {
+      id
+      email
+      firstName
+      lastName
+      dateJoined
+      sentFriendRequests {
+        nextToken
+        __typename
+      }
+      receivedFriendRequests {
+        nextToken
+        __typename
+      }
+      uploadedVideos {
+        nextToken
+        __typename
+      }
+      sentVideoMessages {
+        nextToken
+        __typename
+      }
+      receivedVideoMessages {
+        nextToken
+        __typename
+      }
+      createdAt
+      updatedAt
+      __typename
+    }
+  }
+`;
+export const onDeleteUser = /* GraphQL */ `
+  subscription OnDeleteUser($filter: ModelSubscriptionUserFilterInput) {
+    onDeleteUser(filter: $filter) {
+      id
+      email
+      firstName
+      lastName
+      dateJoined
+      sentFriendRequests {
+        nextToken
+        __typename
+      }
+      receivedFriendRequests {
+        nextToken
+        __typename
+      }
+      uploadedVideos {
+        nextToken
+        __typename
+      }
+      sentVideoMessages {
+        nextToken
+        __typename
+      }
+      receivedVideoMessages {
+        nextToken
+        __typename
+      }
+      createdAt
+      updatedAt
+      __typename
+    }
+  }
+`;
 export const onCreateFriendRequest = /* GraphQL */ `
   subscription OnCreateFriendRequest(
     $filter: ModelSubscriptionFriendRequestFilterInput
@@ -12,7 +114,6 @@ export const onCreateFriendRequest = /* GraphQL */ `
       sender {
         id
         email
-        password
         firstName
         lastName
         dateJoined
@@ -24,7 +125,6 @@ export const onCreateFriendRequest = /* GraphQL */ `
       receiver {
         id
         email
-        password
         firstName
         lastName
         dateJoined
@@ -50,7 +150,6 @@ export const onUpdateFriendRequest = /* GraphQL */ `
       sender {
         id
         email
-        password
         firstName
         lastName
         dateJoined
@@ -62,7 +161,6 @@ export const onUpdateFriendRequest = /* GraphQL */ `
       receiver {
         id
         email
-        password
         firstName
         lastName
         dateJoined
@@ -88,7 +186,6 @@ export const onDeleteFriendRequest = /* GraphQL */ `
       sender {
         id
         email
-        password
         firstName
         lastName
         dateJoined
@@ -100,7 +197,6 @@ export const onDeleteFriendRequest = /* GraphQL */ `
       receiver {
         id
         email
-        password
         firstName
         lastName
         dateJoined
@@ -126,7 +222,6 @@ export const onCreateVideo = /* GraphQL */ `
       uploader {
         id
         email
-        password
         firstName
         lastName
         dateJoined
@@ -156,7 +251,6 @@ export const onUpdateVideo = /* GraphQL */ `
       uploader {
         id
         email
-        password
         firstName
         lastName
         dateJoined
@@ -186,7 +280,6 @@ export const onDeleteVideo = /* GraphQL */ `
       uploader {
         id
         email
-        password
         firstName
         lastName
         dateJoined
@@ -216,7 +309,6 @@ export const onCreateVideoMessage = /* GraphQL */ `
       sender {
         id
         email
-        password
         firstName
         lastName
         dateJoined
@@ -228,7 +320,6 @@ export const onCreateVideoMessage = /* GraphQL */ `
       receiver {
         id
         email
-        password
         firstName
         lastName
         dateJoined
@@ -266,7 +357,6 @@ export const onUpdateVideoMessage = /* GraphQL */ `
       sender {
         id
         email
-        password
         firstName
         lastName
         dateJoined
@@ -278,7 +368,6 @@ export const onUpdateVideoMessage = /* GraphQL */ `
       receiver {
         id
         email
-        password
         firstName
         lastName
         dateJoined
@@ -316,7 +405,6 @@ export const onDeleteVideoMessage = /* GraphQL */ `
       sender {
         id
         email
-        password
         firstName
         lastName
         dateJoined
@@ -328,7 +416,6 @@ export const onDeleteVideoMessage = /* GraphQL */ `
       receiver {
         id
         email
-        password
         firstName
         lastName
         dateJoined
@@ -349,111 +436,6 @@ export const onDeleteVideoMessage = /* GraphQL */ `
         __typename
       }
       videoID
-      createdAt
-      updatedAt
-      __typename
-    }
-  }
-`;
-export const onCreateUser = /* GraphQL */ `
-  subscription OnCreateUser($filter: ModelSubscriptionUserFilterInput) {
-    onCreateUser(filter: $filter) {
-      id
-      email
-      password
-      firstName
-      lastName
-      dateJoined
-      sentFriendRequests {
-        nextToken
-        __typename
-      }
-      receivedFriendRequests {
-        nextToken
-        __typename
-      }
-      uploadedVideos {
-        nextToken
-        __typename
-      }
-      sentVideoMessages {
-        nextToken
-        __typename
-      }
-      receivedVideoMessages {
-        nextToken
-        __typename
-      }
-      createdAt
-      updatedAt
-      __typename
-    }
-  }
-`;
-export const onUpdateUser = /* GraphQL */ `
-  subscription OnUpdateUser($filter: ModelSubscriptionUserFilterInput) {
-    onUpdateUser(filter: $filter) {
-      id
-      email
-      password
-      firstName
-      lastName
-      dateJoined
-      sentFriendRequests {
-        nextToken
-        __typename
-      }
-      receivedFriendRequests {
-        nextToken
-        __typename
-      }
-      uploadedVideos {
-        nextToken
-        __typename
-      }
-      sentVideoMessages {
-        nextToken
-        __typename
-      }
-      receivedVideoMessages {
-        nextToken
-        __typename
-      }
-      createdAt
-      updatedAt
-      __typename
-    }
-  }
-`;
-export const onDeleteUser = /* GraphQL */ `
-  subscription OnDeleteUser($filter: ModelSubscriptionUserFilterInput) {
-    onDeleteUser(filter: $filter) {
-      id
-      email
-      password
-      firstName
-      lastName
-      dateJoined
-      sentFriendRequests {
-        nextToken
-        __typename
-      }
-      receivedFriendRequests {
-        nextToken
-        __typename
-      }
-      uploadedVideos {
-        nextToken
-        __typename
-      }
-      sentVideoMessages {
-        nextToken
-        __typename
-      }
-      receivedVideoMessages {
-        nextToken
-        __typename
-      }
       createdAt
       updatedAt
       __typename

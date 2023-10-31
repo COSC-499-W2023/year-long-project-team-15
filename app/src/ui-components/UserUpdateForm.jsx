@@ -56,7 +56,7 @@ export default function UserUpdateForm(props) {
   React.useEffect(resetStateValues, [userRecord]);
   const validations = {
     email: [{ type: "Required" }],
-    password: [{ type: "Required" }],
+    password: [],
     firstName: [],
     lastName: [],
   };
@@ -119,9 +119,14 @@ export default function UserUpdateForm(props) {
               modelFields[key] = null;
             }
           });
+          const modelFieldsToSave = {
+            email: modelFields.email,
+            firstName: modelFields.firstName,
+            lastName: modelFields.lastName,
+          };
           await DataStore.save(
             User.copyOf(userRecord, (updated) => {
-              Object.assign(updated, modelFields);
+              Object.assign(updated, modelFieldsToSave);
             })
           );
           if (onSuccess) {
@@ -164,9 +169,7 @@ export default function UserUpdateForm(props) {
         {...getOverrideProps(overrides, "email")}
       ></TextField>
       <TextField
-        label="Password"
-        isRequired={true}
-        isReadOnly={false}
+        label="Label"
         value={password}
         onChange={(e) => {
           let { value } = e.target;

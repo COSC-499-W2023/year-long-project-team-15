@@ -13,7 +13,6 @@ exports.handler = async(event, context) => {
     createUser(input: $input) {
       id
       email
-      password
       firstName
       lastName
       dateJoined
