@@ -25,17 +25,17 @@ export default function UserUpdateForm(props) {
   } = props;
   const initialValues = {
     email: "",
-    createdAt: "",
+    name: "",
   };
   const [email, setEmail] = React.useState(initialValues.email);
-  const [createdAt, setCreatedAt] = React.useState(initialValues.createdAt);
+  const [name, setName] = React.useState(initialValues.name);
   const [errors, setErrors] = React.useState({});
   const resetStateValues = () => {
     const cleanValues = userRecord
       ? { ...initialValues, ...userRecord }
       : initialValues;
     setEmail(cleanValues.email);
-    setCreatedAt(cleanValues.createdAt);
+    setName(cleanValues.name);
     setErrors({});
   };
   const [userRecord, setUserRecord] = React.useState(userModelProp);
@@ -56,7 +56,7 @@ export default function UserUpdateForm(props) {
   React.useEffect(resetStateValues, [userRecord]);
   const validations = {
     email: [{ type: "Required" }],
-    createdAt: [],
+    name: [{ type: "Required" }],
   };
   const runValidationTasks = async (
     fieldName,
@@ -85,7 +85,7 @@ export default function UserUpdateForm(props) {
         event.preventDefault();
         let modelFields = {
           email,
-          createdAt: createdAt ?? null,
+          name,
         };
         const validationResponses = await Promise.all(
           Object.keys(validations).reduce((promises, fieldName) => {
@@ -147,7 +147,7 @@ export default function UserUpdateForm(props) {
           if (onChange) {
             const modelFields = {
               email: value,
-              createdAt,
+              name,
             };
             const result = onChange(modelFields);
             value = result?.email ?? value;
@@ -163,30 +163,29 @@ export default function UserUpdateForm(props) {
         {...getOverrideProps(overrides, "email")}
       ></TextField>
       <TextField
-        label="Created at"
-        isRequired={false}
+        label="Name"
+        isRequired={true}
         isReadOnly={false}
-        type="date"
-        value={createdAt}
+        value={name}
         onChange={(e) => {
           let { value } = e.target;
           if (onChange) {
             const modelFields = {
               email,
-              createdAt: value,
+              name: value,
             };
             const result = onChange(modelFields);
-            value = result?.createdAt ?? value;
+            value = result?.name ?? value;
           }
-          if (errors.createdAt?.hasError) {
-            runValidationTasks("createdAt", value);
+          if (errors.name?.hasError) {
+            runValidationTasks("name", value);
           }
-          setCreatedAt(value);
+          setName(value);
         }}
-        onBlur={() => runValidationTasks("createdAt", createdAt)}
-        errorMessage={errors.createdAt?.errorMessage}
-        hasError={errors.createdAt?.hasError}
-        {...getOverrideProps(overrides, "createdAt")}
+        onBlur={() => runValidationTasks("name", name)}
+        errorMessage={errors.name?.errorMessage}
+        hasError={errors.name?.hasError}
+        {...getOverrideProps(overrides, "name")}
       ></TextField>
       <Flex
         justifyContent="space-between"

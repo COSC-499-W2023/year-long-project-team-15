@@ -1,20 +1,34 @@
 /**
  * @type {import('@types/aws-lambda').APIGatewayProxyHandler}
  */
-import {fetch} from 'node-fetch'; 
-import { createUser } from '../../../../../src/graphql/mutations';
+const fetch = require('node-fetch'); 
 exports.handler = async (event, context) => {
   // insert code to be executed by your lambda trigger
 
-const GRAPHQL_ENDPOINT = process.env.API__yearlongprojectteam15appampdev_GRAPHQLAPIENDPOINTOUTPUT;
-const GRAPHQL_API_KEY = process.env.API_yearlongprojectteam15appampdev_GRAPHQLAPIKEYOUTPUT;
+const GRAPHQL_ENDPOINT = process.env.API_YEARLONGPROJECTTEAM15APPAMPDEV_GRAPHQLAPIENDPOINTOUTPUT;
+const GRAPHQL_API_KEY = process.env.API_YEARLONGPROJECTTEAM15APPAMPDEV_GRAPHQLAPIKEYOUTPUT;
+
+const createUser = /* GraphQL */ `
+  mutation CreateUser(
+    $input: CreateUserInput!
+    $condition: ModelUserConditionInput
+  ) {
+    createUser(input: $input, condition: $condition) {
+      id
+      name 
+      email
+    }
+  }
+`;
 
 const variables = {
   input: {
     id: event.request.userAttributes.sub,
+    name: event.request.userAttributes.name,
     email: event.request.userAttributes.email
-  }
+  },
 };
+
 
 const options = {
   method: "POST",
