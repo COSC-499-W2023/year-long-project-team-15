@@ -22,7 +22,7 @@
       "function": {
         "BlurVidPreSignup": {
           "deploymentBucketName": "amplify-blurvid-staging-02254-deployment",
-          "s3Key": "amplify-builds/BlurVidPreSignup-734436636f6430456e77-build.zip"
+          "s3Key": "amplify-builds/BlurVidPreSignup-5753383059314e715233-build.zip"
         }
       }
     }

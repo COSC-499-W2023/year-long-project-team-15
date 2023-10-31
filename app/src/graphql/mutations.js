@@ -1,120 +1,6 @@
 /* eslint-disable */
 // this is an auto generated file. This will be overwritten
 
-export const createUser = /* GraphQL */ `
-  mutation CreateUser(
-    $input: CreateUserInput!
-    $condition: ModelUserConditionInput
-  ) {
-    createUser(input: $input, condition: $condition) {
-      id
-      email
-      password
-      firstName
-      lastName
-      dateJoined
-      sentFriendRequests {
-        nextToken
-        __typename
-      }
-      receivedFriendRequests {
-        nextToken
-        __typename
-      }
-      uploadedVideos {
-        nextToken
-        __typename
-      }
-      sentVideoMessages {
-        nextToken
-        __typename
-      }
-      receivedVideoMessages {
-        nextToken
-        __typename
-      }
-      createdAt
-      updatedAt
-      __typename
-    }
-  }
-`;
-export const updateUser = /* GraphQL */ `
-  mutation UpdateUser(
-    $input: UpdateUserInput!
-    $condition: ModelUserConditionInput
-  ) {
-    updateUser(input: $input, condition: $condition) {
-      id
-      email
-      password
-      firstName
-      lastName
-      dateJoined
-      sentFriendRequests {
-        nextToken
-        __typename
-      }
-      receivedFriendRequests {
-        nextToken
-        __typename
-      }
-      uploadedVideos {
-        nextToken
-        __typename
-      }
-      sentVideoMessages {
-        nextToken
-        __typename
-      }
-      receivedVideoMessages {
-        nextToken
-        __typename
-      }
-      createdAt
-      updatedAt
-      __typename
-    }
-  }
-`;
-export const deleteUser = /* GraphQL */ `
-  mutation DeleteUser(
-    $input: DeleteUserInput!
-    $condition: ModelUserConditionInput
-  ) {
-    deleteUser(input: $input, condition: $condition) {
-      id
-      email
-      password
-      firstName
-      lastName
-      dateJoined
-      sentFriendRequests {
-        nextToken
-        __typename
-      }
-      receivedFriendRequests {
-        nextToken
-        __typename
-      }
-      uploadedVideos {
-        nextToken
-        __typename
-      }
-      sentVideoMessages {
-        nextToken
-        __typename
-      }
-      receivedVideoMessages {
-        nextToken
-        __typename
-      }
-      createdAt
-      updatedAt
-      __typename
-    }
-  }
-`;
 export const createFriendRequest = /* GraphQL */ `
   mutation CreateFriendRequest(
     $input: CreateFriendRequestInput!
@@ -478,6 +364,120 @@ export const deleteVideoMessage = /* GraphQL */ `
         __typename
       }
       videoID
+      createdAt
+      updatedAt
+      __typename
+    }
+  }
+`;
+export const createUser = /* GraphQL */ `
+  mutation CreateUser(
+    $input: CreateUserInput!
+    $condition: ModelUserConditionInput
+  ) {
+    createUser(input: $input, condition: $condition) {
+      id
+      email
+      password
+      firstName
+      lastName
+      dateJoined
+      sentFriendRequests {
+        nextToken
+        __typename
+      }
+      receivedFriendRequests {
+        nextToken
+        __typename
+      }
+      uploadedVideos {
+        nextToken
+        __typename
+      }
+      sentVideoMessages {
+        nextToken
+        __typename
+      }
+      receivedVideoMessages {
+        nextToken
+        __typename
+      }
+      createdAt
+      updatedAt
+      __typename
+    }
+  }
+`;
+export const updateUser = /* GraphQL */ `
+  mutation UpdateUser(
+    $input: UpdateUserInput!
+    $condition: ModelUserConditionInput
+  ) {
+    updateUser(input: $input, condition: $condition) {
+      id
+      email
+      password
+      firstName
+      lastName
+      dateJoined
+      sentFriendRequests {
+        nextToken
+        __typename
+      }
+      receivedFriendRequests {
+        nextToken
+        __typename
+      }
+      uploadedVideos {
+        nextToken
+        __typename
+      }
+      sentVideoMessages {
+        nextToken
+        __typename
+      }
+      receivedVideoMessages {
+        nextToken
+        __typename
+      }
+      createdAt
+      updatedAt
+      __typename
+    }
+  }
+`;
+export const deleteUser = /* GraphQL */ `
+  mutation DeleteUser(
+    $input: DeleteUserInput!
+    $condition: ModelUserConditionInput
+  ) {
+    deleteUser(input: $input, condition: $condition) {
+      id
+      email
+      password
+      firstName
+      lastName
+      dateJoined
+      sentFriendRequests {
+        nextToken
+        __typename
+      }
+      receivedFriendRequests {
+        nextToken
+        __typename
+      }
+      uploadedVideos {
+        nextToken
+        __typename
+      }
+      sentVideoMessages {
+        nextToken
+        __typename
+      }
+      receivedVideoMessages {
+        nextToken
+        __typename
+      }
       createdAt
       updatedAt
       __typename

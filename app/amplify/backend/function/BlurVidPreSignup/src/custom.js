@@ -9,10 +9,7 @@ exports.handler = async(event, context) => {
   const GRAPHQL_API_KEY = process.env.API_BLURVID_GRAPHQLAPIKEYOUTPUT;
   
   const createUser = /* GraphQL */ `
-  mutation CreateUser(
-    $input: CreateUserInput!
-    $condition: ModelUserConditionInput
-  ) {
+  mutation CreateUser($input: CreateUserInput!, $condition: ModelUserConditionInput) {
     createUser(input: $input, condition: $condition) {
       id
       email

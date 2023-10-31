@@ -1,72 +1,6 @@
 /* eslint-disable */
 // this is an auto generated file. This will be overwritten
 
-export const getUser = /* GraphQL */ `
-  query GetUser($id: ID!) {
-    getUser(id: $id) {
-      id
-      email
-      password
-      firstName
-      lastName
-      dateJoined
-      sentFriendRequests {
-        nextToken
-        __typename
-      }
-      receivedFriendRequests {
-        nextToken
-        __typename
-      }
-      uploadedVideos {
-        nextToken
-        __typename
-      }
-      sentVideoMessages {
-        nextToken
-        __typename
-      }
-      receivedVideoMessages {
-        nextToken
-        __typename
-      }
-      createdAt
-      updatedAt
-      __typename
-    }
-  }
-`;
-export const listUsers = /* GraphQL */ `
-  query ListUsers(
-    $id: ID
-    $filter: ModelUserFilterInput
-    $limit: Int
-    $nextToken: String
-    $sortDirection: ModelSortDirection
-  ) {
-    listUsers(
-      id: $id
-      filter: $filter
-      limit: $limit
-      nextToken: $nextToken
-      sortDirection: $sortDirection
-    ) {
-      items {
-        id
-        email
-        password
-        firstName
-        lastName
-        dateJoined
-        createdAt
-        updatedAt
-        __typename
-      }
-      nextToken
-      __typename
-    }
-  }
-`;
 export const getFriendRequest = /* GraphQL */ `
   query GetFriendRequest($id: ID!) {
     getFriendRequest(id: $id) {
@@ -448,6 +382,72 @@ export const videoMessagesByVideoID = /* GraphQL */ `
         senderID
         receiverID
         videoID
+        createdAt
+        updatedAt
+        __typename
+      }
+      nextToken
+      __typename
+    }
+  }
+`;
+export const getUser = /* GraphQL */ `
+  query GetUser($id: ID!) {
+    getUser(id: $id) {
+      id
+      email
+      password
+      firstName
+      lastName
+      dateJoined
+      sentFriendRequests {
+        nextToken
+        __typename
+      }
+      receivedFriendRequests {
+        nextToken
+        __typename
+      }
+      uploadedVideos {
+        nextToken
+        __typename
+      }
+      sentVideoMessages {
+        nextToken
+        __typename
+      }
+      receivedVideoMessages {
+        nextToken
+        __typename
+      }
+      createdAt
+      updatedAt
+      __typename
+    }
+  }
+`;
+export const listUsers = /* GraphQL */ `
+  query ListUsers(
+    $id: ID
+    $filter: ModelUserFilterInput
+    $limit: Int
+    $nextToken: String
+    $sortDirection: ModelSortDirection
+  ) {
+    listUsers(
+      id: $id
+      filter: $filter
+      limit: $limit
+      nextToken: $nextToken
+      sortDirection: $sortDirection
+    ) {
+      items {
+        id
+        email
+        password
+        firstName
+        lastName
+        dateJoined
         createdAt
         updatedAt
         __typename
