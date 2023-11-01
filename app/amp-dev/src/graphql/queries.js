@@ -5,7 +5,8 @@ export const getUser = /* GraphQL */ `
   query GetUser($id: ID!) {
     getUser(id: $id) {
       id
-      email
+      email 
+      name 
       createdAt
       updatedAt
       __typename
@@ -22,6 +23,7 @@ export const listUsers = /* GraphQL */ `
       items {
         id
         email
+        name 
         createdAt
         updatedAt
         __typename
