@@ -43,3 +43,13 @@ During this week, we collaborated to formulate the project plan. Each team membe
 
 **Tasks**
 ![Saksham's tasks week 8](./screenshots/sak_week8.png)
+
+## Week 9
+
+**Goals:**
+- Mini Presentation
+- Amplify React UI
+- Team meetings for next milestones
+
+**Tasks**
+![Saksham's tasks week 9](./screenshots/sak_week9.png)
