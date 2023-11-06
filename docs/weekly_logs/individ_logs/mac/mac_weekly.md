@@ -43,3 +43,16 @@ Goals:
 I didn't accomplish my goal this week. Been a struggle. Spent many hours debugging trying to get lambda function to trigger and send signup info to database. My groupmates are also trying to accomplish the same thing with no success. It's a hard problem to solve because there's so console errors or stack trace. Not too much documentation to help and a lot of solutions are deprocated. Hopefully we'll figure it out soon. 
 
 ![Mac's git in progress](./screenshots/week_8_git.png) 
+
+# Individual Log 9: Mac Vibert (mvibert88)
+
+This week I participated in the following tasks:
+![Mac's tasks week 9](./screenshots/tasks_week_9.png) 
+
+Goals: 
+- get login with lambda function to send user data to database 
+- start automated tests for frontend 
+
+This week we got our cognito login working as well as getting our lambda function working to send user info to the database. I help with all parts of this coding. I also started to build a test suite for automated front end tests with python and selenium. I think I'm going to scrap this as we are going to do all our testing through cypress which is much more streamlined. I think our first product demo went well! Starting to code frontend and setup cypress testing next week.
+
+![Mac's git in progress](./screenshots/week_9_git.png) 
