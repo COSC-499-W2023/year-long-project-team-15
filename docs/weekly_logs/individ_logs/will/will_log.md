@@ -58,4 +58,24 @@ This week myself and the team spent alot of time trying to get a lambda trigger 
 
 **In Progress**
 
-![wills week 6 inprgress board](./screenshots/wills_inprogress_week8.png)
+![wills week 8 inprgress board](./screenshots/wills_inprogress_week8.png)
+
+## Week 9
+
+Goals:
+
+finish linking cognito user pool sign up to our database (lambda function) annd be ready for mini- presentations.
+
+**Tasks**
+
+![wills week 9 tasks](./screenshots/wills_tasks_week9.png)
+
+This week I helped get the lambda function working properly to add users signed up from the cognito user pool to the DB and got ready for the mini-presentation.
+
+**In Progress**
+
+![wills week 9 inprgress board](./screenshots/wills_inprogress_week9.png)
+
+**Done**
+
+![wills week 9 done board](./screenshots/wills_done_week9.png)
