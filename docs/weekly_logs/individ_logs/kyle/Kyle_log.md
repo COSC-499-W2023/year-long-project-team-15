@@ -64,4 +64,26 @@ The completed tasks do not have an associated screenshot this week since they in
 3. Continuing coding for AWS DynamoDB, Cognito, Amplify functionality
 ![Task_List_Week7_8](https://github.com/COSC-499-W2023/year-long-project-team-15/assets/122824873/9ae006ea-8d5a-48a1-94ac-53eeb6cfb191)
 
+# Individual Log: Kyle Keim (kyle-keim)(SN:46335485)
+## Oct 30th - Nov 5th 2023 / Week 9
+### Peer Review Tasks
+![Screenshot 2023-11-05 200509](https://github.com/COSC-499-W2023/year-long-project-team-15/assets/122824873/70e7e0c4-dfcf-4c62-a3c2-6ca65400c184)
+
+
+## Previous Goals:
+* Continue working on UI design and coding future components and feature development. 
+* Finalize and polish presentation notes/features for mini-presentation
+* Continuing coding for AWS DynamoDB, Cognito, Amplify functionality
+
+## Tasks Completed
+* Finalize and polish presentation notes/features for mini-presentation
+* Presentation mock-up and dry runs.
+
+## Tasks In-Progress
+1. Reveiw UI design and coding future components and feature development.
+2. Work on test implementation for react componenets using Cypress.
+3. Continuing coding for AWS DynamoDB, Cognito, Amplify functionality
+![Task_List_11_05](https://github.com/COSC-499-W2023/year-long-project-team-15/assets/122824873/f0bf68f7-428a-4770-827d-1f4f8fd14a35)
+
+
 
