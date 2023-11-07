@@ -114,7 +114,37 @@ For the last two weeks, we have been struggling with setting up Authenticator / 
 ## Goals for next week
 * Integrate pre-made auth components for a basic login / sign up page 
 * Work on Figma design for Design milestone
-* Complete Sign in / Sign up auth + post confirmation lamba function working.
+* Complete Sign in / Sign up auth + post confirmation lamba function working. 
+
+# Individual Log: Joshua Farwig (JoshFarwig) 
+## Oct 22nd - Nov 5th / Week 9
+
+### Week 9 Tasks
+![josh_week9_tasks](./screenshots/josh_week9.png)
+
+## Goals from the last two weeks
+* Integrate pre-made auth components for a basic login / sign up page 
+* Work on Figma design for Design milestone
+* Complete Sign in / Sign up auth + post confirmation lamba function working. 
+
+![josh_week9_taskboard](./screenshots/josh_week9_taskboard.png)
+## Tasks In-Progress 
+* Work on Figma design for Design milestone
+
+## Tasks Completed 
+* Integrate pre-made auth components for a basic login / sign up page 
+* Complete Sign in / Sign up auth + post confirmation lamba function working. 
+
+For this week, my main priority was setting up the Post confirmation lamba function to work synchronously with the authetication flow for our mini-presentation. I completed the work on my own branch, and was able have user entries from the auth table from AWS cognito show as well as user table from the dynamo db table. I was getting a bug with userState but eventually fixed by chaning its default state to an empty object. 
+
+We are having a meeting today at 8:00pm to discuss our UI implementations, we are planning on using Material UI to create our components and will have to implement React Router as well into the UI Flow. We will discuess who wants to work on what page and I have created two over-arching issues for what UI pages. 
+
+For next week, I would like to migrate what ive done on my branch to the dev branch, rename the api / auth / lambda function names to something more descriptive. We also need to create some cypress testing before pushing to master, so Ideally that will be accomplished by next week.
+
+## Goals for next week
+* Migrate the amp-dev branch to dev brach 
+* Cypress Testing for Authentication Flow 
+* Begin basic react router setup with two pages
 
 
 
