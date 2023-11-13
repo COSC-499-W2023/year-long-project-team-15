@@ -56,3 +56,18 @@ Goals:
 This week we got our cognito login working as well as getting our lambda function working to send user info to the database. I help with all parts of this coding. I also started to build a test suite for automated front end tests with python and selenium. I think I'm going to scrap this as we are going to do all our testing through cypress which is much more streamlined. I think our first product demo went well! Starting to code frontend and setup cypress testing next week.
 
 ![Mac's git in progress](./screenshots/week_9_git.png) 
+
+
+# Individual Log 10: Mac Vibert (mvibert88)
+
+This week I participated in the following tasks:
+![Mac's tasks week 10](./screenshots/tasks_week_10.png) 
+
+Goals: 
+- setup cypress testing
+
+Slow week this week. I started to setup the cypress test suite and migrate our QA efforts to cypress. Going well so far. This week gonna have much more time to integrate testing and actually implement testing for all our components so far. Side note, I noticed I didn't get marks for log last week but I did it. It should have been in repo before the thing maybe my teammates didn't approve my pr in time? If you can, please give me marks for last week, thank you! 
+
+This week I participated in the following tasks:
+
+![Mac's git in progress](./screenshots/week_10_git.png) 
