@@ -53,3 +53,12 @@ During this week, we collaborated to formulate the project plan. Each team membe
 
 **Tasks**
 ![Saksham's tasks week 9](./screenshots/sak_week9.png)
+
+## Week 10
+
+**Goals:**
+- Coding of Edit profile
+- Team meetings 
+
+**Tasks**
+![Saksham's tasks week 10](./screenshots/sak_week10.png)
