@@ -146,6 +146,37 @@ For next week, I would like to migrate what ive done on my branch to the dev bra
 * Cypress Testing for Authentication Flow 
 * Begin basic react router setup with two pages
 
+# Individual Log: Joshua Farwig (JoshFarwig) 
+## Nov 5th - Nov 12th / Week 10
+
+### Week 10 Tasks
+![josh_week10_tasks](./screenshots/josh_week10.png)
+
+## Goals from the last week
+* Migrate the amp-dev branch to dev brach 
+* Cypress Testing for Authentication Flow 
+* Begin basic react router setup with two pages
+
+![josh_week10_taskboard](./screenshots/josh_week10_taskboard.png)
+## Tasks In-Progress 
+* Migrate the amp-dev branch to dev brach 
+* Cypress Testing for Authentication Flow 
+* Begin basic react router setup with two pages
+
+## Tasks Completed 
+* None
+
+This week, I ended up spending most of my time focusing on assignments and midterms from other classes. I wasn't able to get any of the tasks I wanted to get done. My mental health hasn't been the best so I sidelined what I wanted to do this week. I am feeling better as of today and will be working on these previous tasks over the reading week.  
+
+## Goals for the reading break
+* Migrate the amp-dev branch to dev brach 
+* Cypress Testing for Authentication Flow 
+* Router setup for the two pages 
+* Begin building some basic UI Components for the Communication Panel Page 
+
+
+
+
 
 
 
