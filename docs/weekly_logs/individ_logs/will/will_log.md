@@ -79,3 +79,23 @@ This week I helped get the lambda function working properly to add users signed 
 **Done**
 
 ![wills week 9 done board](./screenshots/wills_done_week9.png)
+
+## Week 10
+
+Goals:
+
+For this week and future weeks up to the next milestone, our goals are to integrate all UI elements into our app and hopefully some functionality.
+
+**Tasks**
+
+![wills week 10 tasks](./screenshots/wills_tasks_week10.png)
+
+This week was very busy for myself, I had 3 midterms and a team assessment test so I was unfortunatly unable to make any commits to the project.
+
+**In Progress**
+
+![wills week 9 inprgress board](./screenshots/wills_inprogress_week9.png)
+
+**Done**
+
+![wills week 9 done board](./screenshots/wills_done_week9.png)
