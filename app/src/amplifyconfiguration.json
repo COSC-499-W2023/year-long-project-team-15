@@ -1,7 +1,0 @@
-{
-  "aws_project_region": "ca-central-1",
-  "aws_appsync_graphqlEndpoint": "https://ud7ktjioqzcmrab72czkm4yklm.appsync-api.ca-central-1.amazonaws.com/graphql",
-  "aws_appsync_region": "ca-central-1",
-  "aws_appsync_authenticationType": "API_KEY",
-  "aws_appsync_apiKey": "da2-toqc4hyyffh6nmgihlc3ljjq4y"
-}
