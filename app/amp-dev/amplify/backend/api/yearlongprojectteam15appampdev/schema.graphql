@@ -1,6 +1,57 @@
-type User @model @auth(rules: [{allow: public}]) {
-  id: ID!
+type User @model @auth(rules: [{allow: public}]){
+  id: ID! @primaryKey
   email: String!
   name: String!
+  dateJoined: String
+  sentFriendRequests: [FriendRequest] @hasMany(indexName: "bySender", fields: ["id"])
+  receivedFriendRequests: [FriendRequest] @hasMany(indexName: "byReceiver", fields: ["id"])
+  uploadedVideos: [Video] @hasMany(indexName: "byUploader", fields: ["id"])
+  sentVideoMessages: [VideoMessage] @hasMany(indexName: "bySender", fields: ["id"])
+  receivedVideoMessages: [VideoMessage] @hasMany(indexName: "byReceiver", fields: ["id"])
 }
- 
+
+
+type FriendRequest @model @auth(rules: [{allow: public}]){
+  id: ID! @primaryKey
+  date: AWSDateTime!
+  status: FriendRequestStatus
+  sender: User @belongsTo(fields: ["senderID"])
+  senderID: ID! @index(name: "bySender")
+  receiver: User @belongsTo(fields: ["receiverID"])
+  receiverID: ID! @index(name: "byReceiver")
+}
+
+enum FriendRequestStatus {
+  Pending
+  Accepted
+  Declined
+}
+
+type Video @model @auth(rules: [{allow: public}]){
+  id: ID! @primaryKey
+  uploadDate: AWSDateTime!
+  videoKey: String!  # S3 key for the video file
+  title: String
+  description: String
+  uploader: User @belongsTo(fields: ["uploaderID"])
+  uploaderID: ID! @index(name: "byUploader")
+  videoMessages: [VideoMessage] @hasMany(indexName: "byVideo", fields: ["id"])
+}
+
+type VideoMessage @model @auth(rules: [{allow: public}]){
+  id: ID! @primaryKey
+  date: AWSDateTime!
+  status: VideoMessageStatus
+  sender: User @belongsTo(fields: ["senderID"])
+  senderID: ID! @index(name: "bySender")
+  receiver: User @belongsTo(fields: ["receiverID"])
+  receiverID: ID! @index(name: "byReceiver")
+  video: Video @belongsTo(fields: ["videoID"])
+  videoID: ID! @index(name: "byVideo")
+}
+
+enum VideoMessageStatus {
+  Sent
+  Delivered
+  Viewed
+}

@@ -26,9 +26,11 @@ export default function UserUpdateForm(props) {
   const initialValues = {
     email: "",
     name: "",
+    dateJoined: "",
   };
   const [email, setEmail] = React.useState(initialValues.email);
   const [name, setName] = React.useState(initialValues.name);
+  const [dateJoined, setDateJoined] = React.useState(initialValues.dateJoined);
   const [errors, setErrors] = React.useState({});
   const resetStateValues = () => {
     const cleanValues = userRecord
@@ -36,6 +38,7 @@ export default function UserUpdateForm(props) {
       : initialValues;
     setEmail(cleanValues.email);
     setName(cleanValues.name);
+    setDateJoined(cleanValues.dateJoined);
     setErrors({});
   };
   const [userRecord, setUserRecord] = React.useState(userModelProp);
@@ -57,6 +60,7 @@ export default function UserUpdateForm(props) {
   const validations = {
     email: [{ type: "Required" }],
     name: [{ type: "Required" }],
+    dateJoined: [],
   };
   const runValidationTasks = async (
     fieldName,
@@ -86,6 +90,7 @@ export default function UserUpdateForm(props) {
         let modelFields = {
           email,
           name,
+          dateJoined: dateJoined ?? null,
         };
         const validationResponses = await Promise.all(
           Object.keys(validations).reduce((promises, fieldName) => {
@@ -148,6 +153,7 @@ export default function UserUpdateForm(props) {
             const modelFields = {
               email: value,
               name,
+              dateJoined,
             };
             const result = onChange(modelFields);
             value = result?.email ?? value;
@@ -173,6 +179,7 @@ export default function UserUpdateForm(props) {
             const modelFields = {
               email,
               name: value,
+              dateJoined,
             };
             const result = onChange(modelFields);
             value = result?.name ?? value;
@@ -186,6 +193,32 @@ export default function UserUpdateForm(props) {
         errorMessage={errors.name?.errorMessage}
         hasError={errors.name?.hasError}
         {...getOverrideProps(overrides, "name")}
+      ></TextField>
+      <TextField
+        label="Date joined"
+        isRequired={false}
+        isReadOnly={false}
+        value={dateJoined}
+        onChange={(e) => {
+          let { value } = e.target;
+          if (onChange) {
+            const modelFields = {
+              email,
+              name,
+              dateJoined: value,
+            };
+            const result = onChange(modelFields);
+            value = result?.dateJoined ?? value;
+          }
+          if (errors.dateJoined?.hasError) {
+            runValidationTasks("dateJoined", value);
+          }
+          setDateJoined(value);
+        }}
+        onBlur={() => runValidationTasks("dateJoined", dateJoined)}
+        errorMessage={errors.dateJoined?.errorMessage}
+        hasError={errors.dateJoined?.hasError}
+        {...getOverrideProps(overrides, "dateJoined")}
       ></TextField>
       <Flex
         justifyContent="space-between"
