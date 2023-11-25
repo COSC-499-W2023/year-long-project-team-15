@@ -71,3 +71,15 @@ Slow week this week. I started to setup the cypress test suite and migrate our Q
 This week I participated in the following tasks:
 
 ![Mac's git in progress](./screenshots/week_10_git.png) 
+
+
+# Individual Log 12: Mac Vibert (mvibert88)
+
+This week I participated in the following tasks:
+![Mac's tasks week 12](./screenshots/tasks_week_12.png)
+
+Goals: 
+- Update to full database schema and make sure login and lambda function still work
+- Learn React
+
+This week will and I got the new schema setup on our dev branch called "aws-dev-test-josh". Should probably merge that into a dev branch. Other than that I haven't done any programming this week, I've just been taking the time to learn react, how it works, how to route components etc. Will start making some components (features for milestone) this week. Will also start testing the componants as they are being made. I have watched a 6 hour video going through Facebook's docs on react and learned a lot. Ready to start coding this week. Since I didn't code at all there's no git activity to report. 
