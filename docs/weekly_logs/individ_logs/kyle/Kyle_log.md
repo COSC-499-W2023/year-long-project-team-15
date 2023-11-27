@@ -109,5 +109,31 @@ The completed tasks do not have an associated screenshot this week since they in
 4. Creation of account settings panel and adding an update friends panel within it.
 ![Task_Board_Week10](https://github.com/COSC-499-W2023/year-long-project-team-15/assets/122824873/02633790-611c-4672-929b-ebd969f20d61)
 
+# Individual Log: Kyle Keim (kyle-keim)(SN:46335485)
+## Nov 13th - Nov 26th 2023 / Week 11 - Week 12
+### Peer Review Tasks
+![Screenshot 2023-11-26 170551](https://github.com/COSC-499-W2023/year-long-project-team-15/assets/122824873/dddb981b-cc37-4be7-a10f-30f7900256d8)
+
+
+
+
+## Previous Goals:
+* Reveiw UI design and coding future components and feature development.
+* Work on test implementation for react componenets using Cypress.
+* Continuing coding for AWS DynamoDB, Cognito, Amplify functionality
+* Creation of account settings panel and adding an update friends panel within it.
+
+## Tasks Completed
+* Reveiw UI design and coding future components and feature development.
+* Continuing documentation of coding for AWS DynamoDB, Cognito, Amplify and updating new AWS documentation.
+* Updated the task distribution.
+
+## Tasks In-Progress
+* Continue updating UI design and coding future components and feature development.
+* COntinue working on test implementation for react componenets using Cypress.
+* Continuing coding for AWS DynamoDB, Cognito, Amplify functionality
+* Continue creation of account settings panel and adding an update friends panel within it.
+![Screenshot 2023-11-26_TaskBoard](https://github.com/COSC-499-W2023/year-long-project-team-15/assets/122824873/208282b6-dc1c-4ce3-8216-0d3c8a1c43ee)
+
 
 

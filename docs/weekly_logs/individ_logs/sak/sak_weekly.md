@@ -1,6 +1,6 @@
 # Individual Logs for: Saksham Rana (sakshamrana7)
 
-## Week 4
+## Week 4 (Sept 24th - Oct 1st 2023)
 
 **Goals:**
 During this week, we collaborated to formulate the project plan. Each team member contributed their insights to determine the technology stack, establish milestones, and outline the project's overarching objectives and features. This week was focused on planning, and there was no coding.
@@ -9,7 +9,7 @@ During this week, we collaborated to formulate the project plan. Each team membe
 ![Saksham's tasks week 4](./screenshots/sak_week4.png)
 
 
-## Week 5
+## Week 5 (Oct 1st - Oct 8th 2023)
 
 **Goals:**
 - set up AWS account
@@ -20,7 +20,7 @@ During this week, we collaborated to formulate the project plan. Each team membe
 ![Saksham's tasks week 5](./screenshots/sak_week5.png)
 
 
-## Week 6 & 7
+## Week 6 & 7 (Oct 8st - Oct 22nd)
 
 **Goals:**
 - AWS account setup completed (delay due to email issue)
@@ -31,7 +31,7 @@ During this week, we collaborated to formulate the project plan. Each team membe
 ![Saksham's tasks week 6 & 7](./screenshots/sak_week6.png)
 
 
-## Week 8
+## Week 8 (Oct 22nd - Oct 29th)
 
 **Goals:**
 - AWS cognito setup
@@ -44,7 +44,7 @@ During this week, we collaborated to formulate the project plan. Each team membe
 **Tasks**
 ![Saksham's tasks week 8](./screenshots/sak_week8.png)
 
-## Week 9
+## Week 9 (Oct 29th - Nov 5th)
 
 **Goals:**
 - Mini Presentation
@@ -54,11 +54,21 @@ During this week, we collaborated to formulate the project plan. Each team membe
 **Tasks**
 ![Saksham's tasks week 9](./screenshots/sak_week9.png)
 
-## Week 10
+## Week 10 (Nov 5th - Oct 12th)
 
 **Goals:**
-- Coding of Edit profile
+- Designing of Edit profile
 - Team meetings 
 
 **Tasks**
 ![Saksham's tasks week 10](./screenshots/sak_week10.png)
+
+## Week 12 (Nov 19th - Nov 26th)
+
+**Goals:**
+- Front end form for Edit profile
+- Learning React and integrating it with AWS amplify
+![Saksham's goals for week 12](./screenshots/week8_task1.png)
+
+**Tasks**
+![Saksham's tasks week 12](./screenshots/sak_week12.png)
