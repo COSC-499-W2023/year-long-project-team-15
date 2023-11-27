@@ -94,8 +94,29 @@ This week was very busy for myself, I had 3 midterms and a team assessment test 
 
 **In Progress**
 
-![wills week 9 inprgress board](./screenshots/wills_inprogress_week9.png)
+![wills week 10 inprgress board](./screenshots/wills_inprogress_week9.png)
 
 **Done**
 
-![wills week 9 done board](./screenshots/wills_done_week9.png)
+![wills week 10 done board](./screenshots/wills_done_week9.png)
+
+
+## Weeks 11 and 12
+
+Goals:
+
+For this week and future weeks up to the next milestone, my goals are to integrate  UI elements into our app with functionality and work on the design document and demo vid.
+
+**Tasks**
+
+![wills week 12 tasks](./screenshots/wills_tasks_week12.png)
+
+This week I worked on creating react componets for the main communication panel page of our app such as a header, sidebar to view contacts and a simple form to be used to upload a video.
+
+**In Progress**
+
+![wills week 12 inprgress board](./screenshots/wills_inprogress_week12.png)
+
+**Done**
+
+![wills week 12 done board](./screenshots/wills_done_week12.png)
