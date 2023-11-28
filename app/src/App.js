@@ -1,6 +1,7 @@
 import React, { useEffect, useState, useRef} from 'react';
 import Header from './ui-components/Header';
 import Sidebar from './ui-components/Sidebar';
+import UploadVideoForm from './ui-components/forms/UploadVideoForm';
 import { Box } from '@mui/material';
 
 
@@ -15,8 +16,9 @@ function App() {
   }, []);
   return (
     <div className="App">
-      <Header ref={headerRef}/>
-        <Sidebar/>
+      {/* <Header ref={headerRef}/>
+      <Sidebar/> */}
+      <UploadVideoForm/>
     </div>
   );
 }
