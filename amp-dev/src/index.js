@@ -7,11 +7,13 @@ import client from './apolloClient';
 import { ApolloProvider } from '@apollo/client';
 import 'bootstrap/dist/css/bootstrap.css';
 import 'bootstrap/dist/css/bootstrap.min.css';
+import Header from './components/Header';
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
   <React.StrictMode>
       <ApolloProvider client={client}>
+        <Header/>
         <App />
       </ApolloProvider>
   </React.StrictMode>

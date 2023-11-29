@@ -33,6 +33,7 @@ const [userData, setUserData] = useState({});
 
   return (
     <Flex direction="column" alignItems="center">
+      <Sidebar/>
         <View width="300px" padding="1rem" shadow="md" border="1px solid" borderColor="gray.200">
           <Text fontSize="xl" fontWeight="bold" marginBottom="1rem">
             User Profile From AWS Auth Table
@@ -62,7 +63,7 @@ const [userData, setUserData] = useState({});
           </Text> 
     </View>
         <button onClick={signOut}>Sign out</button>
-        <Sidebar/>
+        
     </Flex>
   );
 };
