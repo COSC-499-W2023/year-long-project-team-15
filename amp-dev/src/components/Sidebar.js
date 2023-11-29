@@ -1,8 +1,9 @@
 import React, { useState, useEffect } from 'react';
 import client from '../apolloClient';
+import { gql } from '@apollo/client';
 import { List, ListItemButton, ListItemText } from '@mui/material';
 import Auth from '@aws-amplify/auth';
-import { friendRequestsBySenderID, friendRequestsByReceiverID, listUsers } from '../graphql/queries';
+import { friendRequestsBySenderID, friendRequestsByReceiverID, getUser } from '../graphql/queries';
 
 const Sidebar = () => {
   const [searchTerm, setSearchTerm] = useState('');
@@ -17,11 +18,11 @@ const Sidebar = () => {
         // Fetch sent and received friend requests
         const [sentRequestsResponse, receivedRequestsResponse] = await Promise.all([
           client.query({
-            query: friendRequestsBySenderID,
+            query: gql(friendRequestsBySenderID),
             variables: { senderID: userId, filter: { status: { eq: "Accepted" } } }
           }),
           client.query({
-            query: friendRequestsByReceiverID,
+            query: gql(friendRequestsByReceiverID),
             variables: { receiverID: userId, filter: { status: { eq: "Accepted" } } }
           })
         ]);
@@ -42,22 +43,43 @@ const Sidebar = () => {
   }, []);
 
   const processFriendRequests = async (sentRequests, receivedRequests) => {
-    // Extract unique user IDs from friend requests
     const friendIds = new Set(sentRequests.map(request => request.receiverID));
     receivedRequests.forEach(request => friendIds.add(request.senderID));
-
-    // Use listUsers query to fetch details for all friends
+  
+    const friendDetailsPromises = Array.from(friendIds).map(friendId =>
+      client.query({
+        query: gql(getUser),
+        variables: { id: friendId },
+        fetchPolicy: 'network-only'
+      })
+    );
+  
     try {
-      const friendsResponse = await client.query({
-        query: listUsers,
-        variables: { filter: { id: { in: Array.from(friendIds) } } }
-      });
-      return friendsResponse.data.listUsers.items;
+      const friendDetailsResponses = await Promise.all(friendDetailsPromises);
+      return friendDetailsResponses.map(response => response.data.getUser);
     } catch (error) {
       console.error("Error fetching friend details:", error);
       return [];
     }
   };
+//schema not curenntly supporting array query (in)
+//   const processFriendRequests = async (sentRequests, receivedRequests) => {
+//     // Extract unique user IDs from friend requests
+//     const friendIds = new Set(sentRequests.map(request => request.receiverID));
+//     receivedRequests.forEach(request => friendIds.add(request.senderID));
+
+//     // Use listUsers query to fetch details for all friends
+//     try {
+//       const friendsResponse = await client.query({
+//         query: gql(listUsers),
+//         variables: { filter: { id: { in: Array.from(friendIds) } } }
+//       });
+//       return friendsResponse.data.listUsers.items;
+//     } catch (error) {
+//       console.error("Error fetching friend details:", error);
+//       return [];
+//     }
+//   };
 
   const filteredFriends = friendsData.filter(friend =>
     friend.name.toLowerCase().includes(searchTerm.toLowerCase())

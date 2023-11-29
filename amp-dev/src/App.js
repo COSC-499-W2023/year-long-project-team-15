@@ -62,6 +62,7 @@ const [userData, setUserData] = useState({});
           </Text> 
     </View>
         <button onClick={signOut}>Sign out</button>
+        <Sidebar/>
     </Flex>
   );
 };
