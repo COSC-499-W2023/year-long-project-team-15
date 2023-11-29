@@ -6,6 +6,7 @@ import { withAuthenticator, View, Text, Flex } from '@aws-amplify/ui-react';
 import client from './apolloClient'; // Import Apollo Client
 import { gql } from '@apollo/client';
 import * as queries from './graphql/queries';
+import Sidebar from './components/Sidebar';
 
 Amplify.configure(awsExports);
 
