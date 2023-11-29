@@ -1,7 +1,6 @@
 import React, { useState, useEffect } from "react";
 import AccountCircleIcon from '@mui/icons-material/AccountCircle';
 import Auth from '@aws-amplify/auth';
-import { withAuthenticator } from "@aws-amplify/ui-react";
 
 const Header = () => {
   const [name, setName] = useState('');
@@ -43,4 +42,4 @@ const Header = () => {
   );
 }
 
-export default withAuthenticator(Header);
+export default Header;
