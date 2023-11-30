@@ -1,5 +1,36 @@
-.App {
-  text-align: center;
+
+/* App.css */
+.app-container {
+  display: flex;
+  height: 100vh; /* Set the height to the full viewport height */
+}
+
+.sidebar {
+  width: 250px; /* Or whatever fixed width you want */
+  height: 100%; /* Set to 100% of the parent container */
+  overflow-y: auto; /* To scroll if the list is longer than the view */
+  /* Rest of your sidebar styles */
+}
+
+.chat-view {
+  flex-grow: 1; /* This will make the chat view take up the remaining width */
+  display: flex;
+  flex-direction: column; /* Stack the message list and input bar vertically */
+  height: 100%; /* Set to 100% of the parent container */
+}
+
+
+.message-list {
+  flex-grow: 1; /* This will make the message list take up all available space */
+  overflow-y: auto; /* To scroll the messages */
+}
+
+.message-input {
+  display: flex; /* To lay out the input and buttons inline */
+  align-items: center; /* Center align the items vertically */
+  justify-content: space-between; /* Add space between the input and buttons */
+  padding: 10px; /* Add some padding around the input area */
+  /* This makes sure the input bar doesn't grow and stays at the bottom */
 }
 
 .App-logo {
@@ -36,3 +67,6 @@
     transform: rotate(360deg);
   }
 }
+
+
+/* Add more styles for your buttons if necessary */
