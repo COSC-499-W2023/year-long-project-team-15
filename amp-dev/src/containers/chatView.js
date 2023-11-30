@@ -12,7 +12,7 @@ const ChatView = () => {
   if (!selectedFriend) {
     return (
         <div className="col-9 col-auto">
-        <h1 class="display-6">Please select a friend to start chatting</h1>
+        <h1 class="display-6">&emsp;Please select a friend to start chatting</h1>
         </div>
     );
   }
@@ -32,7 +32,7 @@ const ChatView = () => {
     <div className="col-9 col-auto d-flex flex-column">
     <div className="overflow-auto px-2 py-1 flex-grow-1">
         <div>
-            <p>Chatting with: {selectedFriend.name}</p>
+            <p>&emsp;Chatting with: {selectedFriend.name}</p>
         </div>
         {/* Messages will be displayed here. use map function to render individual messages */}
       </div>
@@ -45,12 +45,14 @@ const ChatView = () => {
           onChange={(e) => setMessage(e.target.value)}
           onKeyPress={(e) => e.key === 'Enter' && handleSendMessage()}
         />
-        <IconButton color="primary" onClick={handleSendMessage}>
-          <SendIcon />
-        </IconButton>
-        <IconButton color="secondary" onClick={handleUploadVideo}>
-          <VideoCallIcon />
-        </IconButton>
+        <div style={{transform: 5}}> 
+          <IconButton color="primary" onClick={handleSendMessage}>
+            <SendIcon style={{ fontSize: 40 }}/>
+          </IconButton>
+          <IconButton color="secondary" onClick={handleUploadVideo}>
+            <VideoCallIcon style={{ fontSize: 40 }}/>
+          </IconButton>
+        </div>
       </div>
     </div>
   );

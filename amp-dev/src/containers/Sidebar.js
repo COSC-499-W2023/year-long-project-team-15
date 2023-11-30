@@ -118,11 +118,6 @@ const Sidebar = () => {
           value={searchTerm} 
           onChange={handleSearchChange} 
         />
-        <Button 
-          type="submit" 
-          label="Search" 
-          className="btn btn-secondary"
-        />
       </form>
       <List>
         {filteredFriends.map(friend => (
