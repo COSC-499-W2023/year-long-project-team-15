@@ -45,12 +45,14 @@ const ChatView = () => {
           onChange={(e) => setMessage(e.target.value)}
           onKeyPress={(e) => e.key === 'Enter' && handleSendMessage()}
         />
-        <IconButton color="primary" onClick={handleSendMessage}>
-          <SendIcon />
-        </IconButton>
-        <IconButton color="secondary" onClick={handleUploadVideo}>
-          <VideoCallIcon />
-        </IconButton>
+        <div style={{transform: 5}}> 
+          <IconButton color="primary" onClick={handleSendMessage}>
+            <SendIcon style={{ fontSize: 40 }}/>
+          </IconButton>
+          <IconButton color="secondary" onClick={handleUploadVideo}>
+            <VideoCallIcon style={{ fontSize: 40 }}/>
+          </IconButton>
+        </div>
       </div>
     </div>
   );
