@@ -1,10 +1,12 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useContext } from 'react';
 import client from '../apolloClient';
 import { gql } from '@apollo/client';
 import { List, ListItemButton, ListItemText } from '@mui/material';
 import Auth from '@aws-amplify/auth';
 import { friendRequestsBySenderID, friendRequestsByReceiverID, getUser } from '../graphql/queries';
 import Button from '../components/Button.js';
+import FriendContext from '../context/FriendContext.js';
+import { SignOut } from '@aws-amplify/ui-react';
 
 const Sidebar = () => {
   const [searchTerm, setSearchTerm] = useState('');
@@ -63,6 +65,14 @@ const Sidebar = () => {
       return [];
     }
   };
+  const handleSignOut = async () => {
+    try {
+      await Auth.signOut(); // Sign out the user
+      // You may want to redirect the user to a sign-in page or perform other actions after sign-out.
+    } catch (error) {
+      console.error("Error signing out:", error);
+    }
+  };
 //schema not curenntly supporting array query (in)
 //   const processFriendRequests = async (sentRequests, receivedRequests) => {
 //     // Extract unique user IDs from friend requests
@@ -90,42 +100,47 @@ const Sidebar = () => {
     setSearchTerm(event.target.value);
   };
 
+  const { setSelectedFriend } = useContext(FriendContext);
+
   const handleFriendClick = (friend) => {
     console.log("Friend clicked:", friend);
-    // Implement logic for updating the main window 
+    setSelectedFriend(friend); // Update the context with the selected friend
   };
 
-
   return (
-    <div className="container-fluid">
-      <div className='row'>
-        <div className="col-3 col-auto min-vh-100 bg-body-secondary">
-          <form className="d-flex" role="search" style={{ padding: "0.5em" }}>
-            <input 
-              className="form-control me-2" 
-              type="search" 
-              placeholder="Search Contacts" 
-              aria-label="Search" 
-              value={searchTerm} 
-              onChange={handleSearchChange} 
-            />
-            <Button 
-              type="submit" 
-              label="Search" 
-              className="btn btn-secondary"
-            />
-          </form>
-          <List>
-            {filteredFriends.map(friend => (
-              <ListItemButton key={friend.id} onClick={() => handleFriendClick(friend)}>
-                <ListItemText primary={friend.name} />
-              </ListItemButton>
-            ))}
-          </List>
-        </div>
+    <div className="col-3 col-auto overflow-y-auto bg-body-secondary d-flex flex-column"> {/* Flex container */}
+      <form className="d-flex" role="search" style={{ padding: "0.5em" }}>
+        <input 
+          className="form-control me-2" 
+          type="search" 
+          placeholder="Search Contacts" 
+          aria-label="Search" 
+          value={searchTerm} 
+          onChange={handleSearchChange} 
+        />
+        <Button 
+          type="submit" 
+          label="Search" 
+          className="btn btn-secondary"
+        />
+      </form>
+      <List>
+        {filteredFriends.map(friend => (
+          <ListItemButton key={friend.id} onClick={() => handleFriendClick(friend)}>
+            <ListItemText primary={friend.name} />
+          </ListItemButton>
+        ))}
+      </List>
+      <div className="mt-auto p-2"> {/* Logout button pushed to bottom */}
+        <Button
+          label="LogOut"
+          onClick={handleSignOut}
+          className="btn btn-secondary"
+        />
       </div>
     </div>
   );
+  
 }
 
 export default Sidebar;

@@ -21,7 +21,6 @@ const Header = () => {
 
   return (
     <nav className="navbar navbar-expand-lg bg-dark">
-      <div className="container-fluid">
         <div className="collapse navbar-collapse" id="navbarText" style={{ color: "white" }}>
           <ul className="navbar-nav me-auto mb-2 mb-lg-0">
             <li className="nav-item">
@@ -33,11 +32,10 @@ const Header = () => {
               <a className="nav-link" aria-disabled="true" style={{ color: "white" }}>{name}</a>
             </li>
           </ul>
-          <h3 style={{ fontWeight: "bold" }}>
+          <h3 style={{ fontWeight: "bold", paddingRight: "1em"}}>
             <button type="button">BlurVid</button>
           </h3>
         </div>
-      </div>
     </nav>
   );
 }
