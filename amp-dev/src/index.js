@@ -7,7 +7,6 @@ import client from './apolloClient';
 import { ApolloProvider } from '@apollo/client';
 import 'bootstrap/dist/css/bootstrap.css';
 import 'bootstrap/dist/css/bootstrap.min.css';
-import Header from './containers/Header';
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(

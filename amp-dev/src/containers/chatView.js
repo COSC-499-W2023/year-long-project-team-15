@@ -12,7 +12,7 @@ const ChatView = () => {
   if (!selectedFriend) {
     return (
         <div className="col-9 col-auto">
-        <div>Please select a friend to start chatting.</div>
+        <h1 class="display-6">Please select a friend to start chatting</h1>
         </div>
     );
   }
@@ -34,7 +34,7 @@ const ChatView = () => {
         <div>
             <p>Chatting with: {selectedFriend.name}</p>
         </div>
-        {/* Messages will be displayed here. Consider using a map function to render individual messages */}
+        {/* Messages will be displayed here. use map function to render individual messages */}
       </div>
       <div className="d-flex align-items-center p-2 mt-auto">
         <TextField

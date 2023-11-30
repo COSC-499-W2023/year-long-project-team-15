@@ -1,28 +1,25 @@
-import { Amplify, Auth } from 'aws-amplify';
+import { Amplify } from 'aws-amplify';
 import awsExports from './aws-exports';
-import { useState, useEffect } from 'react';
+import { useState } from 'react';
 import "@aws-amplify/ui-react/styles.css";
-import { withAuthenticator, View, Text, Flex, signOut } from '@aws-amplify/ui-react';
-import client from './apolloClient'; // Import Apollo Client
-import { gql } from '@apollo/client';
-import * as queries from './graphql/queries';
+import { withAuthenticator } from '@aws-amplify/ui-react';
 import Sidebar from './containers/Sidebar';
 import ChatView from './containers/chatView';
 import FriendContext from './context/FriendContext';
 import Header from './containers/Header';
 Amplify.configure(awsExports);
 
-function App({ user, signOut }) {
+function App() {
 const [selectedFriend, setSelectedFriend] = useState(null);
   return (
     <FriendContext.Provider value={{ selectedFriend, setSelectedFriend }}>
-      <Header/>
-      <div className="container-fluid">
-        <div className="row vh-100">
-          <Sidebar />
-          <ChatView />
-        </div>
-    </div>
+        <div style={{ display: 'flex', flexDirection: 'column', height: '100vh' }}>
+            <Header />
+            <div style={{ display: 'flex', flex: 1 }}>
+                <Sidebar />
+                <ChatView />
+            </div>
+        </div>  
     </FriendContext.Provider>
   );
 };

@@ -6,7 +6,7 @@ import Auth from '@aws-amplify/auth';
 import { friendRequestsBySenderID, friendRequestsByReceiverID, getUser } from '../graphql/queries';
 import Button from '../components/Button.js';
 import FriendContext from '../context/FriendContext.js';
-import { SignOut } from '@aws-amplify/ui-react';
+
 
 const Sidebar = () => {
   const [searchTerm, setSearchTerm] = useState('');
@@ -108,7 +108,7 @@ const Sidebar = () => {
   };
 
   return (
-    <div className="col-3 col-auto overflow-y-auto bg-body-secondary d-flex flex-column"> {/* Flex container */}
+    <div className="col-3 col-auto overflow-y-auto bg-body-secondary d-flex flex-column" > {/* Flex container */}
       <form className="d-flex" role="search" style={{ padding: "0.5em" }}>
         <input 
           className="form-control me-2" 
