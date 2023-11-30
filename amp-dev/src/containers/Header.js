@@ -3,6 +3,8 @@ import AccountCircleIcon from '@mui/icons-material/AccountCircle';
 import Auth from '@aws-amplify/auth';
 import { useNavigate } from 'react-router-dom';
 
+
+
 const Header = () => {
   const [name, setName] = useState('');
 
@@ -43,9 +45,18 @@ const Header = () => {
               <a className="nav-link" aria-disabled="true" style={{ color: "white" }}>{name}</a>
             </li>
           </ul>
-          <h3 style={{ fontWeight: "bold", paddingRight: "1em"}}>
-            <button type="button" onClick={handleMainClick} style={{border: "none"}}>BlurVid</button>
-          </h3>
+          <button type="button" class="btn bg-dark" onClick={handleMainClick}>
+            <h2 style={{ 
+              color: "white", 
+              display: 'flex', 
+              justifyContent: 'center',
+              alignItems: 'center', 
+              flex: 1,
+              margin: 0
+            }}>
+              BlurVid
+            </h2>
+          </button> 
         </div>
     </nav>
   );

@@ -12,7 +12,7 @@ const ChatView = () => {
   if (!selectedFriend) {
     return (
         <div className="col-9 col-auto">
-        <h1 class="display-6">Please select a friend to start chatting</h1>
+        <h1 class="display-6">&emsp;Please select a friend to start chatting</h1>
         </div>
     );
   }
@@ -32,7 +32,7 @@ const ChatView = () => {
     <div className="col-9 col-auto d-flex flex-column">
     <div className="overflow-auto px-2 py-1 flex-grow-1">
         <div>
-            <p>Chatting with: {selectedFriend.name}</p>
+            <p>&emsp;Chatting with: {selectedFriend.name}</p>
         </div>
         {/* Messages will be displayed here. use map function to render individual messages */}
       </div>
