@@ -4,6 +4,7 @@ import { gql } from '@apollo/client';
 import { List, ListItemButton, ListItemText } from '@mui/material';
 import Auth from '@aws-amplify/auth';
 import { friendRequestsBySenderID, friendRequestsByReceiverID, getUser } from '../graphql/queries';
+import Button from '../components/Button.js';
 
 const Sidebar = () => {
   const [searchTerm, setSearchTerm] = useState('');
@@ -108,7 +109,11 @@ const Sidebar = () => {
               value={searchTerm} 
               onChange={handleSearchChange} 
             />
-            <button className="btn btn-secondary" type="submit">Search</button>
+            <Button 
+              type="submit" 
+              label="Search" 
+              className="btn btn-secondary"
+            />
           </form>
           <List>
             {filteredFriends.map(friend => (
