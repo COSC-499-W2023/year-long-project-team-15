@@ -62,6 +62,9 @@ function App({user, signOut}) {
           </Text> 
     </View>
         <button onClick={signOut}>Sign out</button>
+        <EditProfileForm>
+
+        </EditProfileForm>
     </Flex>
     );
   };

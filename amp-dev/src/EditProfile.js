@@ -1,10 +1,15 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { Auth, API } from 'aws-amplify';
-import * as queries from './graphql/queries';
+import * as queries from './graphql/mutations';
 
 function EditProfileForm({ user, onUpdate }) {
-  const [name, setName] = useState(user.attributes.name || '');
-  const [email, setEmail] = useState(user.attributes.email || '');
+  const [name, setName] = useState('');
+  const [email, setEmail] = useState('');
+
+  useEffect(() => {
+    setName(user.attributes.name || ''); // Populate with user's name
+    setEmail(user.attributes.email || ''); // Populate with user's email
+  }, [user]);
 
   const handleUpdateProfile = async () => {
     try {
@@ -57,3 +62,4 @@ function EditProfileForm({ user, onUpdate }) {
 }
 
 export default EditProfileForm;
+
