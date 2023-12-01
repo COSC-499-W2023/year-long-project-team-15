@@ -22,11 +22,13 @@ const Sidebar = () => {
         const [sentRequestsResponse, receivedRequestsResponse] = await Promise.all([
           client.query({
             query: gql(friendRequestsBySenderID),
-            variables: { senderID: userId, filter: { status: { eq: "Accepted" } } }
+            variables: { senderID: userId, filter: { status: { eq: "Accepted" } } },
+            fetchPolicy: 'cache-first'
           }),
           client.query({
             query: gql(friendRequestsByReceiverID),
-            variables: { receiverID: userId, filter: { status: { eq: "Accepted" } } }
+            variables: { receiverID: userId, filter: { status: { eq: "Accepted" } } },
+            fetchPolicy: 'cache-first'
           })
         ]);
 
@@ -53,7 +55,7 @@ const Sidebar = () => {
       client.query({
         query: gql(getUser),
         variables: { id: friendId },
-        fetchPolicy: 'network-only'
+        fetchPolicy: 'cache-first'
       })
     );
   
@@ -68,8 +70,8 @@ const Sidebar = () => {
   const handleSignOut = async () => {
     try {
       await Auth.signOut(); // Sign out the user
-      // You may want to redirect the user to a sign-in page or perform other actions after sign-out.
-    } catch (error) {
+      client.resetStore();
+       } catch (error) {
       console.error("Error signing out:", error);
     }
   };
