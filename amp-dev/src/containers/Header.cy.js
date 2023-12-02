@@ -1,26 +1,41 @@
-import { mount } from '@cypress/react';
+import React from 'react';
+import { mount } from 'cypress/react';
 import { BrowserRouter } from 'react-router-dom';
 import Header from './Header';
-import { useNavigate } from 'react-router-dom';
+import Auth from '@aws-amplify/auth';
 
 describe('<Header />', () => {
-  it('renders', () => {
-    // Create a stub for `useNavigate`
-    const navigateStub = cy.stub().as('navigateStub');
+  // Mock Auth.currentAuthenticatedUser
+  const mockAuthenticatedUser = {
+    attributes: {
+      name: 'Test User'
+    }
+  };
 
-    // Use `cy.stub` to replace `useNavigate`
-    cy.stub(useNavigate, 'useNavigate').returns(navigateStub);
+  beforeEach(() => {
+    cy.stub(Auth, 'currentAuthenticatedUser').resolves(mockAuthenticatedUser);
 
-    // Mount the component with BrowserRouter
     mount(
       <BrowserRouter>
         <Header />
       </BrowserRouter>
     );
+  });
 
-    // Now you can test the behavior of `useNavigate` using `navigateStub`
-    // For example, check if `navigate` has been called
-    // cy.get('@navigateStub')
-    //   .should('have.been.called');
+  it('renders the header', () => {
+    cy.get('nav.navbar').should('exist');
+    cy.get('a.nav-link').contains('Test User');
+  });
+
+  it('navigates to account page on account icon click', () => {
+    // Assuming there's a way to simulate navigation
+    cy.get('[id=account]').click();
+    // Add assertions for navigation if possible
+  });
+
+  it('navigates to home on main logo click', () => {
+    // Assuming there's a way to simulate navigation
+    cy.get('button').contains('BlurVid').click();
+    // Add assertions for navigation if possible
   });
 });
