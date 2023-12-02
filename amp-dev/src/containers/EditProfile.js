@@ -1,20 +1,21 @@
 import React, { useState, useEffect } from 'react';
-// import { API, graphqlOperation, Auth } from 'aws-amplify';
-// import { updateUser } from './graphql/mutations';
+import { API, graphqlOperation, Auth } from 'aws-amplify';
+ import { updateUser } from '../graphql/mutations';
 
 function EditProfileForm({ user /*, onUpdate */ }) {
-  const [id, setId] = useState('');
-  const [name, setName] = useState('');
-  const [email, setEmail] = useState('');
-  const [errors, setErrors] = useState({});
+    const [id, setId] = useState(user?.attributes?.sub || '');
+    const [name, setName] = useState(user?.attributes?.name || '');
+    const [email, setEmail] = useState(user?.attributes?.email || '');
+    const [errors, setErrors] = useState({});
 
-  /*
-  useEffect(() => {
-    setId(user.attributes.sub || '');
-    setName(user.attributes.name || '');
-    setEmail(user.attributes.email || '');
-  }, [user]);
-  /*
+    useEffect(() => {
+        if (user) {
+          setId(user.attributes.sub || '');
+          setName(user.attributes.name || '');
+          setEmail(user.attributes.email || '');
+        }
+      }, [user]);
+
 
   /* 
   const validateForm = () => {
@@ -75,7 +76,7 @@ function EditProfileForm({ user /*, onUpdate */ }) {
     container: {
       padding: '20px',
       margin: '20px',
-      backgroundColor: '#fff', // Replace with your actual background color
+      backgroundColor: '#fff', 
       borderRadius: '8px',
       boxShadow: '0 2px 4px rgba(0, 0, 0, 0.1)',
       maxWidth: '400px',
@@ -85,18 +86,18 @@ function EditProfileForm({ user /*, onUpdate */ }) {
       marginBottom: '5px',
       marginTop: '10px',
       fontWeight: 'bold',
-      color: '#333', // Replace with your actual label text color
+      color: '#333', 
     },
     input: {
       width: '100%',
       padding: '10px',
       margin: '10px 0',
       borderRadius: '4px',
-      border: '1px solid #ccc', // Replace with your actual border color
+      border: '1px solid #ccc', 
       boxSizing: 'border-box',
     },
     errorMessage: {
-      color: 'red', // Replace with your actual error message color
+      color: 'red', 
       fontSize: '0.9em',
       marginTop: '5px',
     },

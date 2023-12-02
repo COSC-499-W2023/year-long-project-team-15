@@ -16,9 +16,7 @@ const AccountPageSidebar = () => {
 
   return (
     <div className="col-3 col-auto overflow-y-auto bg-body-secondary d-flex flex-column" > {/* Flex container */}
-      {/* If there's no search needed on AccountPageSidebar, remove this form */}
-      <List>
-        {/* Navigation items specific to account settings */}
+      { <List>
         <ListItemButton onClick={() => handleNavigation('/accountpage')}>
           <ListItemText primary="Profile" />
         </ListItemButton>
@@ -28,8 +26,8 @@ const AccountPageSidebar = () => {
         <ListItemButton onClick={() => handleNavigation('/account/settings')}>
           <ListItemText primary="Settings" />
         </ListItemButton>
-        {/* Add more navigation items as needed */}
-      </List>
+      </List> } 
+      
       <div className="mt-auto p-2"> {/* Push the button to the bottom */}
         <Button
           label="Add Friend"
