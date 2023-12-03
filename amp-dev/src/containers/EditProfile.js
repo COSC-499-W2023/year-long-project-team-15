@@ -1,21 +1,69 @@
 import React, { useState, useEffect } from 'react';
-import { API, graphqlOperation, Auth } from 'aws-amplify';
- import { updateUser } from '../graphql/mutations';
+import { API, graphqlOperation } from 'aws-amplify';
+import Auth from '@aws-amplify/auth';
+import { getUser } from '../graphql/queries';
+import { updateUser } from '../graphql/mutations';
 
-function EditProfileForm({ user /*, onUpdate */ }) {
-    const [id, setId] = useState(user?.attributes?.sub || '');
-    const [name, setName] = useState(user?.attributes?.name || '');
-    const [email, setEmail] = useState(user?.attributes?.email || '');
+function EditProfileForm({ userId }) {
+    console.log("Received userId:", userId);
+    const [id, setId] = useState('');
+    const [name, setName] = useState('');
+    const [email, setEmail] = useState('');
     const [errors, setErrors] = useState({});
+    const [isLoading, setIsLoading] = useState(true); // Added loading state
 
     useEffect(() => {
-        if (user) {
-          setId(user.attributes.sub || '');
-          setName(user.attributes.name || '');
-          setEmail(user.attributes.email || '');
-        }
-      }, [user]);
+        console.log("useEffect triggered");
+        const fetchUserData = async () => {
+            try {
+                console.log("Fetching user data...");
+                const authenticatedUser = await Auth.currentAuthenticatedUser();
+                console.log("User data fetched:", authenticatedUser);
+                setId(authenticatedUser.username);
+                setName(authenticatedUser.attributes.name);
+                setEmail(authenticatedUser.attributes.email);
+            } catch (error) {
+                console.error('Error fetching authenticated user data:', error);
+            } finally {
+                setIsLoading(false);
+            }
+        };
+    
+        fetchUserData();
+    }, []);
+    
+    
 
+    const styles = {
+        container: {
+          padding: '20px',
+          margin: '20px',
+          backgroundColor: '#fff', 
+          borderRadius: '8px',
+          boxShadow: '0 2px 4px rgba(0, 0, 0, 0.1)',
+          maxWidth: '400px',
+        },
+        label: {
+          display: 'block',
+          marginBottom: '5px',
+          marginTop: '10px',
+          fontWeight: 'bold',
+          color: '#333', 
+        },
+        input: {
+          width: '100%',
+          padding: '10px',
+          margin: '10px 0',
+          borderRadius: '4px',
+          border: '1px solid #ccc', 
+          boxSizing: 'border-box',
+        },
+        errorMessage: {
+          color: 'red', 
+          fontSize: '0.9em',
+          marginTop: '5px',
+        },
+      };
 
   /* 
   const validateForm = () => {
@@ -72,75 +120,50 @@ function EditProfileForm({ user /*, onUpdate */ }) {
     }
   };
   */
-  const styles = {
-    container: {
-      padding: '20px',
-      margin: '20px',
-      backgroundColor: '#fff', 
-      borderRadius: '8px',
-      boxShadow: '0 2px 4px rgba(0, 0, 0, 0.1)',
-      maxWidth: '400px',
-    },
-    label: {
-      display: 'block',
-      marginBottom: '5px',
-      marginTop: '10px',
-      fontWeight: 'bold',
-      color: '#333', 
-    },
-    input: {
-      width: '100%',
-      padding: '10px',
-      margin: '10px 0',
-      borderRadius: '4px',
-      border: '1px solid #ccc', 
-      boxSizing: 'border-box',
-    },
-    errorMessage: {
-      color: 'red', 
-      fontSize: '0.9em',
-      marginTop: '5px',
-    },
-    // Add more styles as needed
-  };
 
-  return (
-    <div style={styles.container}>
-      <label style={styles.label}>
-        ID:
-        <input
-          style={styles.input}
-          type="text"
-          value={id}
-          readOnly // ID field is read-only
-        />
-      </label>
-      
-      <label style={styles.label}>
-        Name:
-        <input
-          style={styles.input}
-          type="text"
-          value={name}
-          onChange={(e) => setName(e.target.value)}
-        />
-        {errors.name && <p style={styles.errorMessage}>{errors.name}</p>}
-      </label>
-      
-      <label style={styles.label}>
-        Email:
-        <input
-          style={styles.input}
-          type="email"
-          value={email}
-          onChange={(e) => setEmail(e.target.value)}
-        />
-        {errors.email && <p style={styles.errorMessage}>{errors.email}</p>}
-      </label>
-      
-      {<button style={styles.button}>Update Profile</button>}
-    </div>
-  );
+  
+  if (isLoading) {
+    return <div>Loading user data...</div>; // Loading state UI
+}
+
+return (
+  <div style={styles.container}>
+    {console.log("Rendering with state:", { id, name, email })}
+    <label style={styles.label}>
+      ID:
+      <input
+        style={styles.input}
+        type="text"
+        value={id}
+        readOnly // ID field is read-only
+      />
+    </label>
+    
+    <label style={styles.label}>
+      Name:
+      <input
+        style={styles.input}
+        type="text"
+        value={name}
+        onChange={(e) => setName(e.target.value)}
+      />
+      {errors.name && <p style={styles.errorMessage}>{errors.name}</p>}
+    </label>
+    
+    <label style={styles.label}>
+      Email:
+      <input
+        style={styles.input}
+        type="email"
+        value={email}
+        onChange={(e) => setEmail(e.target.value)}
+      />
+      {errors.email && <p style={styles.errorMessage}>{errors.email}</p>}
+    </label>
+    
+    <button style={styles.button}>Update Profile</button>
+  </div>
+);
 }
 
 export default EditProfileForm;
