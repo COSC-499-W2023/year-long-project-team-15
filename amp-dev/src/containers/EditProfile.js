@@ -3,6 +3,7 @@ import { API, graphqlOperation } from 'aws-amplify';
 import Auth from '@aws-amplify/auth';
 import { getUser } from '../graphql/queries';
 import { updateUser } from '../graphql/mutations';
+import { useNavigate } from 'react-router-dom';
 
 function EditProfileForm({ userId }) {
     console.log("Received userId:", userId);
@@ -11,6 +12,8 @@ function EditProfileForm({ userId }) {
     const [email, setEmail] = useState('');
     const [errors, setErrors] = useState({});
     const [isLoading, setIsLoading] = useState(true); // Added loading state
+    const [showVerifyEmailPopup, setShowVerifyEmailPopup] = useState(false);
+    const [verificationCode, setVerificationCode] = useState('');
 
     useEffect(() => {
         console.log("useEffect triggered");
@@ -65,7 +68,6 @@ function EditProfileForm({ userId }) {
         },
       };
 
-  /* 
   const validateForm = () => {
     const newErrors = {};
     if (!name.trim()) newErrors.name = 'Name is required';
@@ -77,6 +79,7 @@ function EditProfileForm({ userId }) {
     return newErrors;
   };
 
+  /*
   const updateCognitoUser = async () => {
     try {
       const cognitoUser = await Auth.currentAuthenticatedUser();
@@ -89,39 +92,56 @@ function EditProfileForm({ userId }) {
       console.error('Error updating user attributes in Cognito User Pool:', error);
     }
   };
-
+*/
   const handleUpdateProfile = async () => {
     const formErrors = validateForm();
     if (Object.keys(formErrors).length > 0) {
-      setErrors(formErrors);
-      return;
+        setErrors(formErrors);
+        return;
     }
 
     try {
-      // Prepare the input for the updateUser mutation
-      const input = {
-        id, // Assuming 'id' is the unique identifier for the user
-        name, // New name from the form input
-        email, // New email from the form input
-      };
+        // Update user attributes in Cognito User Pool
+        const cognitoUser = await Auth.currentAuthenticatedUser();
+        await Auth.updateUserAttributes(cognitoUser, {
+            'name': name,
+            'email': email,
+        });
+        console.log('User attributes updated in Cognito User Pool');
+        setShowVerifyEmailPopup(true);
+        
+        // Prepare the input for the updateUser mutation
+        const input = {
+            id, // Assuming 'id' is the unique identifier for the user
+            name, // New name from the form input
+            email, // New email from the form input
+        };
 
-      // Call the updateUser mutation
-      const response = await API.graphql(graphqlOperation(updateUser, { input }));
-      console.log('User profile updated in DynamoDB:', response);
+        // Call the updateUser mutation
+        const response = await API.graphql(graphqlOperation(updateUser, { input }));
+        console.log('User profile updated in DynamoDB:', response);
 
-      // Update user attributes in Cognito User Pool
-      await updateCognitoUser();
+        // Optional: Callback to parent component to reflect changes
+        //onUpdate();
 
-      // Callback to parent component to reflect changes
-      onUpdate();
     } catch (error) {
-      console.error('Error updating user profile:', error);
-      // sets error states here to display in the UI
+        console.error('Error updating user profile:', error);
+        // Set error states here to display in the UI
     }
-  };
-  */
+};
 
-  
+const handleVerifyEmail = async () => {
+    try {
+        const cognitoUser = await Auth.currentAuthenticatedUser();
+        await Auth.verifyCurrentUserAttributeSubmit('email', verificationCode);
+        console.log('Email verified successfully');
+        setShowVerifyEmailPopup(false);
+    } catch (error) {
+        console.error('Error verifying email:', error);
+        // Handle error (e.g., show error message)
+    }
+};
+
   if (isLoading) {
     return <div>Loading user data...</div>; // Loading state UI
 }
@@ -161,7 +181,23 @@ return (
       {errors.email && <p style={styles.errorMessage}>{errors.email}</p>}
     </label>
     
-    <button style={styles.button}>Update Profile</button>
+    <button style={styles.button} onClick={handleUpdateProfile}>Update Profile</button>
+
+    {showVerifyEmailPopup && (
+                <div style={styles.popupContainer}>
+                    <h4>Verify Email</h4>
+                    <input
+                        style={styles.input}
+                        type="text"
+                        placeholder="Verification Code"
+                        value={verificationCode}
+                        onChange={(e) => setVerificationCode(e.target.value)}
+                    />
+                    <button style={styles.button} onClick={handleVerifyEmail}>
+                        Verify
+                    </button>
+                </div>
+            )}
   </div>
 );
 }
