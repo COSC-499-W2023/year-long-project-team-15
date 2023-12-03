@@ -3,7 +3,6 @@ import { API, graphqlOperation } from 'aws-amplify';
 import Auth from '@aws-amplify/auth';
 import { getUser } from '../graphql/queries';
 import { updateUser } from '../graphql/mutations';
-import { useNavigate } from 'react-router-dom';
 
 function EditProfileForm({ userId }) {
     console.log("Received userId:", userId);
@@ -41,7 +40,7 @@ function EditProfileForm({ userId }) {
         container: {
           padding: '20px',
           margin: '20px',
-          backgroundColor: '#fff', 
+          backgroundColor: '#87CEEB', 
           borderRadius: '8px',
           boxShadow: '0 2px 4px rgba(0, 0, 0, 0.1)',
           maxWidth: '400px',
@@ -50,7 +49,6 @@ function EditProfileForm({ userId }) {
           display: 'block',
           marginBottom: '5px',
           marginTop: '10px',
-          fontWeight: 'bold',
           color: '#333', 
         },
         input: {
@@ -109,7 +107,7 @@ function EditProfileForm({ userId }) {
         });
         console.log('User attributes updated in Cognito User Pool');
         setShowVerifyEmailPopup(true);
-        
+
         // Prepare the input for the updateUser mutation
         const input = {
             id, // Assuming 'id' is the unique identifier for the user
