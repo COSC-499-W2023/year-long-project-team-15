@@ -120,3 +120,24 @@ This week I worked on creating react componets for the main communication panel 
 **Done**
 
 ![wills week 12 done board](./screenshots/wills_done_week12.png)
+
+
+## Week 13
+
+Goals:
+
+For this week my goals are to finish integrating UI elements into our app with functionality that I started on and complete the design document and demo vid with Mac.
+
+**Tasks**
+
+![wills week 13 tasks](./screenshots/wills_tasks_week13.png)
+
+This week I created functional react components for the main communication panel page of our app such as a header and the sidebar to view contacts. I set up the routing of our app to have a main page and an account page. Doing so I had to refactor some components. The header does the page routing and the side bar shows the users friends list and can search friends by string pattern. I also fixed some design layout/sizing issues with the UI and set up our cypress testing pipline with Mac. Mac and I also completed the design doc and demo vid for this design milestone.
+
+**In Progress**
+
+![wills week 13 inprgress board](./screenshots/wills_inprogress_week13.png)
+
+**Done**
+
+![wills week 13 done board](./screenshots/wills_done_week13.png)
