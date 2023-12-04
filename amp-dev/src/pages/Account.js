@@ -1,27 +1,30 @@
+import React from 'react';
 import Header from "../containers/Header";
 import AccountSidebar from '../containers/AccountSidebar';
 import FriendContext from '../context/FriendContext';
 import { useState } from 'react';
 
+import AccountPageSidebar from "../containers/AccountPageSideBar";
+import EditProfileForm from '../containers/EditProfile';
 
 function Account() {
     const [selectedFriend, setSelectedFriend] = useState(null);
     return(
-        
+      
         <FriendContext.Provider value={{ selectedFriend, setSelectedFriend }}>
-            <div style={{ display: 'flex', flexDirection: 'column', height: '100vh' }}>
-                <Header />
-                <div style={{ display: 'flex', flexDirection: 'row', flex: 1 }}>
-                    <div style={{ flex: 3 }}>
-                        <AccountSidebar />
-                    </div>
-                    <div style={{ flex: 2, paddingRight: '500px' }}>
-                        <h1>Account Page</h1> 
-                    </div>
+        <div style={{ display: 'flex' , flex: 1 }}>
+            <AccountPageSidebar />
+            
+            <h1>Edit Profile</h1>
+            <div style={{ display: 'flex',}}>
+                    <EditProfileForm />
                 </div>
-            </div>
-        </FriendContext.Provider>         
-    );
-};
+        </div>
+         </FriendContext.Provider>
+        );
+
+    }
+    
+
 
 export default Account;
