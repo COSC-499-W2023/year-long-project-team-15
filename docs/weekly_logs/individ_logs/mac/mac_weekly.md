@@ -83,3 +83,20 @@ Goals:
 - Learn React
 
 This week will and I got the new schema setup on our dev branch called "aws-dev-test-josh". Should probably merge that into a dev branch. Other than that I haven't done any programming this week, I've just been taking the time to learn react, how it works, how to route components etc. Will start making some components (features for milestone) this week. Will also start testing the componants as they are being made. I have watched a 6 hour video going through Facebook's docs on react and learned a lot. Ready to start coding this week. Since I didn't code at all there's no git activity to report. 
+
+# Individual Log 13: Mac Vibert (mvibert88)
+
+This week I participated in the following tasks:
+![Mac's tasks week 12](./screenshots/tasks-week13.png)
+
+Goals:
+- Setup apollo client
+- Get friend context funtional 
+- Chatview based on friend context
+- Component tests 
+- e2e testing
+- milestone doc and video
+
+This week was crazy busy. Excuted on a lot of stuff I learned last week. Got the apollo client setup and connected to our graphql so we can query and cache data with on the client. I then setup up a friend context and built the chatview component so it changes to reflect the user you are chatting with. Will and I worked together a lot this week to get tests build for all our components and started the e2e testing. Also spent a lot of time reorgazing files, refactoring and transferring code from Josh's old branch's. Been kinda slow on our implementation because this whole tech stack is new and I've spent a lot of time reading documentation and learning from vieos. I feel like I'm getting the hang of things well now and I'm looking forward to the next term. Will and I also prepared our milstone doc and made our demo video. 
+
+![Mac's github tasks week 12](./screenshots/github-week13.png)
