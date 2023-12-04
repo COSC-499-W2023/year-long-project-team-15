@@ -132,7 +132,8 @@ For this week my goals are to finish integrating UI elements into our app with f
 
 ![wills week 13 tasks](./screenshots/wills_tasks_week13.png)
 
-This week I created functional react components for the main communication panel page of our app such as a header and the sidebar to view contacts. I set up the routing of our app to have a made page which is where I worked on and an account page.Doig so I had to refactor some components. The header does the page routing and the side bar shows the users friends list and can search friends by string pattern. I also fixed some design layout/sizing issues with the UI and set up our cypress testing pipline with Mac with both of our components tested. Mac and I also completed the design doc and demo vid for this design milestone
+This week I created functional react components for the main communication panel page of our app such as a header and the sidebar to view contacts. I set up the routing of our app to have a main page and an account page. Doing so I had to refactor some components. The header does the page routing and the side bar shows the users friends list and can search friends by string pattern. I also fixed some design layout/sizing issues with the UI and set up our cypress testing pipline with Mac. Mac and I also completed the design doc and demo vid for this design milestone.
+
 **In Progress**
 
 ![wills week 13 inprgress board](./screenshots/wills_inprogress_week13.png)
