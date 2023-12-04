@@ -5,6 +5,9 @@ import { List, ListItemButton, ListItemText, TextField, Button as MuiButton } fr
 import { useNavigate } from 'react-router-dom';
 import Auth from '@aws-amplify/auth';
 import Button from '../components/Button';
+import AcceptButton from '../components/AcceptButton';
+import DeclineButton from '../components/Button.js';
+import Header from "../containers/Header";
 
 import { API, graphqlOperation } from 'aws-amplify';
 import { listUsers } from '../graphql/queries'; // Correct import for listUsers
@@ -157,9 +160,22 @@ const AccountPageSidebar = () => {
       </form>
           
       <List>
+        
       {filteredFriends.map(friend => (
           <ListItemButton key={friend.id} onClick={() => handleFriendClick(friend)}>
             <ListItemText primary={friend.name} />
+
+            <AcceptButton
+          label="Accept"
+          onClick={null}
+          className="btn btn-success"
+        />
+            <DeclineButton
+          label="Decline"
+          onClick={null}
+          className="btn btn-danger"
+        />
+
           </ListItemButton>
         ))}
       </List>
@@ -204,10 +220,6 @@ const AccountPageSidebar = () => {
           className="btn btn-secondary"
         />
       </div>
-
-
-
-
       
       <div className="mt-auto p-2"> {/* Logout button pushed to bottom */}
           <Button

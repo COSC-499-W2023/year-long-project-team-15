@@ -1,6 +1,6 @@
 import React from 'react';
 import Header from "../containers/Header";
-import AccountSidebar from '../containers/AccountSidebar';
+
 import FriendContext from '../context/FriendContext';
 import { useState } from 'react';
 
@@ -12,13 +12,18 @@ function Account() {
     return(
       
         <FriendContext.Provider value={{ selectedFriend, setSelectedFriend }}>
+        <div style={{ display: 'flex', flexDirection: 'column', height: '100vh' }}>
+                <Header />
+        
+
+        
         <div style={{ display: 'flex' , flex: 1 }}>
             <AccountPageSidebar />
-            
+            <div style={{ display: 'flex', flexDirection: 'column',paddingRight: 200, alignItems: 'center', flex: 3 }}>
             <h1>Edit Profile</h1>
-            <div style={{ display: 'flex',}}>
-                    <EditProfileForm />
-                </div>
+            <EditProfileForm />
+            </div>
+        </div>
         </div>
          </FriendContext.Provider>
         );
