@@ -1,0 +1,42 @@
+# Team 15
+
+Team Members: 
+- Will, SN: 63271324 (Willg0115)
+- Mac, SN: 11939873, (mvibert88)
+- Kyle, SN: 46335485, (kyle-keim) 
+- Josh, SN 13622584 (JoshFarwig)
+- Saksham, SN 36931343 (sakshamrana7)
+
+## Nov 27th - Dec 3rd 2023 / Week 13 
+
+## Milestone Goals: 
+In preparation for design milestone our team goals are to finish functionality and UI of the account page and main page except for anything to do with sending videos or messages.
+
+## Burnup Chart:
+
+![week 13 burnup](./screenshots/burnup_13.png)
+
+Completed tasks these weeks:
+- Page routing
+- testing pipeline
+- functional header
+- functional friends list
+- chat view with context
+- logout
+
+## Completed Tasks
+![Screenshot 2023-11-teamlogtaskboard](./screenshots/done_week13.png)
+
+## Test Report
+
+![tests](./screenshots//tests/account-page-test-dec3.png)
+![tests](./screenshots//tests/button-test-dec3.png)
+![tests](./screenshots//tests/sidebar-test-dec3.png)
+![tests](./screenshots//tests/chatview-test-dec3.png)
+![tests](./screenshots//tests/header-test-dec3.png)
+![tests](./screenshots//tests/login-spec-dec3.png)
+![tests](./screenshots//tests/main-page-test-dec3.png)
+![tests](./screenshots//tests/register-spec-dec3.png)
+
+## Weekly Context
+This week we are mostly concerned with the upcoming video-presentation and making sure we have our presentable project features updated. The account portal page was unable to get fully completed and many of the features of that page are in review.
