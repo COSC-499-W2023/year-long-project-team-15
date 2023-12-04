@@ -4,9 +4,10 @@ import { useNavigate } from 'react-router-dom';
 import { Auth } from 'aws-amplify';
 import Button from '../components/Button';
 import { API, graphqlOperation } from 'aws-amplify';
-import { listUsers } from '../graphql/queries'; // Correct import for listUsers
-import { createFriendRequest } from '../graphql/mutations'; // Keep your mutation imports as is
-
+import { listUsers } from '../graphql/queries'; 
+import { createFriendRequest } from '../graphql/mutations';
+import client from '../apolloClient'; // Import Apollo Client
+import { gql } from '@apollo/client';
 // Import any additional required queries
 
 const AccountPageSidebar = () => {
@@ -33,7 +34,11 @@ const AccountPageSidebar = () => {
   const handleSearch = async () => {
     try {
       const filter = { email: { eq: email } };
-      const userData = await API.graphql(graphqlOperation(listUsers, { filter }));
+      const userData = await client.query({
+        query: gql(listUsers),
+        variables: { filter },
+        fetchPolicy: 'cache-first' // Prioritize cache, then network
+      });
       if (userData.data.listUsers.items.length > 0) {
         setSearchResults(userData.data.listUsers.items[0]);
         setSearchMessage('User found!');
@@ -49,19 +54,23 @@ const AccountPageSidebar = () => {
 
   const handleSendFriendRequest = async () => {
     if (!searchResults) return;
-  try {
-    const currentUser = await Auth.currentAuthenticatedUser();
-    const input = {
-      senderID: currentUser.attributes.sub, // Using the 'sub' attribute as the user ID
-      receiverID: searchResults.id
-    };
-      await API.graphql(graphqlOperation(createFriendRequest, { input }));
+    try {
+      const currentUser = await Auth.currentAuthenticatedUser();
+      const input = {
+        senderID: currentUser.attributes.sub,
+        receiverID: searchResults.id
+      };
+      await client.mutate({
+        mutation: gql(createFriendRequest),
+        variables: { input }
+      });
       setSearchMessage('Friend request sent!');
     } catch (error) {
       console.error('Error sending friend request:', error);
       setSearchMessage('Error in sending friend request.');
     }
   };
+  
 
   return (
     <div className="col-3 col-auto overflow-y-auto bg-body-secondary d-flex flex-column">
@@ -72,7 +81,7 @@ const AccountPageSidebar = () => {
       {showAddFriend && (
         <div style={{ padding: '10px' }}>
           <TextField
-            label="Friend's Email"
+            label="Enter Email"
             type="email"
             fullWidth
             value={email}
@@ -102,12 +111,13 @@ const AccountPageSidebar = () => {
         </div>
       )}
 
-      <div className="mt-auto p-2">
+    <div className="mt-auto p-2">
         <Button
           label="Add Friend"
           onClick={handleAddFriendClick}
           className="btn btn-secondary"
         />
+        {/* ... Other buttons if needed ... */}
       </div>
     </div>
   );

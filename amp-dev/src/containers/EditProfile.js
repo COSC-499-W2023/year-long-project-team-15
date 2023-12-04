@@ -110,9 +110,9 @@ function EditProfileForm({ userId }) {
 
         // Prepare the input for the updateUser mutation
         const input = {
-            id, // Assuming 'id' is the unique identifier for the user
-            name, // New name from the form input
-            email, // New email from the form input
+            id, 
+            name, 
+            email, 
         };
 
         // Call the updateUser mutation
@@ -129,15 +129,27 @@ function EditProfileForm({ userId }) {
 };
 
 const handleVerifyEmail = async () => {
-    try {
-        const cognitoUser = await Auth.currentAuthenticatedUser();
-        await Auth.verifyCurrentUserAttributeSubmit('email', verificationCode);
-        console.log('Email verified successfully');
-        setShowVerifyEmailPopup(false);
-    } catch (error) {
-        console.error('Error verifying email:', error);
-        // Handle error (e.g., show error message)
-    }
+  console.log('Verification button clicked'); // Debugging log
+
+  if (!verificationCode.trim()) {
+      console.error('Verification code is required');
+      return;
+  }
+
+  try {
+      console.log('Attempting to verify email'); // Debugging log
+      await Auth.verifyCurrentUserAttributeSubmit('email', verificationCode);
+      console.log('Email verified successfully');
+
+      // Fetch the latest user data to get the updated email
+      const updatedUser = await Auth.currentAuthenticatedUser();
+      setEmail(updatedUser.attributes.email);
+
+      setShowVerifyEmailPopup(false);
+      setVerificationCode('');
+  } catch (error) {
+      console.error('Error verifying email:', error);
+  }
 };
 
   if (isLoading) {
@@ -201,4 +213,6 @@ return (
 }
 
 export default EditProfileForm;
+
+
 
