@@ -43,7 +43,7 @@ describe('Login Tests', function() {
         
     it('allows a user to successfully log in', () => {
         cy.get('input[name="username"]').type('macvibert@gmail.com');
-        cy.get('input[name="password"]').type('Cammac12!');
+        cy.get('input[name="password"]').type('#Cammac12');
         cy.get('button[type="submit"]').click();
         cy.wait(2000)
         cy.contains('BlurVid').should('be.visible')

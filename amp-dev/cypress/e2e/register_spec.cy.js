@@ -16,7 +16,7 @@ describe('Registration', function() {
           .should('be.visible');
         cy.get('input[name="password"]').type('Password123!');
         cy.get('input[name="confirm_password"]').type('Password123!');
-        cy.get('input[name="email"]').type('foo@bar.com')
+        cy.get('input[name="email"]').type('foo3@bar.com')  //update each time to run new test
         cy.get('input[name="name"]').type('user'+Date.now());
 
         cy.get('button[type="submit"]').click();
