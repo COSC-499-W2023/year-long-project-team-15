@@ -5,22 +5,18 @@ import { getUser } from '../graphql/queries';
 import { updateUser } from '../graphql/mutations';
 
 function EditProfileForm({ userId }) {
-    console.log("Received userId:", userId);
     const [id, setId] = useState('');
     const [name, setName] = useState('');
     const [email, setEmail] = useState('');
     const [errors, setErrors] = useState({});
-    const [isLoading, setIsLoading] = useState(true); // Added loading state
+    const [isLoading, setIsLoading] = useState(true);
     const [showVerifyEmailPopup, setShowVerifyEmailPopup] = useState(false);
     const [verificationCode, setVerificationCode] = useState('');
 
     useEffect(() => {
-        console.log("useEffect triggered");
         const fetchUserData = async () => {
             try {
-                console.log("Fetching user data...");
                 const authenticatedUser = await Auth.currentAuthenticatedUser();
-                console.log("User data fetched:", authenticatedUser);
                 setId(authenticatedUser.username);
                 setName(authenticatedUser.attributes.name);
                 setEmail(authenticatedUser.attributes.email);
@@ -33,167 +29,127 @@ function EditProfileForm({ userId }) {
     
         fetchUserData();
     }, []);
-    
-    
+
+    const handleUpdateProfile = async () => {
+        const formErrors = {};
+        if (!name.trim()) formErrors.name = 'Name is required';
+        if (!email.trim()) formErrors.email = 'Email is required';
+        else if (!/\S+@\S+\.\S+/.test(email)) formErrors.email = 'Email address is invalid';
+        
+        if (Object.keys(formErrors).length > 0) {
+            setErrors(formErrors);
+            return;
+        }
+
+        try {
+            const cognitoUser = await Auth.currentAuthenticatedUser();
+            const currentEmail = cognitoUser.attributes.email;
+
+            if (email !== currentEmail) {
+                await Auth.updateUserAttributes(cognitoUser, { 'email': email });
+                setShowVerifyEmailPopup(true); // Show verification code input
+            }
+
+            if (name !== cognitoUser.attributes.name) {
+                await Auth.updateUserAttributes(cognitoUser, { 'name': name });
+            }
+
+            // Update DynamoDB
+            const input = { id, name, email };
+            await API.graphql(graphqlOperation(updateUser, { input }));
+            console.log('User profile updated');
+        } catch (error) {
+            console.error('Error updating user profile:', error);
+        }
+    };
+
+    const handleVerifyEmail = async () => {
+        if (!verificationCode.trim()) {
+            console.error('Verification code is required');
+            return;
+        }
+
+        try {
+            await Auth.verifyCurrentUserAttributeSubmit('email', verificationCode);
+            setShowVerifyEmailPopup(false);
+            setVerificationCode('');
+            console.log('Email verified successfully');
+        } catch (error) {
+            console.error('Error verifying email:', error);
+        }
+    };
+
+    if (isLoading) {
+        return <div>Loading user data...</div>;
+    }
 
     const styles = {
         container: {
-          padding: '20px',
-          margin: '20px',
-          backgroundColor: '#87CEEB', 
-          borderRadius: '8px',
-          boxShadow: '0 2px 4px rgba(0, 0, 0, 0.1)',
-          maxWidth: '400px',
+            padding: '20px',
+            margin: '20px',
+            backgroundColor: '#87CEEB', 
+            borderRadius: '8px',
+            boxShadow: '0 2px 4px rgba(0, 0, 0, 0.1)',
+            maxWidth: '400px',
         },
         label: {
-          display: 'block',
-          marginBottom: '5px',
-          marginTop: '10px',
-          color: '#333', 
+            display: 'block',
+            marginBottom: '5px',
+            marginTop: '10px',
+            color: '#333', 
         },
         input: {
-          width: '100%',
-          padding: '10px',
-          margin: '10px 0',
-          borderRadius: '4px',
-          border: '1px solid #ccc', 
-          boxSizing: 'border-box',
+            width: '100%',
+            padding: '10px',
+            margin: '10px 0',
+            borderRadius: '4px',
+            border: '1px solid #ccc', 
+            boxSizing: 'border-box',
         },
         errorMessage: {
-          color: 'red', 
-          fontSize: '0.9em',
-          marginTop: '5px',
+            color: 'red', 
+            fontSize: '0.9em',
+            marginTop: '5px',
         },
-      };
+    };
 
-  const validateForm = () => {
-    const newErrors = {};
-    if (!name.trim()) newErrors.name = 'Name is required';
-    if (!email.trim()) {
-      newErrors.email = 'Email is required';
-    } else if (!/\S+@\S+\.\S+/.test(email)) {
-      newErrors.email = 'Email address is invalid';
-    }
-    return newErrors;
-  };
+    return (
+        <div style={styles.container}>
+            <label style={styles.label}>
+                ID:
+                <input
+                    style={styles.input}
+                    type="text"
+                    value={id}
+                    readOnly // ID field is read-only
+                />
+            </label>
+            
+            <label style={styles.label}>
+                Name:
+                <input
+                    style={styles.input}
+                    type="text"
+                    value={name}
+                    onChange={(e) => setName(e.target.value)}
+                />
+                {errors.name && <p style={styles.errorMessage}>{errors.name}</p>}
+            </label>
+            
+            <label style={styles.label}>
+                Email:
+                <input
+                    style={styles.input}
+                    type="email"
+                    value={email}
+                    onChange={(e) => setEmail(e.target.value)}
+                />
+                {errors.email && <p style={styles.errorMessage}>{errors.email}</p>}
+            </label>
+            
+            <button style={styles.button} onClick={handleUpdateProfile}>Update Profile</button>
 
-  /*
-  const updateCognitoUser = async () => {
-    try {
-      const cognitoUser = await Auth.currentAuthenticatedUser();
-      await Auth.updateUserAttributes(cognitoUser, {
-        'name': name,
-        'email': email,
-      });
-      console.log('User attributes updated in Cognito User Pool');
-    } catch (error) {
-      console.error('Error updating user attributes in Cognito User Pool:', error);
-    }
-  };
-*/
-  const handleUpdateProfile = async () => {
-    const formErrors = validateForm();
-    if (Object.keys(formErrors).length > 0) {
-        setErrors(formErrors);
-        return;
-    }
-
-    try {
-        // Update user attributes in Cognito User Pool
-        const cognitoUser = await Auth.currentAuthenticatedUser();
-        await Auth.updateUserAttributes(cognitoUser, {
-            'name': name,
-            'email': email,
-        });
-        console.log('User attributes updated in Cognito User Pool');
-        setShowVerifyEmailPopup(true);
-
-        // Prepare the input for the updateUser mutation
-        const input = {
-            id, 
-            name, 
-            email, 
-        };
-
-        // Call the updateUser mutation
-        const response = await API.graphql(graphqlOperation(updateUser, { input }));
-        console.log('User profile updated in DynamoDB:', response);
-
-        // Optional: Callback to parent component to reflect changes
-        //onUpdate();
-
-    } catch (error) {
-        console.error('Error updating user profile:', error);
-        // Set error states here to display in the UI
-    }
-};
-
-const handleVerifyEmail = async () => {
-  console.log('Verification button clicked'); // Debugging log
-
-  if (!verificationCode.trim()) {
-      console.error('Verification code is required');
-      return;
-  }
-
-  try {
-      console.log('Attempting to verify email'); // Debugging log
-      await Auth.verifyCurrentUserAttributeSubmit('email', verificationCode);
-      console.log('Email verified successfully');
-
-      // Fetch the latest user data to get the updated email
-      const updatedUser = await Auth.currentAuthenticatedUser();
-      setEmail(updatedUser.attributes.email);
-
-      setShowVerifyEmailPopup(false);
-      setVerificationCode('');
-  } catch (error) {
-      console.error('Error verifying email:', error);
-  }
-};
-
-  if (isLoading) {
-    return <div>Loading user data...</div>; // Loading state UI
-}
-
-return (
-  <div style={styles.container}>
-    {console.log("Rendering with state:", { id, name, email })}
-    <label style={styles.label}>
-      ID:
-      <input
-        style={styles.input}
-        type="text"
-        value={id}
-        readOnly // ID field is read-only
-      />
-    </label>
-    
-    <label style={styles.label}>
-      Name:
-      <input
-        style={styles.input}
-        type="text"
-        value={name}
-        onChange={(e) => setName(e.target.value)}
-      />
-      {errors.name && <p style={styles.errorMessage}>{errors.name}</p>}
-    </label>
-    
-    <label style={styles.label}>
-      Email:
-      <input
-        style={styles.input}
-        type="email"
-        value={email}
-        onChange={(e) => setEmail(e.target.value)}
-      />
-      {errors.email && <p style={styles.errorMessage}>{errors.email}</p>}
-    </label>
-    
-    <button style={styles.button} onClick={handleUpdateProfile}>Update Profile</button>
-
-    {showVerifyEmailPopup && (
+            {showVerifyEmailPopup && (
                 <div style={styles.popupContainer}>
                     <h4>Verify Email</h4>
                     <input
@@ -208,11 +164,12 @@ return (
                     </button>
                 </div>
             )}
-  </div>
-);
+        </div>
+    );
 }
 
 export default EditProfileForm;
+
 
 
 
