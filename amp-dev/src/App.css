@@ -68,5 +68,31 @@
   }
 }
 
+.modal-margin{
+  margin-top: 11em;
+  margin-left: 12em;
+}
 
-/* Add more styles for your buttons if necessary */
+.modal-blur {
+  position: fixed;
+  top: 3;
+  left: 3;
+  width: 100%;
+  height: 100%;
+  backdrop-filter: blur(5px); 
+  z-index: 1040; 
+}
+
+.modal {
+  z-index: 1050; 
+}
+
+.btn.custom-button {
+  background-color: #148dce;
+  border-color: #0d79c7; 
+}
+
+.btn.custom-button:hover {
+  background-color: #063e93;
+  border-color: #063e93;
+}
