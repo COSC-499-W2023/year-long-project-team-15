@@ -76,6 +76,19 @@ During this week, we collaborated to formulate the project plan. Each team membe
 **Tasks**
 ![Saksham's tasks week 12](./screenshots/sak_week12.png)
 
+## Week 13 (Nov 26th - Dec 3rd)
+
+**Goals:**
+
+- Routing and integrating the pages for a user friendly flow
+- Fix issues with sending friend request
+![Saksham's goals for week 13](./screenshots/week13_task.png)
+
+This week I created functional react components for the account page of our app such as a account page side bar to add friends and edit profile form. The account page side bar contains a button which on pressing opens a search by email option for the users. I made the edit profile form where user can edit their name and email.
+
+**Tasks**
+![Saksham's tasks week 13](./screenshots/sak_week13.png)
+
 ## Term 2 Week 1 (Jan 7th - Jan 14th)
 
 This week I participated in the following tasks:
