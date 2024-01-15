@@ -132,9 +132,9 @@ const Sidebar = ({ testFilteredFriends }) => {
       </List>
       <div className="mt-auto p-2"> {/* Logout button pushed to bottom */}
         <Button
-          label="LogOut"
+          label="Log Out"
           onClick={handleSignOut}
-          className="btn btn-secondary"
+          className="btn btn-secondary custom-button"
         />
       </div>
     </div>
