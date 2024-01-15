@@ -100,3 +100,20 @@ Goals:
 This week was crazy busy. Excuted on a lot of stuff I learned last week. Got the apollo client setup and connected to our graphql so we can query and cache data with on the client. I then setup up a friend context and built the chatview component so it changes to reflect the user you are chatting with. Will and I worked together a lot this week to get tests build for all our components and started the e2e testing. Also spent a lot of time reorgazing files, refactoring and transferring code from Josh's old branch's. Been kinda slow on our implementation because this whole tech stack is new and I've spent a lot of time reading documentation and learning from vieos. I feel like I'm getting the hang of things well now and I'm looking forward to the next term. Will and I also prepared our milstone doc and made our demo video. 
 
 ![Mac's github tasks week 12](./screenshots/github-week13.png)
+
+
+# Individual Log T2 W1: Mac Vibert (mvibert88)
+
+This week I participated in the following tasks:
+![Mac's tasks t2 week 1](./screenshots/tasks_t2_week_1.png)
+
+Goals:
+- create and test picture upload form popup
+
+This week I spent a lot of time figuring out how to build a modal and then created one with the picture upload form for our chatview section. I wanted to get the automated component tests up for these new components but I had some bundler issues that I spent hours trying to resolve and couldn't fix with cypress so I wasn't able to write and compile my tests so I just tested my features manually ad reported results on a spreadsheet. Hopefully can resolve this cypress issues this coming week so we can keep automating our testing process. 
+
+![Mac's github tasks t2 week 1](./screenshots/mac-github-t2week1.png) 
+
+#### My test report for my new popup feature 
+
+![Mac's manual tests t2 week 1](./screenshots/t2_week1_manual_tests.png) 
