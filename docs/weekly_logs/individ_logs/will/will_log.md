@@ -141,3 +141,25 @@ This week I created functional react components for the main communication panel
 **Done**
 
 ![wills week 13 done board](./screenshots/wills_done_week13.png)
+
+# Term 2
+
+## Week 2
+
+Goals:
+
+For this week my goal is to look into and start working on video processing as well as doing some refactoring on my previous components.
+
+**Tasks**
+
+![wills week 15 tasks](./screenshots/wills_tasks_week15.png)
+
+This week I was driving accross the country to Ontario (Will be back in BC just had to do this for some personal reasons). Because of this i was only able to get my refactoring done.
+
+**In Progress**
+
+- video processing
+
+**Done**
+
+![wills week 15 done board](./screenshots/wills_done_week13.png)
