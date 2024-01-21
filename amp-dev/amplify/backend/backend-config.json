@@ -101,5 +101,12 @@
         }
       ]
     }
+  },
+  "storage": {
+    "blurvidContent": {
+      "dependsOn": [],
+      "providerPlugin": "awscloudformation",
+      "service": "S3"
+    }
   }
 }

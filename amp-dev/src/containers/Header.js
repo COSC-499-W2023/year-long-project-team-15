@@ -2,7 +2,7 @@ import React, { useState, useEffect } from "react";
 import AccountCircleIcon from '@mui/icons-material/AccountCircle';
 import Auth from '@aws-amplify/auth';
 import { useNavigate } from 'react-router-dom';
-
+import { getAuthenticatedUserName } from '../services/AuthService';
 
 
 const Header = () => {
@@ -11,8 +11,8 @@ const Header = () => {
   useEffect(() => {
     const fetchUserData = async () => {
       try {
-        const authenticatedUser = await Auth.currentAuthenticatedUser();
-        setName(authenticatedUser.attributes.name);
+        const authenticatedUserName = await getAuthenticatedUserName();
+        setName(authenticatedUserName);
       } catch (error) {
         console.error('Error fetching authenticated user', error);
         // Handle error, e.g., set name to empty or a default value
