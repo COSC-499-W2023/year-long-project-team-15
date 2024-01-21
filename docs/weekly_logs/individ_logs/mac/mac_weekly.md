@@ -117,3 +117,21 @@ This week I spent a lot of time figuring out how to build a modal and then creat
 #### My test report for my new popup feature 
 
 ![Mac's manual tests t2 week 1](./screenshots/t2_week1_manual_tests.png) 
+
+# Individual Log T2 W2: Mac Vibert (mvibert88)
+
+Goals:
+- fix cypress
+- Get files uploading to aws s3 bucket
+
+
+Tasks: 
+
+![Mac's tasks t2 week 2](./screenshots/tasks_t2_week_2.png)
+
+This week I started by trying to fix our cypress suite. Since will refactored a bunch of stuff which would change a lot of our component test files I decided that we should refactor everything and reconfigure all our component tests. The end to end test scripts will remain the same so we can reuse those. This coming week once everything is refactored properly and we're happy I'll redo the automated component testing. 
+
+This week I battled with file uploads for way longer than I should have. The documentation on the Amplify Dev Center website regarding storage is not up to date. I expected it to be so I struggled trying to use the packages used in the docs for HOURS. Lots of investigation led me to discorver that the uploadData function they tell you to use is deprocated and that's the reason I had so many package errors and API call errors when tryin to compile my code. Once I switch to the up to date method which was hard to find and not in their official docs for some reason, I got it to work. Now files are sent to our aws s3 bucket so we can start setting up recognition. This was super frustrating and took way too much time but it felt good when things started working. Next week I'll start setting up a lambda function to grab the photos from our bucket and run them through recognition for face blurring. 
+
+#### Maunal test for file upload
+![Mac's manual tests t2 week 1](./screenshots/manual_tests_t2week2.png) 
