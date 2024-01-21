@@ -1,7 +1,0 @@
-{
-  "staging": {
-    "configLevel": "project",
-    "useProfile": false,
-    "awsConfigFilePath": "/Users/wgarbutt/.amplify/awscloudformation/egC2MoSVgo"
-  }
-}
