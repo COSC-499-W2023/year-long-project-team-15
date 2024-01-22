@@ -108,7 +108,16 @@ This week I participated in the following tasks:
 
 Goals:
 
-- forgot password feature
+- forgot password feature works, there was no hard coding required for this feature.
 - Solve Configuration issues 
 
+Upcoming Week:
+
+- As soon as we are able to fix the issue, the account functionality will be working including Add Friend. We will be working on video recognition feature as that is one of the major feature we are left with.
+
 I have been encountering configuration issues and I have tried to reconfigure my system but it did not help. My team mate Mac thinks it's an issue with env and we will try to sort it on Tuesday and hopefully it will work so that I can test my code and test my features as it has been frustrating to face these issues as it is hindering my ability to test the code.
+Here are the screenshots of code compilation/issues!
+![Issues](./screenshots/T2_week2_issue3.png)
+![Issues](./screenshots/T2_week2_issue2.png)
+![Issues](./screenshots/T2_week2_issue1.png)
+
