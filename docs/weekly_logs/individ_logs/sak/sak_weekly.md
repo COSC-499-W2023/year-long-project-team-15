@@ -100,3 +100,15 @@ Goals:
 - Learn about apollo client in order to integrate it in all assigned features
 - Writing manual testing code for edit profile
 - Work on next task this week and solve issue with sending friend request: forgot password feature
+
+## Term 2 Week 2 (Jan 14th - Jan 21st)
+
+This week I participated in the following tasks:
+![Saksham's tasks t2 week 1](./screenshots/T2_week2_task.png)
+
+Goals:
+
+- forgot password feature
+- Solve Configuration issues 
+
+I have been encountering configuration issues and I have tried to reconfigure my system but it did not help. My team mate Mac thinks it's an issue with env and we will try to sort it on Tuesday and hopefully it will work so that I can test my code and test my features as it has been frustrating to face these issues as it is hindering my ability to test the code.
