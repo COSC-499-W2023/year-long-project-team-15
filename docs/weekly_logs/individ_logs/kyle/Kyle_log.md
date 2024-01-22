@@ -196,5 +196,34 @@ The completed tasks do not have an associated screenshot this week since they in
 * Plan project goals for this semester and divide up the tasks.
 ![Screenshot 2024-01-14 230240](https://github.com/COSC-499-W2023/year-long-project-team-15/assets/122824873/a29199d4-fc33-436a-ad3d-717d92afe39e)
 
+# Individual Log: Kyle Keim (kyle-keim)(SN:46335485)
+## Jan.14th - Jan.21st 2024 / Week 2
+### Peer Review Tasks
+![Screenshot 2024-01-21 205654](https://github.com/COSC-499-W2023/year-long-project-team-15/assets/122824873/20e73842-88c6-48ee-89c9-1513c551a7de)
 
+
+
+
+
+
+
+## Previous Goals:
+* Reveiw UI design and coding future components and feature development.
+* Work on test implementation for react componenets using Cypress.
+* Continuing coding/learning for AWS DynamoDB, Cognito, Amplify functionality.
+* Creation of account settings panel and adding an update friends panel within it.
+
+## Tasks Completed
+* Reveiw/Update UI design and coding future components and feature development.
+* Continuing documentation of coding for AWS DynamoDB, Cognito, Amplify and updating new AWS documentation.
+* Over the course of the winter break, learn more about AWS functionality and how to upload/edit videos in our DB.
+* Testing and reporting of several UI components.
+
+## Tasks In-Progress
+* Continue updating UI design and coding future components and feature development.
+* Continue working on test implementation for react componenets using Cypress.
+* Continuing coding for AWS DynamoDB, Cognito, Amplify functionality
+* implement mp4 uploading, cognito functionality, and video blurring. 
+* Plan project goals for this semester and divide up the tasks.
+![Screenshot 2024-01-14 230240](https://github.com/COSC-499-W2023/year-long-project-team-15/assets/122824873/a29199d4-fc33-436a-ad3d-717d92afe39e)
 
