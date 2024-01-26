@@ -33,43 +33,29 @@ function EditProfileForm({ userId }) {
 
   const handleUpdateProfile = async () => {
     const formErrors = {};
-    if (!name.trim()) formErrors.name = 'Name is required';
     if (!email.trim()) formErrors.email = 'Email is required';
     else if (!/\S+@\S+\.\S+/.test(email)) formErrors.email = 'Email address is invalid';
-  
+
     if (Object.keys(formErrors).length > 0) {
       setErrors(formErrors);
       return;
     }
-  
+
     try {
       const cognitoUser = await Auth.currentAuthenticatedUser();
       const currentEmail = cognitoUser.attributes.email;
-  
+
       // Send email verification code for any update (both name and email)
       await Auth.verifyCurrentUserAttribute('email');
       setShowVerifyEmailPopup(true); // Show verification code input
-  
+
       if (email !== currentEmail) {
         await Auth.updateUserAttributes(cognitoUser, { email });
-      }
-  
-      if (name !== cognitoUser.attributes.name) {
-        // Update DynamoDB
-        const input = { id, name, email };
-        await API.graphql(graphqlOperation(updateUser, { input }));
-  
-        // Update local state after successful email verification
-        setName(input.name);
-        console.log('User profile updated');
       }
     } catch (error) {
       console.error('Error updating user profile:', error);
     }
   };
-  
-  
-  
 
   const handleVerifyEmail = async () => {
     if (!verificationCode.trim()) {
@@ -136,14 +122,14 @@ function EditProfileForm({ userId }) {
 
   return (
     <div style={styles.container}>
-      
+
       <label style={styles.label}>
         Name:
         <input
           style={styles.input}
           type="text"
           value={name}
-          onChange={(e) => setName(e.target.value)}
+          readOnly // ID field is read-only
         />
         {errors.name && <p style={styles.errorMessage}>{errors.name}</p>}
       </label>
@@ -185,9 +171,5 @@ function EditProfileForm({ userId }) {
   );
 }
 
+
 export default EditProfileForm;
-
-
-
-
-

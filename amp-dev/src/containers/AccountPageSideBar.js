@@ -192,7 +192,7 @@ const AccountPageSidebar = () => {
   return (
     <div className="col-3 col-auto overflow-y-auto bg-body-secondary d-flex flex-column">
       <form className="d-flex" role="search" style={{ padding: "0.5em" }}>
-        <h2>Pending Friend Requests</h2>
+        <h2> Friend Requests</h2>
       </form>
       <List>
         {filteredFriends.map(friend => (
