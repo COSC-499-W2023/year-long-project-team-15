@@ -23,5 +23,27 @@
         }
       }
     }
+  },
+  "kyletest": {
+    "awscloudformation": {
+      "AuthRoleName": "amplify-yearlongprojectteam1-kyletest-115809-authRole",
+      "UnauthRoleArn": "arn:aws:iam::825689036794:role/amplify-yearlongprojectteam1-kyletest-115809-unauthRole",
+      "AuthRoleArn": "arn:aws:iam::825689036794:role/amplify-yearlongprojectteam1-kyletest-115809-authRole",
+      "Region": "ca-central-1",
+      "DeploymentBucketName": "amplify-yearlongprojectteam1-kyletest-115809-deployment",
+      "UnauthRoleName": "amplify-yearlongprojectteam1-kyletest-115809-unauthRole",
+      "StackName": "amplify-yearlongprojectteam1-kyletest-115809",
+      "StackId": "arn:aws:cloudformation:ca-central-1:825689036794:stack/amplify-yearlongprojectteam1-kyletest-115809/bb958d70-ba29-11ee-bee1-0e43f680ade8",
+      "AmplifyAppId": "dko5xgw4xb7qo"
+    },
+    "categories": {
+      "auth": {
+        "yearlongprojectteam15appampdev": {}
+      },
+      "function": {
+        "yearlongprojectteam15appampdevPostConfirmation": {},
+        "yearlongprojectteam15appampdev": {}
+      }
+    }
   }
 }
