@@ -103,18 +103,21 @@ const AddFriend = () => {
   return (
     <div>
       <ul style={styles.ListContainer}>
-        {users.map(user => (
-          <li key={user.id}>
-            {user.name} ({user.email})
-            <button
-              style={styles.SearchButton}
-              onClick={() => setSelectedUserId(user.id)}
-              className="btn btn-secondary"
-            >
-              Add Contact
-            </button>
-          </li>
-        ))}
+      {users
+        .filter(user => user.id !== currentUser.attributes.sub) // Exclude the current user
+        .map(user => (
+        <li key={user.id}>
+        {user.name} ({user.email})
+        <button
+        style={styles.SearchButton}
+        onClick={() => setSelectedUserId(user.id)}
+        className="btn btn-secondary"
+      >
+        Add Contact
+      </button>
+    </li>
+  ))}
+
       </ul>
       {selectedUserId && (
         <button

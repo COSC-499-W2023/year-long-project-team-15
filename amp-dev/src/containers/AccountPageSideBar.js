@@ -10,57 +10,61 @@ import DeclineButton from '../components/Button.js';
 import Header from "../containers/Header";
 
 import { API, graphqlOperation } from 'aws-amplify';
-import { createFriendRequest } from '../graphql/mutations';
-import { friendRequestsBySenderID, friendRequestsByReceiverID, getUser, getFriendRequest, listUsers} from '../graphql/queries';
+import { updateFriendRequest } from '../graphql/mutations';
+import { listFriendRequests,friendRequestsBySenderID, friendRequestsByReceiverID, getUser, getFriendRequest, listUsers} from '../graphql/queries';
 import FriendContext from '../context/FriendContext.js';
-import AddFriend from './AddFriend'; // Adjust the path based on your project structure
-import Modal from '../components/Modal'; // Adjust the path based on your project structure
+import AddFriend from './AddFriend'; 
+import Modal from '../components/Modal'; 
 
 const AccountPageSidebar = () => {
   const navigate = useNavigate();
   const [showAddFriend, setShowAddFriend] = useState(false);
   const [showFriendRequests, setShowFriendRequests] = useState(false);
-  const [email, setEmail] = useState('');
   const [searchResults, setSearchResults] = useState(null);
   const [searchMessage, setSearchMessage] = useState('');
   const [searchTerm, setSearchTerm] = useState('');
   const [friendsData, setFriendsData] = useState([]);
+  const [acceptedFriend, setAcceptedFriend] = useState(null);
+  const [declinedFriend, setDeclinedFriend] = useState(null);
+  const [currentUserId, setCurrentUserId] = useState(null); // New state variable
   const { setSelectedFriend } = useContext(FriendContext);
 
   useEffect(() => {
-    const fetchFriendsData = async () => {
+    const fetchUserData = async () => {
       try {
-        const authenticatedUser = await Auth.currentAuthenticatedUser();
-        const userId = authenticatedUser.attributes.sub;
-
-        const [sentRequestsResponse, receivedRequestsResponse] = await Promise.all([
-          client.query({
-            query: gql(friendRequestsBySenderID),
-            variables: { senderID: userId, filter: { status: { eq: "Pending" } } }
-          }),
-          client.query({
-            query: gql(friendRequestsByReceiverID),
-            variables: { receiverID: userId, filter: { status: { eq: "Pending" } } }
-          })
-        ]);
-
-        const combinedFriends = await processFriendRequests(
-          sentRequestsResponse.data.friendRequestsBySenderID.items,
-          receivedRequestsResponse.data.friendRequestsByReceiverID.items
+        const friendRequestsResponse = await client.query({
+          query: gql(listFriendRequests),
+          variables: {
+            filter: { status: { eq: "Pending" } },
+          },
+        });
+  
+        const friendRequests = friendRequestsResponse.data.listFriendRequests.items;
+  
+        // Now you have a list of all pending friend requests
+        console.log("Friend Requests:", friendRequests);
+  
+        const receivedFriends = await processFriendRequests(
+          friendRequests,
+          []
         );
-        setFriendsData(combinedFriends);
-
+  
+        setFriendsData(receivedFriends);
       } catch (error) {
         console.error("Error fetching user data with Apollo Client", error);
       }
     };
-
-    fetchFriendsData();
+  
+    fetchUserData();
   }, []);
-
-  const processFriendRequests = async (sentRequests, receivedRequests) => {
-    const friendIds = new Set(sentRequests.map(request => request.receiverID));
-    receivedRequests.forEach(request => friendIds.add(request.senderID));
+  
+  
+  const processFriendRequests = async (receivedRequests) => {
+    const friendIds = new Set(
+      receivedRequests
+        .filter(request => request.senderID !== currentUserId)
+        .map(request => request.senderID)
+    );
 
     const friendDetailsPromises = Array.from(friendIds).map(friendId =>
       client.query({
@@ -79,17 +83,9 @@ const AccountPageSidebar = () => {
     }
   };
 
-  const handleSearchChange2 = (event) => {
-    setSearchTerm(event.target.value);
-  };
-
-  const handleSignOut = async () => {
-    try {
-      await Auth.signOut();
-    } catch (error) {
-      console.error("Error signing out:", error);
-    }
-  };
+  // const handleSearchChange2 = (event) => {
+  //   setSearchTerm(event.target.value);
+  // };
 
   const filteredFriends = friendsData.filter(friend =>
     friend.name.toLowerCase().includes(searchTerm.toLowerCase())
@@ -105,33 +101,98 @@ const AccountPageSidebar = () => {
     setSearchResults(null);
   };
 
-  const handleSearchChange = (event) => {
-    setEmail(event.target.value);
-  };
-
-  const handleSearch = async () => {
+  const handleSignOut = async () => {
     try {
-      const filter = { email: { eq: email } };
-      const userData = await API.graphql(graphqlOperation(listUsers, { filter }));
-      if (userData.data.listUsers.items.length > 0) {
-        setSearchResults(userData.data.listUsers.items[0]);
-        setSearchMessage('User found!');
-        setShowAddFriend(true);
-      } else {
-        setSearchMessage('No user found with this email.');
-        setSearchResults(null);
-      }
+      await Auth.signOut();
     } catch (error) {
-      console.error('Error searching user:', error);
-      setSearchMessage('Error in searching for user.');
+      console.error("Error signing out:", error);
     }
   };
 
+  const handleAcceptClick = async (friendRequest) => {
+    // try {
+    //   await client.mutate({
+    //     mutation: gql(updateFriendRequest),
+    //     variables: {
+    //       input: {
+    //         id: friendRequest.id,
+    //         status: 'Accepted',
+    //         date: new Date().toISOString(),
+    //       }
+    //     }
+    //   });
+
+    //   setFriendsData(prevFriendsData => prevFriendsData.filter(friend => friend.id !== friendRequest.senderID));
+
+    //   setAcceptedFriend(friendRequest.sender.name);
+
+    //   setTimeout(() => {
+    //     setAcceptedFriend(null);
+    //   }, 2000);
+
+    // } catch (error) {
+    //   console.error("Error accepting friend request:", error);
+    // }
+  };
+
+  const handleDeclineClick = async (friendRequest) => {
+    // try {
+    //   // Fetch the current state of the friend request
+    //   const { data } = await client.query({
+    //     query: gql(getFriendRequest),
+    //     variables: { id: friendRequest.id },
+    //   });
+  
+    //   // Check if the item exists
+    //   if (!data.getFriendRequest) {
+    //     console.error('Friend request not found:', friendRequest.id);
+    //     // Handle the case where the item is not found, e.g., show an error message
+    //     return;
+    //   }
+  
+    //   console.log('Existing friend request:', data.getFriendRequest);
+  
+    //   // Attempt to update the friend request status to 'Declined'
+    //   const result = await client.mutate({
+    //     mutation: gql(updateFriendRequest),
+    //     variables: {
+    //       input: {
+    //         id: friendRequest.id,
+    //         status: 'Declined',
+    //         date: new Date().toISOString(),
+    //         senderID: friendRequest.senderID,
+    //         receiverID: friendRequest.receiverID,
+    //       }
+    //     }
+    //   });
+  
+    //   console.log('Update result:', result);
+  
+    //   // Remove the declined friend request from the local state
+    //   setFriendsData((prevFriendsData) =>
+    //     prevFriendsData.filter((request) => request.id !== friendRequest.id)
+    //   );
+  
+    //   alert(`Friend request from ${friendRequest.sender.name} declined!`);
+    // } catch (error) {
+    //   console.error('Error declining friend request:', error);
+  
+    //   // Log the detailed error details
+    //   console.error('Error details:', error.networkError.result.errors);
+  
+    //   // You can also log the existing state of the item for further analysis
+    //   console.error('Existing state of friend request:', friendRequest);
+    // }
+  };
+  
+  
+  
+  
 
   return (
     <div className="col-3 col-auto overflow-y-auto bg-body-secondary d-flex flex-column">
       <form className="d-flex" role="search" style={{ padding: "0.5em" }}>
-        <h2>Pending Friend Requests</h2>
+        <h2> Friend Requests</h2>
       </form>
       <List>
         {filteredFriends.map(friend => (
@@ -139,18 +200,30 @@ const AccountPageSidebar = () => {
             <ListItemText primary={friend.name} />
             <AcceptButton
               label="Accept"
-              onClick={null}
+              onClick={() => handleAcceptClick(friend)}
               className="btn btn-success"
             />
             <DeclineButton
               label="Decline"
-              onClick={null}
+              onClick={() => handleDeclineClick(friend)}
               className="btn btn-danger"
             />
           </ListItemButton>
         ))}
       </List>
-      
+
+      {acceptedFriend && (
+        <div className="popup-message">
+          You added {acceptedFriend}!
+        </div>
+      )}
+
+      {declinedFriend && (
+        <div className="popup-message">
+          You declined {declinedFriend}'s request!
+        </div>
+      )}
+
       <div className="mt-auto p-2">
         <Button
           label="Add Friend"
@@ -173,5 +246,6 @@ const AccountPageSidebar = () => {
 }
 
 export default AccountPageSidebar;
+
 
 
