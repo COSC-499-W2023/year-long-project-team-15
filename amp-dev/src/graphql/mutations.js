@@ -448,3 +448,17 @@ export const deleteVideoMessage = /* GraphQL */ `
     }
   }
 `;
+
+export const acceptFriendRequest = `mutation AcceptFriendRequest($friendRequestId: ID!) {
+  acceptFriendRequest(id: $friendRequestId) {
+    id
+    # other fields you may want to fetch after accepting
+  }
+}`;
+
+export const declineFriendRequest = `mutation DeclineFriendRequest($friendRequestId: ID!) {
+  declineFriendRequest(id: $friendRequestId) {
+    id
+    # other fields you may want to fetch after declining
+  }
+}`;

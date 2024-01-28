@@ -10,7 +10,7 @@ import DeclineButton from '../components/Button.js';
 import Header from "../containers/Header";
 
 import { API, graphqlOperation } from 'aws-amplify';
-import { createFriendRequest } from '../graphql/mutations';
+import { createFriendRequest, acceptFriendRequest, declineFriendRequest } from '../graphql/mutations';
 import { friendRequestsBySenderID, friendRequestsByReceiverID, getUser, getFriendRequest, listUsers} from '../graphql/queries';
 import FriendContext from '../context/FriendContext.js';
 import AddFriend from './AddFriend'; // Adjust the path based on your project structure
@@ -127,6 +127,36 @@ const AccountPageSidebar = () => {
     }
   };
 
+  const handleAcceptClick = async (friendRequestId) => {
+    try {
+      console.log('Accepting friend request:', friendRequestId);
+      await API.graphql({
+        query: acceptFriendRequest,
+        variables: { friendRequestId },
+      });
+      console.log('Friend request accepted successfully!');
+  
+      // Handle success (e.g., update local state, refresh the component)
+    } catch (error) {
+      console.error('Error accepting friend request:', error);
+      // Handle error
+    }
+  };
+  const handleDeclineClick = async (friendRequestId) => {
+    try {
+      await API.graphql({
+        query: declineFriendRequest,
+        variables: { friendRequestId },
+      });
+  
+      // Handle success (e.g., update local state, refresh the component)
+    } catch (error) {
+      console.error('Error declining friend request:', error);
+      // Handle error
+    }
+  };
+
+
 
   return (
     <div className="col-3 col-auto overflow-y-auto bg-body-secondary d-flex flex-column">
@@ -139,12 +169,12 @@ const AccountPageSidebar = () => {
             <ListItemText primary={friend.name} />
             <AcceptButton
               label="Accept"
-              onClick={null}
+              onClick={() => handleAcceptClick(friend.id)}
               className="btn btn-success"
             />
             <DeclineButton
               label="Decline"
-              onClick={null}
+              onClick={() => handleDeclineClick(friend.id)}
               className="btn btn-danger"
             />
           </ListItemButton>
