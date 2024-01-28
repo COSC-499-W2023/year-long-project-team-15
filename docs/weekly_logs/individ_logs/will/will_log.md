@@ -163,3 +163,25 @@ This week I was driving accross the country to Ontario (Will be back in BC just 
 **Done**
 
 ![wills week 15 done board](./screenshots/wills_done_week13.png)
+
+## Week 3
+
+Goals:
+
+For the week my goal is to research and start developing our instant messaging feature as well as prepare for peer evaluations next week
+
+**Tasks**
+
+![wills week 15 tasks](./screenshots/wills_tasks_T2_week3.png)
+
+This week I prepped for the peer eval with my team, getting questionarries and planning our hueristic evaluations. Mainly i focused on researching methods and implementations for our instant messaging feature. However, our team has now faced a roadblock with this feature. To complete it we would need to either edit our database schema and update our backend to handle the messages but would then encounter problems displaying videos and messages in proper order on the chat window. Or we keep it as a separate service and would have two seperate windows, one for videos and one for text messages. Since both of these require large design changes and problems we are deciding to leave out this feature for now and focus on our other more important features like video processing so we can deliver our MVP. The instant messaging feature was added on later in the project and was not part of our MVP. 
+
+**In Progress**
+
+- Peer Evaluation prep
+- X to insant messaging
+- continuing video processing
+
+**Done**
+
+![wills T2 week3 done board](./screenshots/wills_done_week13.png)
