@@ -10,8 +10,8 @@ import DeclineButton from '../components/Button.js';
 import Header from "../containers/Header";
 
 import { API, graphqlOperation } from 'aws-amplify';
-import { updateFriendRequest } from '../graphql/mutations';
-import { listFriendRequests,friendRequestsBySenderID, friendRequestsByReceiverID, getUser, getFriendRequest, listUsers} from '../graphql/queries';
+import { createFriendRequest, acceptFriendRequest, declineFriendRequest } from '../graphql/mutations';
+import { listFriendRequests, friendRequestsBySenderID, friendRequestsByReceiverID, getUser, getFriendRequest, listUsers} from '../graphql/queries';
 import FriendContext from '../context/FriendContext.js';
 import AddFriend from './AddFriend'; 
 import Modal from '../components/Modal'; 
@@ -109,85 +109,36 @@ const AccountPageSidebar = () => {
     }
   };
 
-  const handleAcceptClick = async (friendRequest) => {
-    // try {
-    //   await client.mutate({
-    //     mutation: gql(updateFriendRequest),
-    //     variables: {
-    //       input: {
-    //         id: friendRequest.id,
-    //         status: 'Accepted',
-    //         date: new Date().toISOString(),
-    //       }
-    //     }
-    //   });
-
-    //   setFriendsData(prevFriendsData => prevFriendsData.filter(friend => friend.id !== friendRequest.senderID));
-
-    //   setAcceptedFriend(friendRequest.sender.name);
-
-    //   setTimeout(() => {
-    //     setAcceptedFriend(null);
-    //   }, 2000);
-
-    // } catch (error) {
-    //   console.error("Error accepting friend request:", error);
-    // }
+  const handleAcceptClick = async (friendRequestId) => {
+    try {
+      console.log('Accepting friend request:', friendRequestId);
+      await API.graphql({
+        query: acceptFriendRequest,
+        variables: { friendRequestId },
+      });
+      console.log('Friend request accepted successfully!');
+  
+      // Handle success (e.g., update local state, refresh the component)
+    } catch (error) {
+      console.error('Error accepting friend request:', error);
+      // Handle error
+    }
+  };
+  const handleDeclineClick = async (friendRequestId) => {
+    try {
+      await API.graphql({
+        query: declineFriendRequest,
+        variables: { friendRequestId },
+      });
+  
+      // Handle success (e.g., update local state, refresh the component)
+    } catch (error) {
+      console.error('Error declining friend request:', error);
+      // Handle error
+    }
   };
 
-  const handleDeclineClick = async (friendRequest) => {
-    // try {
-    //   // Fetch the current state of the friend request
-    //   const { data } = await client.query({
-    //     query: gql(getFriendRequest),
-    //     variables: { id: friendRequest.id },
-    //   });
-  
-    //   // Check if the item exists
-    //   if (!data.getFriendRequest) {
-    //     console.error('Friend request not found:', friendRequest.id);
-    //     // Handle the case where the item is not found, e.g., show an error message
-    //     return;
-    //   }
-  
-    //   console.log('Existing friend request:', data.getFriendRequest);
-  
-    //   // Attempt to update the friend request status to 'Declined'
-    //   const result = await client.mutate({
-    //     mutation: gql(updateFriendRequest),
-    //     variables: {
-    //       input: {
-    //         id: friendRequest.id,
-    //         status: 'Declined',
-    //         date: new Date().toISOString(),
-    //         senderID: friendRequest.senderID,
-    //         receiverID: friendRequest.receiverID,
-    //       }
-    //     }
-    //   });
-  
-    //   console.log('Update result:', result);
-  
-    //   // Remove the declined friend request from the local state
-    //   setFriendsData((prevFriendsData) =>
-    //     prevFriendsData.filter((request) => request.id !== friendRequest.id)
-    //   );
-  
-    //   alert(`Friend request from ${friendRequest.sender.name} declined!`);
-    // } catch (error) {
-    //   console.error('Error declining friend request:', error);
-  
-    //   // Log the detailed error details
-    //   console.error('Error details:', error.networkError.result.errors);
-  
-    //   // You can also log the existing state of the item for further analysis
-    //   console.error('Existing state of friend request:', friendRequest);
-    // }
-  };
-  
-  
-  
-  
+
 
   return (
     <div className="col-3 col-auto overflow-y-auto bg-body-secondary d-flex flex-column">
@@ -200,12 +151,12 @@ const AccountPageSidebar = () => {
             <ListItemText primary={friend.name} />
             <AcceptButton
               label="Accept"
-              onClick={() => handleAcceptClick(friend)}
+              onClick={() => handleAcceptClick(friend.id)}
               className="btn btn-success"
             />
             <DeclineButton
               label="Decline"
-              onClick={() => handleDeclineClick(friend)}
+              onClick={() => handleDeclineClick(friend.id)}
               className="btn btn-danger"
             />
           </ListItemButton>
