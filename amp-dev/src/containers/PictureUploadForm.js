@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import Button from '../components/Button';
+import { Storage } from 'aws-amplify';
 
 const PictureUploadForm = ({ onClose }) => {
   const [selectedFile, setSelectedFile] = useState(null);
@@ -8,15 +9,23 @@ const PictureUploadForm = ({ onClose }) => {
     setSelectedFile(event.target.files[0]);
   };
 
-  const handleSubmit = (event) => {
+  const handleSubmit = async (event) => {
     event.preventDefault();
     if (!selectedFile) {
       alert('Please select a file to upload.');
       return;
     }
     // logic to handle the file upload
+
     console.log('Uploading file:', selectedFile.name);
-    // After upload logic
+    try {
+      const result = await Storage.put(selectedFile.name, selectedFile, {
+        // options here
+      });
+      console.log('Succeeded:', result);
+    } catch (error) {
+      console.log('Error:', error);
+    }
     if (onClose) onClose(); // Close modal after submitting
   };
 
