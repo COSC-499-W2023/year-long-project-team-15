@@ -16,3 +16,13 @@ Please use the provided folder structure for your docs (project plan, design doc
 └── README.md
 ```
 Also, update your README.md file with the team and client/project information.  You can find details on writing GitHub Markdown [here](https://docs.github.com/en/get-started/writing-on-github/getting-started-with-writing-and-formatting-on-github/basic-writing-and-formatting-syntax) as well as a [handy cheatsheet](https://enterprise.github.com/downloads/en/markdown-cheatsheet.pdf).   
+
+Local deployment steps:
+
+1 - cd amp-dev 
+
+2- publish aws keys
+
+3- run amplify pull, give access keys, region = ca-central-1, project is 'year-long-project-team-15-app/amp-dev' and evironemnt is 'staging', hit enter on everything and y to edit backend
+
+4 - once done run npm i then npm start, should be good to go on localhost. 
