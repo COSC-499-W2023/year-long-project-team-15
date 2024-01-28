@@ -14,7 +14,7 @@ import { createFriendRequest, acceptFriendRequest, declineFriendRequest } from '
 import { listFriendRequests, friendRequestsBySenderID, friendRequestsByReceiverID, getUser, getFriendRequest, listUsers} from '../graphql/queries';
 import FriendContext from '../context/FriendContext.js';
 import AddFriend from './AddFriend'; 
-import Modal from '../components/Modal'; 
+import Modal from '../components/AddFriendModal.js'; 
 
 const AccountPageSidebar = () => {
   const navigate = useNavigate();
