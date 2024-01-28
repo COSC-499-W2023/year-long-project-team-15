@@ -2,7 +2,7 @@
   "version": "1",
   "cognitoConfig": {
     "identityPoolName": "testAuthIdentityPool",
-    "allowUnauthenticatedIdentities": false,
+    "allowUnauthenticatedIdentities": true,
     "resourceNameTruncated": "yearlod8197925",
     "userPoolName": "yearlongprojectteam15appampdev",
     "autoVerifiedAttributes": [
@@ -82,7 +82,9 @@
     "parentStack": {
       "Ref": "AWS::StackId"
     },
-    "authTriggerConnections": "[\n  {\n    \"triggerType\": \"PostConfirmation\",\n    \"lambdaFunctionName\": \"yearlongprojectteam15appampdevPostConfirmation\"\n  }\n]",
+    "authTriggerConnections": [
+      "{\"triggerType\":\"PostConfirmation\",\"lambdaFunctionName\":\"yearlongprojectteam15appampdevPostConfirmation\"}"
+    ],
     "permissions": []
   }
 }

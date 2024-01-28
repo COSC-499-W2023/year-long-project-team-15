@@ -37,7 +37,7 @@ const Header = () => {
         <div className="collapse navbar-collapse" id="navbarText" style={{ color: "white" }}>
           <ul className="navbar-nav me-auto mb-2 mb-lg-0" style={{ display: 'flex', alignItems: 'center', flex: 1 }}>
             <li className="nav-item">
-              <button type="button" className="btn" onClick={handleAccountClick}>
+              <button id="account" type="button" className="btn" onClick={handleAccountClick}>
                 <AccountCircleIcon style={{ color: "white", fontSize: 40 }} />
               </button>
             </li>
