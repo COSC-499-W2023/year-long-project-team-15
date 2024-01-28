@@ -83,3 +83,55 @@ Goals:
 - Learn React
 
 This week will and I got the new schema setup on our dev branch called "aws-dev-test-josh". Should probably merge that into a dev branch. Other than that I haven't done any programming this week, I've just been taking the time to learn react, how it works, how to route components etc. Will start making some components (features for milestone) this week. Will also start testing the componants as they are being made. I have watched a 6 hour video going through Facebook's docs on react and learned a lot. Ready to start coding this week. Since I didn't code at all there's no git activity to report. 
+
+# Individual Log 13: Mac Vibert (mvibert88)
+
+This week I participated in the following tasks:
+![Mac's tasks week 12](./screenshots/tasks-week13.png)
+
+Goals:
+- Setup apollo client
+- Get friend context funtional 
+- Chatview based on friend context
+- Component tests 
+- e2e testing
+- milestone doc and video
+
+This week was crazy busy. Excuted on a lot of stuff I learned last week. Got the apollo client setup and connected to our graphql so we can query and cache data with on the client. I then setup up a friend context and built the chatview component so it changes to reflect the user you are chatting with. Will and I worked together a lot this week to get tests build for all our components and started the e2e testing. Also spent a lot of time reorgazing files, refactoring and transferring code from Josh's old branch's. Been kinda slow on our implementation because this whole tech stack is new and I've spent a lot of time reading documentation and learning from vieos. I feel like I'm getting the hang of things well now and I'm looking forward to the next term. Will and I also prepared our milstone doc and made our demo video. 
+
+![Mac's github tasks week 12](./screenshots/github-week13.png)
+
+
+# Individual Log T2 W1: Mac Vibert (mvibert88)
+
+This week I participated in the following tasks:
+![Mac's tasks t2 week 1](./screenshots/tasks_t2_week_1.png)
+
+Goals:
+- create and test picture upload form popup
+
+This week I spent a lot of time figuring out how to build a modal and then created one with the picture upload form for our chatview section. I wanted to get the automated component tests up for these new components but I had some bundler issues that I spent hours trying to resolve and couldn't fix with cypress so I wasn't able to write and compile my tests so I just tested my features manually ad reported results on a spreadsheet. Hopefully can resolve this cypress issues this coming week so we can keep automating our testing process. 
+
+![Mac's github tasks t2 week 1](./screenshots/mac-github-t2week1.png) 
+
+#### My test report for my new popup feature 
+
+![Mac's manual tests t2 week 1](./screenshots/t2_week1_manual_tests.png) 
+
+# Individual Log T2 W2: Mac Vibert (mvibert88)
+
+Goals:
+- fix cypress
+- Get files uploading to aws s3 bucket
+
+
+Tasks: 
+
+![Mac's tasks t2 week 2](./screenshots/tasks_t2_week_2.png)
+
+This week I started by trying to fix our cypress suite. Since will refactored a bunch of stuff which would change a lot of our component test files I decided that we should refactor everything and reconfigure all our component tests. The end to end test scripts will remain the same so we can reuse those. This coming week once everything is refactored properly and we're happy I'll redo the automated component testing. 
+
+This week I battled with file uploads for way longer than I should have. The documentation on the Amplify Dev Center website regarding storage is not up to date. I expected it to be so I struggled trying to use the packages used in the docs for HOURS. Lots of investigation led me to discorver that the uploadData function they tell you to use is deprocated and that's the reason I had so many package errors and API call errors when tryin to compile my code. Once I switch to the up to date method which was hard to find and not in their official docs for some reason, I got it to work. Now files are sent to our aws s3 bucket so we can start setting up recognition. This was super frustrating and took way too much time but it felt good when things started working. Next week I'll start setting up a lambda function to grab the photos from our bucket and run them through recognition for face blurring. 
+
+#### Maunal test for file upload
+![Mac's manual tests t2 week 1](./screenshots/manual_tests_t2week2.png) 

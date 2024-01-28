@@ -8,7 +8,7 @@ import Button from '../components/Button.js';
 import FriendContext from '../context/FriendContext.js';
 
 
-const Sidebar = () => {
+const Sidebar = ({ testFilteredFriends }) => {
   const [searchTerm, setSearchTerm] = useState('');
   const [friendsData, setFriendsData] = useState([]);
 
@@ -92,9 +92,13 @@ const Sidebar = () => {
 //     }
 //   };
 
-  const filteredFriends = friendsData.filter(friend =>
-    friend.name.toLowerCase().includes(searchTerm.toLowerCase())
-  );
+  const filteredFriends = testFilteredFriends 
+  ? testFilteredFriends.filter(friend =>
+      friend.name.toLowerCase().includes(searchTerm.toLowerCase())
+    )
+  : friendsData.filter(friend =>
+      friend.name.toLowerCase().includes(searchTerm.toLowerCase())
+    );
 
   const handleSearchChange = (event) => {
     setSearchTerm(event.target.value);
@@ -109,7 +113,7 @@ const Sidebar = () => {
 
   return (
     <div className="col-3 col-auto overflow-y-auto bg-body-secondary d-flex flex-column" > {/* Flex container */}
-      <form className="d-flex" role="search" style={{ padding: "0.5em" }}>
+      <form id="search-bar" className="d-flex" role="search" style={{ padding: "0.5em" }}>
         <input 
           className="form-control me-2" 
           type="search" 
@@ -121,16 +125,16 @@ const Sidebar = () => {
       </form>
       <List>
         {filteredFriends.map(friend => (
-          <ListItemButton key={friend.id} onClick={() => handleFriendClick(friend)}>
-            <ListItemText primary={friend.name} />
+          <ListItemButton   key={friend.id} onClick={() => handleFriendClick(friend)}>
+            <ListItemText data-testid={`friend-${friend.id}`} primary={friend.name} />
           </ListItemButton>
         ))}
       </List>
       <div className="mt-auto p-2"> {/* Logout button pushed to bottom */}
         <Button
-          label="LogOut"
+          label="Log Out"
           onClick={handleSignOut}
-          className="btn btn-secondary"
+          className="btn btn-secondary custom-button"
         />
       </div>
     </div>
