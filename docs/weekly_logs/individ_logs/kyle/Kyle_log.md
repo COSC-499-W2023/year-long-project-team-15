@@ -227,3 +227,39 @@ The completed tasks do not have an associated screenshot this week since they in
 * Plan project goals for this semester and divide up the tasks.
 ![Screenshot 2024-01-14 230240](https://github.com/COSC-499-W2023/year-long-project-team-15/assets/122824873/a29199d4-fc33-436a-ad3d-717d92afe39e)
 
+# Individual Log: Kyle Keim (kyle-keim)(SN:46335485)
+## Jan.15th - Jan.28th 2024 / Week 3
+### Peer Review Tasks
+![Screenshot 2024-01-28 212413](https://github.com/COSC-499-W2023/year-long-project-team-15/assets/122824873/a5b50f04-2e54-44a5-b1fb-5fd0cbeb2691)
+
+
+
+
+
+
+
+
+## Previous Goals:
+* Reveiw UI design and coding future components and feature development.
+* Work on test implementation for react componenets using Cypress.
+* Continuing coding/learning for AWS DynamoDB, Cognito, Amplify functionality.
+* Fixing queries of account settings panel and adding an update friends panel within it.
+
+## Tasks Completed
+* Reveiw/Update UI design and coding future components and feature development.
+* Continuing documentation of coding for AWS DynamoDB, Cognito, Amplify and updating new AWS documentation.
+* Fixing the queries for the friends list and data uploading.
+  
+## Tasks In-Progress
+* Continue updating UI design and coding future components and feature development.
+* Continue working on test implementation for react componenets using Cypress.
+* Continuing coding for AWS DynamoDB, Cognito, Amplify functionality.
+* implement mp4 uploading, cognito functionality, and video blurring. 
+* Testing and reporting of several UI components.
+* Wrting Heuristic tasks for others to try during our peer evaluation.
+![Screenshot 2024-01-28 212837](https://github.com/COSC-499-W2023/year-long-project-team-15/assets/122824873/56f76f40-380f-41c8-8759-d5fbcb53dbf1)
+
+## General Notes
+Me and Saksham did pair programming this week to get the account page and friend list functionalites working and succesfully merged with each other so
+that they were operational for the heuristic evaulations next week. We merged together a few branches this week that have been seperate for awhile so
+we managed to fix the merge conflicts and get a MVP ready. Currently wrting a set of heuristics for peer evaluations next week.
