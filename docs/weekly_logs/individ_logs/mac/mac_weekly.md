@@ -135,3 +135,16 @@ This week I battled with file uploads for way longer than I should have. The doc
 
 #### Maunal test for file upload
 ![Mac's manual tests t2 week 1](./screenshots/manual_tests_t2week2.png) 
+
+
+# Individual Log T2 W3: Mac Vibert (mvibert88)
+
+Goals:
+- merge feature branches to one branch for development
+- Start setting up face blurring functionality
+
+Tasks: 
+
+![Mac's tasks t2 week 2](./screenshots/task_t2_week_3.png)
+
+This week was pretty slow for me. Was working on AWS console trying to get a lambda trigger setup to run a serverless face blurring function. Did not get very far as there is not a whole lot of documentation on how to implement this with an amplify based application. Unfortunately not super productive but will put in a good effort next week. 
