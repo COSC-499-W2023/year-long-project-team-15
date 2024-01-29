@@ -121,3 +121,21 @@ Here are the screenshots of code compilation/issues!
 ![Issues](./screenshots/T2_week2_issue2.png)
 ![Issues](./screenshots/T2_week2_issue1.png)
 
+## Term 2 Week 2 (Jan 21st - Jan 28st)
+
+This week I participated in the following tasks:
+![Saksham's tasks t2 week 1](./screenshots/T2_week3_task.png)
+
+Goals:
+
+- Sending Friend Request feature works
+- New Modal named as AddFriendModal.js added for popup window
+- Changed UI for better user interaction for Sending Friend Request Feature
+- Solved Configuration issues.
+
+Upcoming Week:
+
+- Work on the project and look for exception or error cases in order to have a smooth running project for Peer-testing. Help the team with any other possible feature that needs to be implemented before peer testing.
+- Work on the UI.
+
+
