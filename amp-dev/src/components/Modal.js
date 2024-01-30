@@ -4,6 +4,7 @@ import React from 'react';
 const Modal = ({ show, onClose, children }) => {
     const displayStyle = show ? { display: 'block' } : { display: 'none' };
   
+    
     return (
       <>
       {show && <div className="modal-blur"></div>}
