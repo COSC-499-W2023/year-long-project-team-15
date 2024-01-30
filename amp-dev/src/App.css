@@ -96,6 +96,18 @@
   background-color: #063e93;
   border-color: #063e93;
 }
+
+.btn.custom-button-form {
+  background-color: #148dce;
+  border-color: #0d79c7; 
+  padding-right: 1em;
+}
+
+.btn.custom-button-form:hover {
+  background-color: #063e93;
+  border-color: #063e93;
+}
+
 .image-container {
   max-width: 100%; /* Adjust to fit the size of your form */
   max-height: 300px; /* Adjust based on your preference */

@@ -97,12 +97,12 @@ const PictureUploadForm = ({ onClose }) => {
             <Button
               label="Cancel"
               onClick={clearFile}
-              className="btn btn-primary"
+              className="btn btn-secondary custom-button-form"
             />
             <Button
               label="Send"
               onClick={handleSend}
-              className="btn btn-primary"
+              className="btn btn-secondary custom-button-form"
             />
           </div>
          </div>
