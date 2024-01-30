@@ -1,13 +1,13 @@
 import React, { useState, useEffect } from 'react';
-import { API, graphqlOperation } from 'aws-amplify';
-import Auth from '@aws-amplify/auth';
-import { getUser } from '../graphql/queries';
+import { API, Auth, graphqlOperation } from 'aws-amplify';
 import { updateUser } from '../graphql/mutations';
 
 function EditProfileForm({ userId }) {
   const [id, setId] = useState('');
   const [name, setName] = useState('');
   const [email, setEmail] = useState('');
+  const [dateJoined, setDateJoined] = useState('');
+  const [sentFriendRequests, setSentFriendRequests] = useState([]);
   const [errors, setErrors] = useState({});
   const [isLoading, setIsLoading] = useState(true);
   const [showVerifyEmailPopup, setShowVerifyEmailPopup] = useState(false);
@@ -21,6 +21,8 @@ function EditProfileForm({ userId }) {
         setId(authenticatedUser.username);
         setName(authenticatedUser.attributes.name);
         setEmail(authenticatedUser.attributes.email);
+        setDateJoined(authenticatedUser.attributes.dateJoined);
+        setSentFriendRequests(authenticatedUser.attributes.sentFriendRequests || [])
       } catch (error) {
         console.error('Error fetching authenticated user data:', error);
       } finally {
@@ -42,6 +44,10 @@ function EditProfileForm({ userId }) {
     }
 
     try {
+      // Update user in DynamoDB
+      await API.graphql(graphqlOperation(updateUser, { input: { id, email, name, dateJoined} }));
+
+      // Update email in Cognito
       const cognitoUser = await Auth.currentAuthenticatedUser();
       const currentEmail = cognitoUser.attributes.email;
 
@@ -150,26 +156,24 @@ function EditProfileForm({ userId }) {
       </button>
 
       {showVerifyEmailPopup && (
-        <div style={styles.popupContainer}>
+        <div>
           <h4>Verify Email</h4>
           <input
-            style={styles.input}
             type="text"
             placeholder="Verification Code"
             value={verificationCode}
             onChange={(e) => setVerificationCode(e.target.value)}
           />
-          <button style={styles.button} onClick={handleVerifyEmail}>
+          <button onClick={handleVerifyEmail}>
             Verify
           </button>
           {verificationError && (
-            <p style={styles.errorMessage}>{verificationError}</p>
+            <p>{verificationError}</p>
           )}
         </div>
       )}
     </div>
   );
 }
-
 
 export default EditProfileForm;
