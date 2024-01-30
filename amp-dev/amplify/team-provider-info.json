@@ -20,10 +20,17 @@
         "yearlongprojectteam15appampdevPostConfirmation": {
           "deploymentBucketName": "amplify-amplifyc9589bd6de504-staging-204708-deployment",
           "s3Key": "amplify-builds/yearlongprojectteam15appampdevPostConfirmation-565773662f5759555974-build.zip"
+        },
+        "S3Triggera08fbe44": {
+          "deploymentBucketName": "amplify-amplifyc9589bd6de504-staging-204708-deployment",
+          "s3Key": "amplify-builds/S3Triggera08fbe44-4a673477733261687a47-build.zip"
         }
       },
       "storage": {
         "blurvidContent": {}
+      },
+      "api": {
+        "yearlongprojectteam15appampdev": {}
       }
     }
   }
