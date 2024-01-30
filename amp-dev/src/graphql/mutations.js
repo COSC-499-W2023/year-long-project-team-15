@@ -144,7 +144,8 @@ export const createFriendRequest = /* GraphQL */ `
     }
   }
 `;
-export const updateFriendRequest = /* GraphQL */ `
+
+export const updateFriendRequest =  /* GraphQL */ `
   mutation UpdateFriendRequest(
     $input: UpdateFriendRequestInput!
     $condition: ModelFriendRequestConditionInput
@@ -449,16 +450,19 @@ export const deleteVideoMessage = /* GraphQL */ `
   }
 `;
 
-export const acceptFriendRequest = `mutation AcceptFriendRequest($friendRequestId: ID!) {
-  acceptFriendRequest(id: $friendRequestId) {
+export const AcceptFriendRequest =  `mutation AcceptFriendRequest($friendRequestId: ID!) {
+  acceptFriendRequest(input: { id: $friendRequestId, status: "Approved" }) {
     id
+    status
     # other fields you may want to fetch after accepting
   }
 }`;
 
+
 export const declineFriendRequest = `mutation DeclineFriendRequest($friendRequestId: ID!) {
   declineFriendRequest(id: $friendRequestId) {
     id
+    status: Declined
     # other fields you may want to fetch after declining
   }
 }`;

@@ -1,16 +1,17 @@
 import React, { useState, useEffect, useContext } from 'react';
 import client from '../apolloClient';
-import { gql } from '@apollo/client';
+import { gql, useMutation } from '@apollo/client';
 import { List, ListItemButton, ListItemText, TextField, Button as MuiButton } from '@mui/material';
 import { useNavigate } from 'react-router-dom';
-import Auth from '@aws-amplify/auth';
+/*import Auth from '@aws-amplify/auth';*/
+import { Auth } from 'aws-amplify';
 import Button from '../components/Button';
 import AcceptButton from '../components/AcceptButton';
 import DeclineButton from '../components/Button.js';
 import Header from "../containers/Header";
 
 import { API, graphqlOperation } from 'aws-amplify';
-import { createFriendRequest, acceptFriendRequest, declineFriendRequest } from '../graphql/mutations';
+import { createFriendRequest, AcceptFriendRequest, declineFriendRequest,updateFriendRequest } from '../graphql/mutations';
 import { listFriendRequests, friendRequestsBySenderID, friendRequestsByReceiverID, getUser, getFriendRequest, listUsers} from '../graphql/queries';
 import FriendContext from '../context/FriendContext.js';
 import AddFriend from './AddFriend'; 
@@ -28,6 +29,8 @@ const AccountPageSidebar = () => {
   const [declinedFriend, setDeclinedFriend] = useState(null);
   const [currentUserId, setCurrentUserId] = useState(null); // New state variable
   const { setSelectedFriend } = useContext(FriendContext);
+  const [currentUser, setCurrentUser] = useState(null);
+  
 
   useEffect(() => {
     const fetchUserData = async () => {
@@ -50,9 +53,23 @@ const AccountPageSidebar = () => {
         );
   
         setFriendsData(receivedFriends);
+
+          
+        Auth.currentAuthenticatedUser()
+        .then(user => {
+          console.log('Current User:', user);
+          setCurrentUser(user);
+          setCurrentUserId(user.attributes.sub);
+
+          
+        })
+        .catch(err => console.error('Error fetching current user:', err));
+    
+
       } catch (error) {
         console.error("Error fetching user data with Apollo Client", error);
       }
+      
     };
   
     fetchUserData();
@@ -109,35 +126,54 @@ const AccountPageSidebar = () => {
     }
   };
 
+
   const handleAcceptClick = async (friendRequestId) => {
+    console.log('Friend ID:', friendRequestId);
     try {
-      console.log('Accepting friend request:', friendRequestId);
-      await API.graphql({
-        query: acceptFriendRequest,
-        variables: { friendRequestId },
-      });
-      console.log('Friend request accepted successfully!');
+      console.log('Checkpoint 0 reached! Current User Id:', currentUserId);
+      const input = {
+        senderID: friendRequestId,
+        receiverID: currentUserId,
+        status: 'Accepted',
+        //date: new Date().toISOString(),
+      };
+      console.log('Checkpoint 1 reached! Current Data:', input);
+
+      const response = await API.graphql(graphqlOperation(updateFriendRequest, { input,  senderID = friendRequestId && receiverID = currentUserId}));
+
+      if (response.errors && response.errors.length > 0) {
+        // Log GraphQL errors
+        response.errors.forEach(error => {
+          console.error('GraphQL error:', error.message);
+        });
   
-      // Handle success (e.g., update local state, refresh the component)
+      } else {console.log('Checkpoint #2 Reached');}
     } catch (error) {
       console.error('Error accepting friend request:', error);
       // Handle error
     }
   };
+
+
   const handleDeclineClick = async (friendRequestId) => {
-    try {
-      await API.graphql({
-        query: declineFriendRequest,
-        variables: { friendRequestId },
+    console.log('Friend ID:', friendRequestId);
+    /*try {
+      const response = await updateFriendRequestMutation({
+        variables: {
+          input: {
+            id: friendRequestId,
+            status: "Declined",
+          },
+        },
       });
-  
-      // Handle success (e.g., update local state, refresh the component)
+
+      console.log('Friend request accepted successfully!', response.data.updateFriendRequest);
     } catch (error) {
-      console.error('Error declining friend request:', error);
+      console.error('Error accepting friend request:', error);
       // Handle error
     }
-  };
-
+    */
+  }
 
 
   return (
@@ -150,6 +186,7 @@ const AccountPageSidebar = () => {
           <ListItemButton key={friend.id} onClick={() => handleFriendClick(friend)}>
             <ListItemText primary={friend.name} />
             <AcceptButton
+              key={friend.id}
               label="Accept"
               onClick={() => handleAcceptClick(friend.id)}
               className="btn btn-success"
