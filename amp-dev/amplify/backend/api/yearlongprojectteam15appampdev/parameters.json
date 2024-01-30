@@ -1,6 +1,0 @@
-{
-  "AppSyncApiName": "yearlongprojectteam15appampdev",
-  "DynamoDBBillingMode": "PAY_PER_REQUEST",
-  "DynamoDBEnableServerSideEncryption": false,
-  "AuthModeLastUpdated": "2023-11-23T22:41:32.737Z"
-}
