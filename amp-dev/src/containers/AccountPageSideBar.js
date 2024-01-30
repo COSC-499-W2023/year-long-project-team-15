@@ -1,7 +1,7 @@
 import React, { useState, useEffect, useContext } from 'react';
 import client from '../apolloClient';
 import { gql, useMutation } from '@apollo/client';
-import { List, ListItemButton, ListItemText, TextField, Button as MuiButton } from '@mui/material';
+import { List, ListItem, ListItemText, TextField, Button as MuiButton } from '@mui/material';
 import { useNavigate } from 'react-router-dom';
 /*import Auth from '@aws-amplify/auth';*/
 import { Auth } from 'aws-amplify';
@@ -139,7 +139,7 @@ const AccountPageSidebar = () => {
       };
       console.log('Checkpoint 1 reached! Current Data:', input);
 
-      const response = await API.graphql(graphqlOperation(updateFriendRequest, { input,  senderID = friendRequestId && receiverID = currentUserId}));
+     const response = await API.graphql(graphqlOperation(updateFriendRequest, { input }));
 
       if (response.errors && response.errors.length > 0) {
         // Log GraphQL errors
@@ -183,7 +183,7 @@ const AccountPageSidebar = () => {
       </form>
       <List>
         {filteredFriends.map(friend => (
-          <ListItemButton key={friend.id} onClick={() => handleFriendClick(friend)}>
+          <ListItem key={friend.id} onClick={() => handleFriendClick(friend)}>
             <ListItemText primary={friend.name} />
             <AcceptButton
               key={friend.id}
@@ -196,7 +196,7 @@ const AccountPageSidebar = () => {
               onClick={() => handleDeclineClick(friend.id)}
               className="btn btn-danger"
             />
-          </ListItemButton>
+          </ListItem>
         ))}
       </List>
 
