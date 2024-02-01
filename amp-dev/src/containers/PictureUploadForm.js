@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import Button from '../components/Button';
 import { Storage } from 'aws-amplify';
+import { v4 as uuidv4 } from 'uuid';
 
 const PictureUploadForm = ({ onClose }) => {
   const [selectedFile, setSelectedFile] = useState(null);
@@ -30,16 +31,18 @@ const PictureUploadForm = ({ onClose }) => {
       alert('Please select a file to upload.');
       return;
     }
+    const uniqueKey = uuidv4(); // Ensure you've imported uuid at the top of your file
+    const uniqueFileName = `${uniqueKey}-${selectedFile.name}`;
 
-    console.log('Uploading file:', selectedFile.name);
+    console.log('Uploading file:', uniqueFileName);
     setIsLoading(true); // Start loading
 
     try {
-      const result = await Storage.put(selectedFile.name, selectedFile, {
+      const result = await Storage.put(uniqueFileName, selectedFile, {
         // options here
       });
       console.log('Succeeded:', result);
-      startPollingForProcessedImage(selectedFile.name);
+      startPollingForProcessedImage(uniqueFileName);
     } catch (error) {
       console.log('Error:', error);
     }
