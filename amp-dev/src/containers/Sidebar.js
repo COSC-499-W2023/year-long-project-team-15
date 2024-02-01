@@ -53,7 +53,7 @@ const Sidebar = ({ testFilteredFriends }) => {
       client.query({
         query: gql(getUser),
         variables: { id: friendId },
-        fetchPolicy: 'network-only'
+        fetchPolicy: 'cache-first'
       })
     );
   

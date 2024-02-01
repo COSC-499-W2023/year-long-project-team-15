@@ -11,6 +11,7 @@ const Header = () => {
   useEffect(() => {
     const fetchUserData = async () => {
       try {
+        setName("Name");
         const authenticatedUser = await Auth.currentAuthenticatedUser();
         setName(authenticatedUser.attributes.name);
       } catch (error) {
