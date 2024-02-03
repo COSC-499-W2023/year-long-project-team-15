@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { API, Auth, graphqlOperation } from 'aws-amplify';
 import { updateUser } from '../graphql/mutations';
+import AcceptButton from '../components/AcceptButton';
 
 function EditProfileForm({ userId }) {
   const [id, setId] = useState('');
@@ -151,9 +152,7 @@ function EditProfileForm({ userId }) {
         {errors.email && <p style={styles.errorMessage}>{errors.email}</p>}
       </label>
 
-      <button style={styles.button} onClick={handleUpdateProfile}>
-        Update Profile
-      </button>
+      <AcceptButton label = "Update Profile" onClick={handleUpdateProfile}/>
 
       {showVerifyEmailPopup && (
         <div>

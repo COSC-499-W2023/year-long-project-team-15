@@ -2,7 +2,7 @@ import React from 'react';
 
 const AcceptButton = ({ onClick, label, className, type }) => {
   return (
-    <button onClick={onClick} className={`btn btn-success ${className}`} type={type}>
+    <button onClick={onClick} className={`btn btn-primary ${className}`} type={type}>
       {label}
     </button>
   );

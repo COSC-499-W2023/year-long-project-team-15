@@ -108,6 +108,10 @@
   border-color: #063e93;
 }
 
+.btn {
+  margin: 0.2em;
+}
+
 .image-container {
   max-width: 100%; /* Adjust to fit the size of your form */
   max-height: 300px; /* Adjust based on your preference */
