@@ -1,233 +1,76 @@
-import React, { useState, useEffect, useContext } from 'react';
-import client from '../apolloClient';
-import { gql, useMutation } from '@apollo/client';
-import { List, ListItem, ListItemText, TextField, Button as MuiButton } from '@mui/material';
-import { useNavigate } from 'react-router-dom';
-/*import Auth from '@aws-amplify/auth';*/
-import Auth from '@aws-amplify/auth';
+import React, { useState, useContext, useEffect } from 'react';
+import { useCurrentUser } from '../hooks/useCurrentUser';
+import { useFriendRequests } from '../hooks/useFriendRequests';
+import { List, ListItem, ListItemText } from '@mui/material';
 import Button from '../components/Button';
-import AcceptButton from '../components/AcceptButton';
-import DeclineButton from '../components/Button.js';
-import { updateFriendRequest } from '../graphql/mutations';
-import { friendRequestsByReceiverID, getUser } from '../graphql/queries';
-import FriendContext from '../context/FriendContext.js';
-import AddFriend from './AddFriend'; 
-import Modal from '../components/AddFriendModal.js'; 
+import AcceptButton from '../components/AcceptButton'; // Assuming distinct components
+import DeclineButton from '../components/DeclineButton'; // Assuming distinct components
+import FriendContext from '../context/FriendContext';
+import Modal from '../components/AddFriendModal';
+import { signOut } from '../services/AuthService';
+import AddFriend from '../containers/AddFriend';
 
 const AccountPageSidebar = () => {
-  const navigate = useNavigate();
   const [showAddFriend, setShowAddFriend] = useState(false);
-  const [showFriendRequests, setShowFriendRequests] = useState(false);
-  const [searchResults, setSearchResults] = useState(null);
-  const [searchMessage, setSearchMessage] = useState('');
-  const [searchTerm, setSearchTerm] = useState('');
-  const [friendsData, setFriendsData] = useState([]);
-  const [acceptedFriend, setAcceptedFriend] = useState(null);
-  const [declinedFriend, setDeclinedFriend] = useState(null);
-  const [currentUserId, setCurrentUserId] = useState(null); // New state variable
   const { setSelectedFriend } = useContext(FriendContext);
-  const [currentUser, setCurrentUser] = useState(null);
-  const [updateRequest, { data, loading, error }] = useMutation(gql(updateFriendRequest));
-  
+  const { currentUserId } = useCurrentUser();
+  const { friendsData, fetchFriendRequests, updateFriendRequestStatus } = useFriendRequests(currentUserId);
 
-
-  useEffect(() => {
-    const fetchUserData = async () => {
-      try {
-
-        const authenticatedUser = await Auth.currentAuthenticatedUser();
-        const user = authenticatedUser.attributes.sub;
-        setCurrentUserId(authenticatedUser.attributes.sub);
-
-        console.log("current user ID:", user);
-
-
-        const friendRequestsResponse = await client.query({
-          query: gql(friendRequestsByReceiverID),
-          variables: {
-            receiverID: user,
-            filter: { status: { eq: "Pending" }}
-            
-          }
-        });
-
-        const friendRequests = friendRequestsResponse.data.friendRequestsByReceiverID.items;
-  
-        // Now you have a list of all pending friend requests
-        console.log("Friend Requests:", friendRequests);
-  
-        const receivedFriends = await processFriendRequests(
-          friendRequests
-        );
-  
-        setFriendsData(receivedFriends);
-
-      } catch (error) {
-        console.error("Error fetching user data with Apollo Client", error);
-      }
-      
-    };
-  
-    fetchUserData();
-  }, []);
-  
-  
-  const processFriendRequests = async (receivedRequests) => {
-    const friendIds = new Set(
-      receivedRequests
-        .map(request => request.senderID)
-    );
-
-    const friendDetailsPromises = Array.from(friendIds).map(friendId =>
-      client.query({
-        query: gql(getUser),
-        variables: { id: friendId }
-        
-      })
-    );
-
-    try {
-      const friendDetailsResponses = await Promise.all(friendDetailsPromises);
-      return friendDetailsResponses.map(response => response.data.getUser);
-    } catch (error) {
-      console.error("Error fetching friend details:", error);
-      return [];
-    }
-  };
-
-
-  const handleFriendClick = (friend) => {
+  const handleFriendClick = friend => {
     setSelectedFriend(friend);
   };
 
   const handleAddFriendClick = () => {
     setShowAddFriend(true);
-    setSearchMessage('');
-    setSearchResults(null);
   };
 
   const handleSignOut = async () => {
     try {
-      await Auth.signOut();
+      await signOut();
     } catch (error) {
       console.error("Error signing out:", error);
+      
     }
   };
 
-  const fetchFriendRequestId = async (senderId, receiverId) => {
-    try {
-      const response = await client.query({
-        query: gql(friendRequestsByReceiverID),
-        variables: {
-          receiverID: receiverId,
-          filter: { senderID: { eq: senderId }, status: { eq: "Pending" } },
-        },
-        fetchPolicy: 'network-only'
-      });
-  
-      const friendRequests = response.data.friendRequestsByReceiverID.items;
-      if (friendRequests.length > 0) {
-        // Assuming the first match is the correct one
-        return friendRequests[0].id;
-      }
-    } catch (error) {
-      console.error("Error fetching friend request ID:", error);
+  // Fetch friend requests on component mount and when currentUserId changes
+  useEffect(() => {
+    console.log("current user:", currentUserId);
+    if (currentUserId) {
+     
+      fetchFriendRequests();
     }
-    return null; // Return null if no matching friend request or on error
-  };
-  
-  const handleUpdateFriendRequest = async (senderId, status) => {
-    const friendRequestId = await fetchFriendRequestId(senderId, currentUserId);
-    if (friendRequestId) {
-      await updateFriendRequestStatus(friendRequestId, status, senderId);
-  
-      // Update the friendsData state to remove the accepted/declined request
-      const updatedFriendsData = friendsData.filter(request => request.senderID !== senderId);
-      setFriendsData(updatedFriendsData);
-    
-    } else {
-      console.log(`No matching friend request found for ${status.toLowerCase()}.`);
-    }
-  };
+  }, [currentUserId, fetchFriendRequests]);
 
-  const updateFriendRequestStatus = async (friendRequestId, status, senderId) => {
-    try {
-      const input = { id: friendRequestId, status: status };
-      const condition = {
-        senderID: { eq: senderId },
-        receiverID: { eq: currentUserId }
-      };
-  
-      await updateRequest({
-        variables: { input, condition },
-        refetchQueries: [{ query: gql(friendRequestsByReceiverID), variables: { receiverID: currentUserId, filter: { status: { eq: "Pending" } } } }]
-      });
-  
-      console.log(`Friend request ${status.toLowerCase()} successfully.`);
-    } catch (error) {
-      console.error(`Error updating friend request to ${status}:`, error);
-    }
-  };
-  
   return (
     <div className="col-3 col-auto overflow-y-auto bg-body-secondary d-flex flex-column">
-      <form className="d-flex" role="search" style={{ padding: "0.5em" }}>
-        <h2> Friend Requests</h2>
-      </form>
+      <h2> Friend Requests</h2>
       <List>
-        {friendsData.filter(friend => friend.name.toLowerCase().includes(searchTerm.toLowerCase()))
-          .map(friend => (
+        {friendsData.map(friend => (
           <ListItem key={friend.id} onClick={() => handleFriendClick(friend)}>
             <ListItemText primary={friend.name} />
             <AcceptButton
-              key={friend.id}
               label="Accept"
-              onClick={() => handleUpdateFriendRequest(friend.id, "Accepted")}
-              className="btn btn-success"
+              onClick={() => updateFriendRequestStatus(friend.friendRequestId, "Accepted")}
             />
             <DeclineButton
               label="Decline"
-              onClick={() => handleUpdateFriendRequest(friend.id, "Declined")}
-              className="btn btn-danger"
+              onClick={() => updateFriendRequestStatus(friend.friendRequestId, "Declined")}
             />
           </ListItem>
         ))}
       </List>
-
-      {acceptedFriend && (
-        <div className="popup-message">
-          You added {acceptedFriend}!
-        </div>
-      )}
-
-      {declinedFriend && (
-        <div className="popup-message">
-          You declined {declinedFriend}'s request!
-        </div>
-      )}
-
       <div className="mt-auto p-2">
-        <Button
-          label="Add Friend"
-          onClick={handleAddFriendClick}
-          className="btn btn-secondary"
-        />
+        <Button label="Add Friend" onClick={handleAddFriendClick} />
       </div>
       <div className="mt-auto p-2">
-        <Button
-          label="LogOut"
-          onClick={handleSignOut}
-          className="btn btn-secondary"
-        />
+        <Button label="LogOut" onClick={handleSignOut} />
       </div>
       <Modal show={showAddFriend} onClose={() => setShowAddFriend(false)}>
         <AddFriend />
       </Modal>
     </div>
   );
-}
+};
 
 export default AccountPageSidebar;
-
-
-

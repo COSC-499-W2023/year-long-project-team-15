@@ -3,7 +3,7 @@ import { API, graphqlOperation } from 'aws-amplify';
 import { Auth } from 'aws-amplify';
 import { listUsers } from '../graphql/queries';
 import { createFriendRequest } from '../graphql/mutations';
-import Button from '../components/Button'; 
+
 
 const AddFriend = () => {
   const [users, setUsers] = useState([]);
