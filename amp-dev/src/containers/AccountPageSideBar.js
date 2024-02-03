@@ -51,7 +51,7 @@ const AccountPageSidebar = () => {
         ))}
       </List>
       <div className="mt-auto p-2">
-        <Button label="Add Friend" onClick={handleAddFriendClick} />
+        <AcceptButton label="Add Friend" onClick={handleAddFriendClick} />
       </div>
       <Modal show={showAddFriend} onClose={() => setShowAddFriend(false)}>
         <AddFriend />

@@ -3,6 +3,7 @@ import { API, graphqlOperation } from 'aws-amplify';
 import { Auth } from 'aws-amplify';
 import { listUsers } from '../graphql/queries';
 import { createFriendRequest } from '../graphql/mutations';
+import AcceptButton from '../components/AcceptButton';
 
 
 const AddFriend = () => {
@@ -108,13 +109,11 @@ const AddFriend = () => {
         .map(user => (
         <li key={user.id}>
         {user.name} ({user.email})
-        <button
-        style={styles.SearchButton}
+        <AcceptButton
+        label = "Add Contact"
         onClick={() => setSelectedUserId(user.id)}
-        className="btn btn-secondary"
-      >
-        Add Contact
-      </button>
+        />
+      
     </li>
   ))}
 
