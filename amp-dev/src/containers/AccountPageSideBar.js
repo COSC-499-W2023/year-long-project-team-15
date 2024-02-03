@@ -3,11 +3,10 @@ import { useCurrentUser } from '../hooks/useCurrentUser';
 import { useFriendRequests } from '../hooks/useFriendRequests';
 import { List, ListItem, ListItemText } from '@mui/material';
 import Button from '../components/Button';
-import AcceptButton from '../components/AcceptButton'; // Assuming distinct components
-import DeclineButton from '../components/DeclineButton'; // Assuming distinct components
+import AcceptButton from '../components/AcceptButton'; 
+import DeclineButton from '../components/DeclineButton';
 import FriendContext from '../context/FriendContext';
 import Modal from '../components/AddFriendModal';
-import { signOut } from '../services/AuthService';
 import AddFriend from '../containers/AddFriend';
 
 const AccountPageSidebar = () => {
@@ -22,15 +21,6 @@ const AccountPageSidebar = () => {
 
   const handleAddFriendClick = () => {
     setShowAddFriend(true);
-  };
-
-  const handleSignOut = async () => {
-    try {
-      await signOut();
-    } catch (error) {
-      console.error("Error signing out:", error);
-      
-    }
   };
 
   // Fetch friend requests on component mount and when currentUserId changes
@@ -62,9 +52,6 @@ const AccountPageSidebar = () => {
       </List>
       <div className="mt-auto p-2">
         <Button label="Add Friend" onClick={handleAddFriendClick} />
-      </div>
-      <div className="mt-auto p-2">
-        <Button label="LogOut" onClick={handleSignOut} />
       </div>
       <Modal show={showAddFriend} onClose={() => setShowAddFriend(false)}>
         <AddFriend />

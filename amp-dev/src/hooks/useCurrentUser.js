@@ -4,6 +4,7 @@ import * as AuthService from '../services/AuthService';
 
 export const useCurrentUser = () => {
   const [currentUserId, setCurrentUserId] = useState(null);
+  const [currentUserName, setCurrentUserName] = useState(null);
   const [isLoading, setIsLoading] = useState(true);
 
   useEffect(() => {
@@ -11,6 +12,8 @@ export const useCurrentUser = () => {
       try {
         const userId = await AuthService.getAuthenticatedUserId();
         setCurrentUserId(userId);
+        const userName = await AuthService.getAuthenticatedUserName();
+        setCurrentUserName(userName);
       } catch (error) {
         console.error("Error fetching current user:", error);
       } finally {
@@ -21,5 +24,5 @@ export const useCurrentUser = () => {
     fetchCurrentUser();
   }, []);
 
-  return { currentUserId, isLoading };
+  return { currentUserId, currentUserName, isLoading };
 };
