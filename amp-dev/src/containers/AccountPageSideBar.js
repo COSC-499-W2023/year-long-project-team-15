@@ -8,11 +8,8 @@ import Auth from '@aws-amplify/auth';
 import Button from '../components/Button';
 import AcceptButton from '../components/AcceptButton';
 import DeclineButton from '../components/Button.js';
-import Header from "../containers/Header";
-
-import { API, graphqlOperation } from 'aws-amplify';
-import { createFriendRequest, AcceptFriendRequest, declineFriendRequest,updateFriendRequest } from '../graphql/mutations';
-import { listFriendRequests, friendRequestsBySenderID, friendRequestsByReceiverID, getUser, getFriendRequest, listUsers} from '../graphql/queries';
+import { updateFriendRequest } from '../graphql/mutations';
+import { friendRequestsByReceiverID, getUser } from '../graphql/queries';
 import FriendContext from '../context/FriendContext.js';
 import AddFriend from './AddFriend'; 
 import Modal from '../components/AddFriendModal.js'; 
@@ -31,6 +28,7 @@ const AccountPageSidebar = () => {
   const { setSelectedFriend } = useContext(FriendContext);
   const [currentUser, setCurrentUser] = useState(null);
   const [updateRequest, { data, loading, error }] = useMutation(gql(updateFriendRequest));
+  
 
 
   useEffect(() => {
@@ -146,6 +144,7 @@ const AccountPageSidebar = () => {
       // Update the friendsData state to remove the accepted/declined request
       const updatedFriendsData = friendsData.filter(request => request.senderID !== senderId);
       setFriendsData(updatedFriendsData);
+    
     } else {
       console.log(`No matching friend request found for ${status.toLowerCase()}.`);
     }
@@ -170,9 +169,6 @@ const AccountPageSidebar = () => {
     }
   };
   
-  
-  
-
   return (
     <div className="col-3 col-auto overflow-y-auto bg-body-secondary d-flex flex-column">
       <form className="d-flex" role="search" style={{ padding: "0.5em" }}>

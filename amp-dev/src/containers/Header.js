@@ -46,7 +46,7 @@ const Header = () => {
               <a className="nav-link" aria-disabled="true" style={{ color: "white" }}>{name}</a>
             </li>
           </ul>
-          <button type="button" class="btn bg-dark" onClick={handleMainClick}>
+          <button type="button" className="btn bg-dark" onClick={handleMainClick}>
             <h2 style={{ 
               color: "white", 
               display: 'flex', 
