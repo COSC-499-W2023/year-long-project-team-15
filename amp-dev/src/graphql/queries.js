@@ -125,6 +125,34 @@ export const listFriendRequests = /* GraphQL */ `
     }
   }
 `;
+export const GetPotentialFriendsRequests = /* GraphQL */ `
+query GetPotentialFriendsRequests($currentUserId: ID!) {
+  sentRequests: listFriendRequests(filter: { senderID: { eq: $currentUserId }, status_in: ["Pending", "Accepted"] }) {
+    items {
+      id
+      receiverID
+      status
+      date
+      receiver {
+        id
+        name
+      }
+    }
+  }
+  receivedRequests: listFriendRequests(filter: { receiverID: { eq: $currentUserId }, status_in: ["Pending", "Accepted"] }) {
+    items {
+      id
+      senderID
+      status
+      date
+      sender {
+        id
+        name
+      }
+    }
+  }
+}
+`;
 export const friendRequestsBySenderID = /* GraphQL */ `
   query FriendRequestsBySenderID(
     $senderID: ID!

@@ -1,139 +1,107 @@
 import React, { useState, useEffect } from 'react';
-import { API, graphqlOperation } from 'aws-amplify';
-import { Auth } from 'aws-amplify';
-import { listUsers } from '../graphql/queries';
+import client from '../apolloClient';
+import { gql } from '@apollo/client';
+import { listFriendRequests, listUsers } from '../graphql/queries'; 
 import { createFriendRequest } from '../graphql/mutations';
+import SearchBar from '../components/SearchBar';
+import { useCurrentUser } from '../hooks/useCurrentUser';
 import AcceptButton from '../components/AcceptButton';
-
+import { ListItem } from '@mui/material';
 
 const AddFriend = () => {
+  const { currentUserId } = useCurrentUser();
+  const [searchTerm, setSearchTerm] = useState('');
   const [users, setUsers] = useState([]);
-  const [message, setMessage] = useState('');
-  const [currentUser, setCurrentUser] = useState(null);
-  const [selectedUserId, setSelectedUserId] = useState(null);
+  const [potentialFriends, setPotentialFriends] = useState([]);
 
   useEffect(() => {
-    Auth.currentAuthenticatedUser()
-      .then(user => {
-        console.log('Current User:', user);
-        setCurrentUser(user);
-        fetchUsers();
-      })
-      .catch(err => console.error('Error fetching current user:', err));
-  }, []);
+    const fetchUsers = async () => {
+      const { data } = await client.query({
+        query: gql(listUsers),
+        fetchPolicy: 'network-only' 
+      });
+      setUsers(data.listUsers.items);
+    };
 
-  const fetchUsers = async () => {
-    try {
-      const userData = await API.graphql(graphqlOperation(listUsers));
-      setUsers(userData.data.listUsers.items);
-    } catch (error) {
-      console.error('Error fetching users:', error);
+
+    const fetchFriendRequests = async (currentUserId) => {
+      // Fetch sent friend requests
+      const { data: sentRequestsData } = await client.query({
+        query: gql(listFriendRequests),
+        variables: { filter: { senderID: { eq: currentUserId } } },
+        fetchPolicy: 'network-only',
+      });
+    
+      // Fetch received friend requests
+      const { data: receivedRequestsData } = await client.query({
+        query: gql(listFriendRequests),
+        variables: { filter: { receiverID: { eq: currentUserId } } },
+        fetchPolicy: 'network-only',
+      });
+    
+      // Combine the results
+      const combinedRequests = [
+        ...sentRequestsData.listFriendRequests.items,
+        ...receivedRequestsData.listFriendRequests.items,
+      ];
+      return combinedRequests;
+    };
+
+    const filterPotentialFriends = async () => {
+      const friendRequests = await fetchFriendRequests();
+      const friendIds = new Set(friendRequests.flatMap(req => [req.senderID, req.receiverID]));
+      fetchUsers().then(() => {
+        setPotentialFriends(users.filter(user => !friendIds.has(user.id) && user.id !== currentUserId));
+      });
+    };
+
+    if (currentUserId) {
+      filterPotentialFriends();
     }
+  }, [currentUserId, users]);
+
+  const handleSearchChange = (e) => {
+    setSearchTerm(e.target.value);
   };
 
-  const handleSendFriendRequest = async () => {
-    if (!selectedUserId || !currentUser || !currentUser.attributes) {
-      console.error('Invalid user or user attributes.');
-      setMessage('Error in sending friend request. Invalid user or user attributes.');
-      return;
-    }
-  
+  const handleSendFriendRequest = async (receiverID) => {
     try {
-      const input = {
-        senderID: currentUser.attributes.sub,
-        receiverID: selectedUserId,
-        status: 'Pending',
-        date: new Date().toISOString(),
-      };
-  
-      console.log('Sending friend request with input:', input);
-  
-      const result = await API.graphql(graphqlOperation(createFriendRequest, { input }));
-  
-      if (result.errors && result.errors.length > 0) {
-        // Log GraphQL errors
-        result.errors.forEach(error => {
-          console.error('GraphQL error:', error.message);
-        });
-  
-        setMessage('Error in sending friend request. Check console for details.');
-      } else {
-        // Check if the friend request was created successfully
-        const friendRequest = result.data.createFriendRequest;
-        if (friendRequest) {
-          console.log('Friend request result:', friendRequest);
-          setMessage('Friend request sent!');
-        } else {
-          console.error('Error creating friend request. Check console for details.');
-          setMessage('Error in sending friend request. Check console for details.');
+      await client.mutate({
+        mutation: gql(createFriendRequest),
+        variables: {
+          input: {
+            senderID: currentUserId,
+            receiverID: receiverID,
+            status: 'Pending',
+            date: new Date().toISOString(),
+          }
         }
-      }
+      });
+      alert('Friend request sent!');
+
+      setPotentialFriends(potentialFriends.filter(user => user.id !== receiverID));
+     
+      
     } catch (error) {
       console.error('Error sending friend request:', error);
-      setMessage(`Error in sending friend request: ${error.message}`);
     }
   };
-  
-  
-  const styles = {
-    SearchButton: {
-      backgroundColor: '#55c2da',
-      color: 'black',
-      border: 'none',
-      padding: '0.1px 0.1px',
-      borderRadius: '5px',
-      cursor: 'pointer',
-      marginLeft: '8px',
-    },
-    SendRequestButton: {
-        backgroundColor: '#28a745',
-        color: 'white',
-        border: 'none',
-        padding: '1px 1px',
-        borderRadius: '3px',
-        cursor: 'pointer',
-        marginLeft: '8px',
-        float: 'right'
-      },
-    ListContainer: {
-      maxHeight: '300px', // Set a maximum height for the list container
-      overflowY: 'auto',  // Make the container scrollable
-    },
-  };
+
+  const filteredUsers = potentialFriends.filter(user => user.name.toLowerCase().includes(searchTerm.toLowerCase()));
 
   return (
     <div>
-      <ul style={styles.ListContainer}>
-      {users
-        .filter(user => user.id !== currentUser.attributes.sub) // Exclude the current user
-        .map(user => (
-        <li key={user.id}>
-        {user.name} ({user.email})
-        <AcceptButton
-        label = "Add Contact"
-        onClick={() => setSelectedUserId(user.id)}
-        />
-      
-    </li>
-  ))}
-
+      <SearchBar searchTerm={searchTerm} onSearchChange={handleSearchChange} />
+      <ul>
+        {filteredUsers.map(user => (
+          <ListItem key={user.id}>
+            {user.name}
+            <AcceptButton onClick={() => handleSendFriendRequest(user.id)} label = "Add Contact"/>
+          </ListItem>
+        ))}
       </ul>
-      {selectedUserId && (
-        <button
-          style={styles.SendRequestButton}
-          onClick={handleSendFriendRequest}
-          className="btn btn-secondary"
-        >
-          Send Friend Request to {users.find(user => user.id === selectedUserId)?.name}
-        </button>
-      )}
-      {message && <p>{message}</p>}
     </div>
   );
-}
+};
 
 export default AddFriend;
-
-
-
-

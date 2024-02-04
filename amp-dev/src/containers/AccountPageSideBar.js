@@ -2,11 +2,10 @@ import React, { useState, useContext, useEffect } from 'react';
 import { useCurrentUser } from '../hooks/useCurrentUser';
 import { useFriendRequests } from '../hooks/useFriendRequests';
 import { List, ListItem, ListItemText } from '@mui/material';
-import Button from '../components/Button';
 import AcceptButton from '../components/AcceptButton'; 
 import DeclineButton from '../components/DeclineButton';
 import FriendContext from '../context/FriendContext';
-import Modal from '../components/AddFriendModal';
+import Modal from '../components/Modal';
 import AddFriend from '../containers/AddFriend';
 
 const AccountPageSidebar = () => {
@@ -34,7 +33,7 @@ const AccountPageSidebar = () => {
 
   return (
     <div className="col-3 col-auto overflow-y-auto bg-body-secondary d-flex flex-column">
-      <h2> Friend Requests</h2>
+      <h2>  Friend Requests</h2>
       <List>
         {friendsData.map(friend => (
           <ListItem key={friend.id} onClick={() => handleFriendClick(friend)}>
@@ -53,11 +52,14 @@ const AccountPageSidebar = () => {
       <div className="mt-auto p-2">
         <AcceptButton label="Add Friend" onClick={handleAddFriendClick} />
       </div>
-      <Modal show={showAddFriend} onClose={() => setShowAddFriend(false)}>
+      <Modal show={showAddFriend} onClose={() => setShowAddFriend(false)} modalName = "Add Contact">
         <AddFriend />
       </Modal>
+      
     </div>
   );
 };
+
+
 
 export default AccountPageSidebar;
