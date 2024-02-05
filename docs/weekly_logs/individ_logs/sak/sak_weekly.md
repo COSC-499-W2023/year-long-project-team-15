@@ -121,10 +121,10 @@ Here are the screenshots of code compilation/issues!
 ![Issues](./screenshots/T2_week2_issue2.png)
 ![Issues](./screenshots/T2_week2_issue1.png)
 
-## Term 2 Week 2 (Jan 21st - Jan 28st)
+## Term 2 Week 3 (Jan 21st - Jan 28th)
 
 This week I participated in the following tasks:
-![Saksham's tasks t2 week 1](./screenshots/T2_week3_task.png)
+![Saksham's tasks t2 week 3](./screenshots/T2_week3_task.png)
 
 Goals:
 
@@ -136,6 +136,23 @@ Goals:
 Upcoming Week:
 
 - Work on the project and look for exception or error cases in order to have a smooth running project for Peer-testing. Help the team with any other possible feature that needs to be implemented before peer testing.
+- Work on the UI.
+
+## Term 2 Week 4 (Jan 28th - Feb 4th)
+
+This week I participated in the following tasks:
+![Saksham's tasks t2 week 4](./screenshots/T2_week4_task.png)
+
+Goals:
+
+- Prepared Questionaire for peer-testing
+- Add Profile feature implemented, which includes uploading the profile picture to the s3 bucket in profile picture folder with unique name for each user.
+- Retrieving and displaying the profile picture (need to give permissions for GET from S3 bucket)
+- Work on UI changes as per peer-testing suggestions
+
+Upcoming Week:
+
+- Work on the project and look for exception or error cases in order to have a smooth running project and fix the changes as per the suggestions given in peer testing.
 - Work on the UI.
 
 
