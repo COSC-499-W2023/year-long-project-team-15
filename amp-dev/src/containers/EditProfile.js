@@ -8,7 +8,7 @@ function EditProfileForm({ userId }) {
   const [name, setName] = useState('');
   const [email, setEmail] = useState('');
   const [dateJoined, setDateJoined] = useState('');
-  const [sentFriendRequests, setSentFriendRequests] = useState([]);
+  const [, setSentFriendRequests] = useState([]);
   const [errors, setErrors] = useState({});
   const [isLoading, setIsLoading] = useState(true);
   const [showVerifyEmailPopup, setShowVerifyEmailPopup] = useState(false);
