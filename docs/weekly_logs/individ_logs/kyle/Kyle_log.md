@@ -167,7 +167,7 @@ The completed tasks do not have an associated screenshot this week since they in
 ![Personal task Board](https://github.com/COSC-499-W2023/year-long-project-team-15/assets/122824873/c9729be2-72cc-48ae-bd64-0c9591364782)
 
 # Individual Log: Kyle Keim (kyle-keim)(SN:46335485)
-## Dec.4th - Jan.14th 2024 / Week 1
+## Dec.4th - Jan.14th 2024 / T2Week 1
 ### Peer Review Tasks
 ![Screenshot 2024-01-14 225915](https://github.com/COSC-499-W2023/year-long-project-team-15/assets/122824873/ed5bff39-705c-475d-a2db-00a592f0fdf0)
 
@@ -197,7 +197,7 @@ The completed tasks do not have an associated screenshot this week since they in
 ![Screenshot 2024-01-14 230240](https://github.com/COSC-499-W2023/year-long-project-team-15/assets/122824873/a29199d4-fc33-436a-ad3d-717d92afe39e)
 
 # Individual Log: Kyle Keim (kyle-keim)(SN:46335485)
-## Jan.14th - Jan.21st 2024 / Week 2
+## Jan.14th - Jan.21st 2024 / T2Week 2
 ### Peer Review Tasks
 ![Screenshot 2024-01-21 205654](https://github.com/COSC-499-W2023/year-long-project-team-15/assets/122824873/20e73842-88c6-48ee-89c9-1513c551a7de)
 
@@ -228,7 +228,7 @@ The completed tasks do not have an associated screenshot this week since they in
 ![Screenshot 2024-01-14 230240](https://github.com/COSC-499-W2023/year-long-project-team-15/assets/122824873/a29199d4-fc33-436a-ad3d-717d92afe39e)
 
 # Individual Log: Kyle Keim (kyle-keim)(SN:46335485)
-## Jan.15th - Jan.28th 2024 / Week 3
+## Jan.15th - Jan.28th 2024 / T2Week 3
 ### Peer Review Tasks
 ![Screenshot 2024-01-28 212413](https://github.com/COSC-499-W2023/year-long-project-team-15/assets/122824873/a5b50f04-2e54-44a5-b1fb-5fd0cbeb2691)
 
@@ -263,3 +263,40 @@ The completed tasks do not have an associated screenshot this week since they in
 Me and Saksham did pair programming this week to get the account page and friend list functionalites working and succesfully merged with each other so
 that they were operational for the heuristic evaulations next week. We merged together a few branches this week that have been seperate for awhile so
 we managed to fix the merge conflicts and get a MVP ready. Currently wrting a set of heuristics for peer evaluations next week.
+
+# Individual Log: Kyle Keim (kyle-keim)(SN:46335485)
+## Jan.29th - Feb.4th 2024 / T2Week 4
+### Peer Review Tasks
+![Screenshot 2024-02-04 223708](https://github.com/COSC-499-W2023/year-long-project-team-15/assets/122824873/f644e1ff-fc78-4384-979d-5e6d40ea2be7)
+
+
+
+
+
+
+
+
+
+## Previous Goals:
+* Reveiw UI design and coding future components and feature development.
+* Work on test implementation for react componenets using Cypress.
+* Continuing coding/learning for AWS DynamoDB, Cognito, Amplify functionality.
+* Fixing queries of account settings panel and adding an update friends panel within it.
+
+## Tasks Completed
+* Reveiw/Update UI design and coding future components and feature development.
+* Continuing documentation of coding for AWS DynamoDB, Cognito, Amplify and updating new AWS documentation.
+* Fixing the queries for the friends list and data uploading.
+  
+## Tasks In-Progress
+* Continue updating UI design and coding future components and feature development.
+* Continue working on test implementation for react componenets using Cypress.
+* Continuing coding for AWS DynamoDB, Cognito, Amplify functionality.
+* implement mp4 uploading, cognito functionality, and video blurring. 
+* Testing and reporting of several UI components.
+* Reviewing our peer evaluation and making adjustments to our app based on given feedback.
+![Screenshot 2024-02-04 224537](https://github.com/COSC-499-W2023/year-long-project-team-15/assets/122824873/daba2822-1c4f-47bd-ac57-ccd56a6ee71d)
+
+
+## General Notes
+This week involved writing code and heuristics for our first peer evaluation and adjusting our app based on the given feedback (That will be an ongoing set of tasks for the next couple weeks.).
