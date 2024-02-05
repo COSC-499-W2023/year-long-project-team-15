@@ -148,3 +148,16 @@ Tasks:
 ![Mac's tasks t2 week 2](./screenshots/task_t2_week_3.png)
 
 This week was pretty slow for me. Was working on AWS console trying to get a lambda trigger setup to run a serverless face blurring function. Did not get very far as there is not a whole lot of documentation on how to implement this with an amplify based application. Unfortunately not super productive but will put in a good effort next week. 
+
+# Individual Log T2 W4: Mac Vibert (mvibert88)
+
+Goals:
+- Setup face blurring pipeline for pictures
+
+Tasks: 
+
+![Mac's tasks t2 week 3](./screenshots/tasks_t2_week_4.png)
+
+This week I implemented the full photo blurring pipeline at the start of the week. Setup the lambda function, s3 buckets, and send and polling logic for video upload and retieval. There is now a loading icon when blurring and the blurred picture is returned to the form to be previewed. I also started setting up encrypted file keys so we can start using the database to properly load files relative to conversations. Will me helped a bit with this (pair programmed) as well and also fixed and refactored Kyle and Saksham's broken features. He deserves some bonus marks this week. 
+
+Cypress suite is still bugged and we didn't want to waste too much time getting it back up so we're just manual testing new code for this week. Gonna have to build the automated test suite from scratch. 
