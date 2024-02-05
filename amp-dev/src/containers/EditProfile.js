@@ -1,19 +1,22 @@
 import React, { useState, useEffect } from 'react';
-import { API, Auth, graphqlOperation } from 'aws-amplify';
+import { API, Auth, Storage, graphqlOperation } from 'aws-amplify';
 import { updateUser } from '../graphql/mutations';
 import AcceptButton from '../components/AcceptButton';
+import ProfilePictureUploadForm from './ProfilePictureUploadForm';
 
 function EditProfileForm({ userId }) {
   const [id, setId] = useState('');
   const [name, setName] = useState('');
   const [email, setEmail] = useState('');
   const [dateJoined, setDateJoined] = useState('');
+  const [profilePictureURL, setProfilePictureURL] = useState('');
   const [sentFriendRequests, setSentFriendRequests] = useState([]);
   const [errors, setErrors] = useState({});
   const [isLoading, setIsLoading] = useState(true);
   const [showVerifyEmailPopup, setShowVerifyEmailPopup] = useState(false);
   const [verificationCode, setVerificationCode] = useState('');
   const [verificationError, setVerificationError] = useState('');
+  const [dynamicS3URL, setDynamicS3URL] = useState('');
 
   useEffect(() => {
     const fetchUserData = async () => {
@@ -23,16 +26,35 @@ function EditProfileForm({ userId }) {
         setName(authenticatedUser.attributes.name);
         setEmail(authenticatedUser.attributes.email);
         setDateJoined(authenticatedUser.attributes.dateJoined);
-        setSentFriendRequests(authenticatedUser.attributes.sentFriendRequests || [])
+        setSentFriendRequests(authenticatedUser.attributes.sentFriendRequests || []);
+
+        // Retrieve the user's profile picture URL from Cognito custom attribute or any other source
+        const userAttributes = await Auth.userAttributes(authenticatedUser);
+        const profilePictureAttribute = userAttributes.find(attr => attr.Name === 'custom:ProfilePictureURL');
+        if (profilePictureAttribute) {
+          setProfilePictureURL(constructedS3URL);
+
+        }
+
+        // Dynamically set the S3 URL based on the authenticated user's username and a dynamic image filename
+        // public/profile-pictures/87d8b08e-79fe-45d4-8a5f-9f40745eb7ec/spiderman.png
+        const s3Region = 'ca-central-1'; 
+        const s3BucketName = 'blurvid-content204708-staging'; 
+        //const dynamicImageFilename = generateDynamicImageFilename();
+        const s3Key = `public/profile-pictures/${authenticatedUser.username}/spiderman.png`;
+        const constructedS3URL = `https://s3-${s3Region}.amazonaws.com/${s3BucketName}/${s3Key}`;
+        console.log('Constructed S3 URL:', constructedS3URL);
+        setDynamicS3URL(constructedS3URL);
       } catch (error) {
-        console.error('Error fetching authenticated user data:', error);
+        console.error('Error constructing S3 URL:', error);
       } finally {
         setIsLoading(false);
       }
     };
-
+  
     fetchUserData();
   }, []);
+  
 
   const handleUpdateProfile = async () => {
     const formErrors = {};
@@ -114,22 +136,42 @@ function EditProfileForm({ userId }) {
       fontSize: '0.9em',
       marginTop: '5px',
     },
-    button: {
-      backgroundColor: '#007bff',
-      color: 'white',
-      border: 'none',
-      padding: '10px 20px',
-      borderRadius: '4px',
-      cursor: 'pointer',
+    profilePicture: {
+      maxWidth: '100%',
+      maxHeight: '150px',
+      marginBottom: '10px',
     },
-    popupContainer: {
-      marginTop: '20px',
+    imageHolder: {
+      textAlign: 'center',
+      marginBottom: '20px',
+    },
+    defaultImage: {
+      width: '150px',
+      height: '150px',
+      border: '1px solid #ccc',
+      display: 'flex',
+      alignItems: 'center',
+      justifyContent: 'center',
     },
   };
 
   return (
+    console.log('Profile Picture URL:', dynamicS3URL),
     <div style={styles.container}>
-
+      <div style={styles.imageHolder}>
+        {dynamicS3URL ? (
+          <img src={dynamicS3URL} alt="Profile" style={styles.profilePicture} />
+        ) : (
+          <div style={styles.defaultImage}>
+            No Profile Picture
+          </div>
+        )}
+      </div>
+  
+      <div>
+        <ProfilePictureUploadForm userId={id} />
+      </div>
+  
       <label style={styles.label}>
         Name:
         <input
@@ -140,7 +182,7 @@ function EditProfileForm({ userId }) {
         />
         {errors.name && <p style={styles.errorMessage}>{errors.name}</p>}
       </label>
-
+  
       <label style={styles.label}>
         Email:
         <input
@@ -151,9 +193,9 @@ function EditProfileForm({ userId }) {
         />
         {errors.email && <p style={styles.errorMessage}>{errors.email}</p>}
       </label>
-
-      <AcceptButton label = "Update Profile" onClick={handleUpdateProfile}/>
-
+  
+      <AcceptButton label="Update Profile" onClick={handleUpdateProfile} />
+  
       {showVerifyEmailPopup && (
         <div>
           <h4>Verify Email</h4>
@@ -173,6 +215,7 @@ function EditProfileForm({ userId }) {
       )}
     </div>
   );
+  
 }
 
 export default EditProfileForm;
