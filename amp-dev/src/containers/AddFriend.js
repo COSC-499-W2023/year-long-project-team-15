@@ -95,7 +95,7 @@ const AddFriend = () => {
             {filteredUsers.map(user => (
                 <ListItem key={user.id} style={{ display: 'flex', alignItems: 'center' }}>
                     <Box style={{ flexGrow: 1, display: 'flex', justifyContent: 'space-between', width: '100%' }}>
-                        <span>{user.name}</span>
+                        <span>{user.email}</span>
                         <Box>
                             <Button 
                               onClick={() => handleSendFriendRequest(user.id)} 
@@ -104,7 +104,7 @@ const AddFriend = () => {
                               size="small"
                               style={{ marginRight: 8 }}
                             >
-                                Add Friend
+                                Send Friend Request
                             </Button>
                         </Box>
                     </Box>

@@ -8,8 +8,8 @@ const ConfirmationDialog = ({ open, onClose, onConfirm, message }) => {
     <Dialog open={open} onClose={onClose}>
       <DialogTitle>{message}</DialogTitle>
       <DialogActions>
-        <AcceptButton onClick={onConfirm} label="Remove"/>
-        <DeclineButton onClick={onClose} label="Cancel"/>
+        <DeclineButton onClick={onConfirm} label="Remove"/>
+        <AcceptButton onClick={onClose} label="Cancel"/>
       </DialogActions>
     </Dialog>
   );

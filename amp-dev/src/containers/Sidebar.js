@@ -16,7 +16,7 @@ const Sidebar = () => {
     <SidebarSkeleton>
       <FriendSearchAndList showDeleteButtons={false} />
       <div className="mt-auto p-2">
-        <AcceptButton label="Add Friend" onClick={handleAddFriendClick} />
+        <AcceptButton label="Add Friends" onClick={handleAddFriendClick} />
       </div>
       <Modal show={showAddFriend} onClose={() => setShowAddFriend(false)} modalName = "Add Contact">
         <AddFriend />
