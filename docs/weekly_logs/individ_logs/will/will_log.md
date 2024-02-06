@@ -185,3 +185,23 @@ This week I prepped for the peer eval with my team, getting questionarries and p
 **Done**
 
 ![wills T2 week3 done board](./screenshots/wills_done_week13.png)
+
+## Week 4
+
+Goals:
+
+for this week my goall is to finish prepping for peer testing including heuristic evaluations and image processing for another feature to demo and recieve feedback
+
+**Tasks**
+
+![wills T2 week4 tasks](./screenshots/wills_T2_week4_tasks.png)
+
+this week I was tasked with completing prep with teamates for peer testing. I pair programmed with Mac to get our image proccessing working and we completed that. After peer testing I decided to fix and refactor alot of our old code for better and more correct functionality. This included fixing and completeing displaying and accepting/declining friend requests by adding and changing as well as refactoring for better code quality. I also did the same with our sending friend requests functionality. This included adding more logic to avoid cases of sending fried requests to users who already have or sent a request or are already friends as well as making some design changes to the ui of this component which were decided from peer testing feedback. I also made some other small UI changes as per peer feedback. I believe I did alot this week so if you could check my commits and see if I deserve bonus marks that would be great.
+
+**In Progress**
+
+Now in progress is More UI fixes and changes to address peer feedback and to work on video processing with Mac. We started with Image proccessing first to get the structure and proof of concept down and we are now likely going to include that feature as well as video proccessing.
+
+**Done**
+
+![wills T2 week4 done board](./screenshots/wills_T2_week4_done.png)
