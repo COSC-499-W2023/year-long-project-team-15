@@ -1,10 +1,11 @@
 import React from 'react';
+import { Button } from '@mui/material';
 
 const DeclineButton = ({ onClick, label, className, type }) => {
   return (
-    <button onClick={onClick} className={`btn btn-outline-primary ${className}`} type={type}>
+    <Button variant='outlined' color="primary" onClick={onClick} className={`btn btn-outline-primary ${className}`} type={type}>
       {label}
-    </button>
+    </Button>
   );
 };
 

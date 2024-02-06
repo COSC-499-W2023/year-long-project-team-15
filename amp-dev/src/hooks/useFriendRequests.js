@@ -8,6 +8,11 @@ import { updateFriendRequest } from '../graphql/mutations';
 export const useFriendRequests = (currentUserId) => {
   const [friendsData, setFriendsData] = useState([]);
 
+
+  const setFriendsDataExternally = (newData) => {
+    setFriendsData(newData); 
+  };
+
   const fetchFriendRequests = useCallback(async () => {
     if (!currentUserId) return;
 
@@ -64,9 +69,6 @@ export const useFriendRequests = (currentUserId) => {
     }
   };
 
-  return {
-    friendsData,
-    fetchFriendRequests,
-    updateFriendRequestStatus,
-  };
+  return { friendsData, fetchFriendRequests, updateFriendRequestStatus, setFriendsDataExternally };
 };
+

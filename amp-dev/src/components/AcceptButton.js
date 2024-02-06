@@ -1,10 +1,11 @@
 import React from 'react';
+import { Button } from '@mui/material';
 
 const AcceptButton = ({ onClick, label, className, type }) => {
   return (
-    <button onClick={onClick} className={`btn btn-primary ${className}`} type={type}>
+    <Button variant="contained"  color="primary" onClick={onClick} className={`btn btn-primary ${className}`} type={type}>
       {label}
-    </button>
+    </Button>
   );
 };
 

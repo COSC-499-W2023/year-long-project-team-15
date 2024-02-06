@@ -5,8 +5,7 @@ import { listFriendRequests, listUsers } from '../graphql/queries';
 import { createFriendRequest } from '../graphql/mutations';
 import SearchBar from '../components/SearchBar';
 import { useCurrentUser } from '../hooks/useCurrentUser';
-import AcceptButton from '../components/AcceptButton';
-import { ListItem } from '@mui/material';
+import { ListItem, List, Box, Button } from '@mui/material';
 
 const AddFriend = () => {
   const { currentUserId } = useCurrentUser();
@@ -91,17 +90,30 @@ const AddFriend = () => {
 
   return (
     <div>
-      <SearchBar searchTerm={searchTerm} onSearchChange={handleSearchChange} />
-      <ul>
-        {filteredUsers.map(user => (
-          <ListItem key={user.id}>
-            {user.name}
-            <AcceptButton onClick={() => handleSendFriendRequest(user.id)} label = "Add Contact"/>
-          </ListItem>
-        ))}
-      </ul>
+        <SearchBar searchTerm={searchTerm} onSearchChange={handleSearchChange} />
+        <List>
+            {filteredUsers.map(user => (
+                <ListItem key={user.id} style={{ display: 'flex', alignItems: 'center' }}>
+                    <Box style={{ flexGrow: 1, display: 'flex', justifyContent: 'space-between', width: '100%' }}>
+                        <span>{user.name}</span>
+                        <Box>
+                            <Button 
+                              onClick={() => handleSendFriendRequest(user.id)} 
+                              variant="contained" 
+                              color="primary"
+                              size="small"
+                              style={{ marginRight: 8 }}
+                            >
+                                Add Friend
+                            </Button>
+                        </Box>
+                    </Box>
+                </ListItem>
+            ))}
+        </List>
     </div>
-  );
+);
 };
+
 
 export default AddFriend;
