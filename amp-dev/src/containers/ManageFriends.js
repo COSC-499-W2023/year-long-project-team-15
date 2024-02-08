@@ -11,13 +11,14 @@ import { useCurrentUser } from '../hooks/useCurrentUser';
 import { fetchSpecificFriendRequest } from '../services/FriendService';
 import ConfirmationDialog from '../components/ConfirmDialog';
 import { fetchFriendDetails } from '../services/FriendService';
-
+import AddFriend from './AddFriend';
 
 const ManageFriends = ({ onFriendDeleted }) => {
     const [expanded, setExpanded] = useState(false);
     const { currentUserId } = useCurrentUser();
     const [confirmDialogOpen, setConfirmDialogOpen] = useState(false);
     const [pendingDeleteFriend, setPendingDeleteFriend] = useState({ id: null, name: "" });
+   
 
     const handleDeleteFriend = async (friendId) => {
         try {
@@ -51,10 +52,11 @@ const ManageFriends = ({ onFriendDeleted }) => {
               await Promise.all(requestIds.map(id => 
                   client.mutate({
                     mutation: gql(deleteFriendRequest),
-                    variables: { input: { id } }, 
+                    variables: { input: { id } },  
                   })
                 ));
           }
+          AddFriend();
         
         console.log("Friend request(s) deleted for user ID:", friendId);
         onFriendDeleted(friendId);
