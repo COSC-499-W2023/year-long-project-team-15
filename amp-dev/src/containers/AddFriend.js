@@ -5,61 +5,57 @@ import { listFriendRequests, listUsers } from '../graphql/queries';
 import { createFriendRequest } from '../graphql/mutations';
 import SearchBar from '../components/SearchBar';
 import { useCurrentUser } from '../hooks/useCurrentUser';
-import AcceptButton from '../components/AcceptButton';
-import { ListItem } from '@mui/material';
+import { ListItem, List, Box, Button } from '@mui/material';
 
 const AddFriend = () => {
   const { currentUserId } = useCurrentUser();
   const [searchTerm, setSearchTerm] = useState('');
-  const [users, setUsers] = useState([]);
   const [potentialFriends, setPotentialFriends] = useState([]);
 
   useEffect(() => {
-    const fetchUsers = async () => {
-      const { data } = await client.query({
-        query: gql(listUsers),
-        fetchPolicy: 'network-only' 
-      });
-      setUsers(data.listUsers.items);
+    const fetchAndFilterUsers = async () => {
+        if (!currentUserId) return;
+
+        const usersResponse = await client.query({
+            query: gql(listUsers),
+            fetchPolicy: 'network-only'
+        });
+
+        const friendRequests = await fetchFriendRequests(currentUserId);
+
+        const friendIds = new Set(friendRequests.flatMap(req => [req.senderID, req.receiverID]));
+
+         const potentialFriends = usersResponse.data.listUsers.items.filter(user => 
+            !friendIds.has(user.id) && user.id !== currentUserId
+        );
+
+        setPotentialFriends(potentialFriends);
     };
+
+    fetchAndFilterUsers();
+}, [currentUserId]);
 
 
     const fetchFriendRequests = async (currentUserId) => {
-      // Fetch sent friend requests
-      const { data: sentRequestsData } = await client.query({
+       const { data: sentRequestsData } = await client.query({
         query: gql(listFriendRequests),
         variables: { filter: { senderID: { eq: currentUserId } } },
         fetchPolicy: 'network-only',
       });
     
-      // Fetch received friend requests
-      const { data: receivedRequestsData } = await client.query({
+       const { data: receivedRequestsData } = await client.query({
         query: gql(listFriendRequests),
         variables: { filter: { receiverID: { eq: currentUserId } } },
         fetchPolicy: 'network-only',
       });
     
-      // Combine the results
-      const combinedRequests = [
+       const combinedRequests = [
         ...sentRequestsData.listFriendRequests.items,
         ...receivedRequestsData.listFriendRequests.items,
       ];
       return combinedRequests;
     };
-
-    const filterPotentialFriends = async () => {
-      const friendRequests = await fetchFriendRequests();
-      const friendIds = new Set(friendRequests.flatMap(req => [req.senderID, req.receiverID]));
-      fetchUsers().then(() => {
-        setPotentialFriends(users.filter(user => !friendIds.has(user.id) && user.id !== currentUserId));
-      });
-    };
-
-    if (currentUserId) {
-      filterPotentialFriends();
-    }
-  }, [currentUserId, users]);
-
+    
   const handleSearchChange = (e) => {
     setSearchTerm(e.target.value);
   };
@@ -91,17 +87,30 @@ const AddFriend = () => {
 
   return (
     <div>
-      <SearchBar searchTerm={searchTerm} onSearchChange={handleSearchChange} />
-      <ul>
-        {filteredUsers.map(user => (
-          <ListItem key={user.id}>
-            {user.name}
-            <AcceptButton onClick={() => handleSendFriendRequest(user.id)} label = "Add Contact"/>
-          </ListItem>
-        ))}
-      </ul>
+        <SearchBar searchTerm={searchTerm} onSearchChange={handleSearchChange} />
+        <List>
+            {filteredUsers.map(user => (
+                <ListItem key={user.id} style={{ display: 'flex', alignItems: 'center' }}>
+                    <Box style={{ flexGrow: 1, display: 'flex', justifyContent: 'space-between', width: '100%' }}>
+                        <span>{user.email}</span>
+                        <Box>
+                            <Button 
+                              onClick={() => handleSendFriendRequest(user.id)} 
+                              variant="contained" 
+                              color="primary"
+                              size="small"
+                              style={{ marginRight: 8 }}
+                            >
+                                Send Friend Request
+                            </Button>
+                        </Box>
+                    </Box>
+                </ListItem>
+            ))}
+        </List>
     </div>
-  );
+);
 };
+
 
 export default AddFriend;
