@@ -41,7 +41,7 @@ const PictureUploadForm = ({ onClose }) => {
         }
       });
       console.log('Video message created:', videoMessageResult);
-  
+      alert("Content sent!");
       // Reset form and state as necessary
       setTitle('');
       setDescription('');

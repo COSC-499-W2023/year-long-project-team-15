@@ -5,6 +5,7 @@ import PhotoCameraIcon from '@mui/icons-material/PhotoCamera';
 import FriendContext from '../context/FriendContext';
 import Modal from '../components/Modal';
 import PictureUploadForm from './PictureUploadForm';
+import VideoMessagesList from '../components/VideoMessageList';
 
 const ChatView = () => {
   const { selectedFriend } = useContext(FriendContext);
@@ -36,7 +37,7 @@ const ChatView = () => {
         <div>
           <p>&emsp;Chatting with: {selectedFriend.name}</p>
         </div>
-        {/* Messages will be displayed here. use map function to render individual messages */}
+        <VideoMessagesList key={selectedFriend.id} selectedFriend={selectedFriend} />
       </div>
       <div className="d-flex align-items-center p-2 mt-auto">
         <TextField
