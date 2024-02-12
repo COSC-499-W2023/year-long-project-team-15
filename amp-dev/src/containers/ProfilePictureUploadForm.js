@@ -22,14 +22,14 @@ const ProfilePictureUploadForm = ({ onClose }) => {
       const user = await Auth.currentAuthenticatedUser();
 
       // Upload the file to S3 with a key that includes the username
-      const key = `profile-pictures/${user.username}/${selectedFile.name}`;
+      const key = `blurvid-profile-pics/public/${user.username}/${selectedFile.name}`;
       const result = await Storage.put(key, selectedFile, {
-        // options here
+          //bucket: 'blurvid-profile-pics', 
+          region: 'ca-central-1',
       });
 
       // Update user's profile picture URL in your backend (Cognito custom attribute)
       const profilePictureURL = result.key; // Using the S3 key as the URL 
-      //Call your backend API 
 
       console.log('Succeeded:', result);
     } catch (error) {

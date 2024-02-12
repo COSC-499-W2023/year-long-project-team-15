@@ -37,11 +37,11 @@ function EditProfileForm({ userId }) {
         }
 
         // Dynamically set the S3 URL based on the authenticated user's username and a dynamic image filename
-        // public/profile-pictures/87d8b08e-79fe-45d4-8a5f-9f40745eb7ec/spiderman.png
+        // s3://blurvid-profile-pics/public/profilepic.png
         const s3Region = 'ca-central-1'; 
-        const s3BucketName = 'blurvid-content204708-staging'; 
+        const s3BucketName = 'blurvid-profile-pics'; 
         //const dynamicImageFilename = generateDynamicImageFilename();
-        const s3Key = `public/profile-pictures/${authenticatedUser.username}/spiderman.png`;
+        const s3Key = `public/profilepic.png`;
         const constructedS3URL = `https://s3-${s3Region}.amazonaws.com/${s3BucketName}/${s3Key}`;
         console.log('Constructed S3 URL:', constructedS3URL);
         setDynamicS3URL(constructedS3URL);
