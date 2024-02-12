@@ -205,3 +205,23 @@ Now in progress is More UI fixes and changes to address peer feedback and to wor
 **Done**
 
 ![wills T2 week4 done board](./screenshots/wills_T2_week4_done.png)
+
+## Week 5
+
+Goals:
+
+my goals for this week is to work on the back end logic for sending and fetching video messages.
+
+**Tasks**
+
+![wills T2 week5 tasks](./screenshots/wills_tasks_T2_week5.png)
+
+This week I added a feature where users are able to remove friends. while doing this I discovered a bug with the sending friends requests list from some asynchronous clashes and fixed that issue. Mac and I pair programmed the logic for sending video messages and adding to the database and I continued to display them in the users chat view. 
+
+**In Progress**
+
+From what I/we did this week there are just some holes to fill with regards to refreshing automatically and other dynamics for a smoother user experience that will be addressed.
+
+**Done**
+
+![wills T2 week5 done board](./screenshots/wills_done_T2_week5.png)
