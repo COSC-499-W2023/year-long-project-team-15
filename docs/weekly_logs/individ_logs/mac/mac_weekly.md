@@ -161,3 +161,16 @@ Tasks:
 This week I implemented the full photo blurring pipeline at the start of the week. Setup the lambda function, s3 buckets, and send and polling logic for video upload and retieval. There is now a loading icon when blurring and the blurred picture is returned to the form to be previewed. I also started setting up encrypted file keys so we can start using the database to properly load files relative to conversations. Will me helped a bit with this (pair programmed) as well and also fixed and refactored Kyle and Saksham's broken features. He deserves some bonus marks this week. 
 
 Cypress suite is still bugged and we didn't want to waste too much time getting it back up so we're just manual testing new code for this week. Gonna have to build the automated test suite from scratch. 
+
+# Individual Log T2 W5: Mac Vibert (mvibert88)
+
+Goals:
+- Setup shared video logic. 
+- implement sharring blurred pictures through chats
+
+Tasks: 
+
+![Mac's tasks t2 week 5](./screenshots/tasks_t2_week_5.png)
+
+This week I worked with Will to implement sharing files through the chat view. We pair programmed (will made commits). We got the mutation working to add videoMessage elements to the table contaitaing file keys for s3 and the user and receiver creds. Manually tested all our implementaions before making any commits. Another productive week! 
+
