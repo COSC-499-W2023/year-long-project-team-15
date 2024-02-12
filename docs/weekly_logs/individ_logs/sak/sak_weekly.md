@@ -155,4 +155,21 @@ Upcoming Week:
 - Work on the project and look for exception or error cases in order to have a smooth running project and fix the changes as per the suggestions given in peer testing.
 - Work on the UI.
 
+## Term 2 Week 5 (Feb 4th - Feb 11th)
+
+This week I participated in the following tasks:
+![Saksham's tasks t2 week 5](./screenshots/T2_week5_task.png)
+
+Goals:
+
+- Created new UI for welcome page, login and signup page
+- Retrieving and displaying the profile picture (need to give permissions for GET from S3 bucket)
+- Worked on UI changes and correct navigation from the App.js page
+- Brainstormed and discussed in team meetings regaridn the chat feature and how to make it work, my implementation of chat feature is currently on halt as it requires backend changed and we are working on the video blurring feature before we implement chat feature.
+
+Upcoming Week:
+
+- Work on the project and look for exception or error cases in order to have a smooth running project and figure the chat feature.
+- Work on the UI.
+
 
