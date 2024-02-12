@@ -300,3 +300,43 @@ we managed to fix the merge conflicts and get a MVP ready. Currently wrting a se
 
 ## General Notes
 This week involved writing code and heuristics for our first peer evaluation and adjusting our app based on the given feedback (That will be an ongoing set of tasks for the next couple weeks.).
+
+# Individual Log: Kyle Keim (kyle-keim)(SN:46335485)
+## Feb.5th - Feb.11th 2024 / T2Week 5
+### Peer Review Tasks
+![Screenshot 2024-02-11 195330](https://github.com/COSC-499-W2023/year-long-project-team-15/assets/122824873/5ec08865-f1a4-46b9-8b8f-f8ebd727903d)
+
+
+
+
+
+
+
+
+
+
+## Previous Goals:
+* Reveiw UI design and coding future components and feature development.
+* Work on test implementation for react componenets using Cypress.
+* Continuing coding/learning for AWS DynamoDB, Cognito, Amplify functionality.
+* Fixing queries of account settings panel and adding an update friends panel within it.
+
+## Tasks Completed
+* Reveiw/Update UI design and coding future components and feature development.
+* Continuing documentation of coding for AWS DynamoDB, Cognito, Amplify and updating new AWS documentation.
+* Writing more Cypress tests for the newly implemented UI functions.
+  
+## Tasks In-Progress
+* Continue updating UI design and coding future components and feature development.
+* Continue working on test implementation for react componenets using Cypress.
+* Continuing coding for AWS DynamoDB, Cognito, Amplify functionality.
+* implement mp4 uploading, cognito functionality, and video blurring. 
+* Testing and reporting of several UI components.
+* Reviewing our peer evaluation and making adjustments to our app based on given feedback.
+![Screenshot 2024-02-11 224742](https://github.com/COSC-499-W2023/year-long-project-team-15/assets/122824873/a0f5d82c-a73e-43e6-8bf4-168aa638de25)
+
+
+
+## General Notes
+This week involved continuing writing code and heuristics for our first peer evaluation and adjusting our app based on the given feedback (That will be an ongoing set of tasks for the next couple weeks.). 
+Also writing more cypress tests for the newly implemented UI functions.
