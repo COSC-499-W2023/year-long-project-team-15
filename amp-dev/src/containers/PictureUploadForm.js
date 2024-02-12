@@ -7,6 +7,7 @@ import { gql } from '@apollo/client';
 import client from '../apolloClient';
 import FriendContext from '../context/FriendContext';
 import { useCurrentUser } from '../hooks/useCurrentUser';
+import { useGetMessages } from '../hooks/useGetMessages';
 
 const PictureUploadForm = ({ onClose }) => {
   const [selectedFile, setSelectedFile] = useState(null);
@@ -17,6 +18,7 @@ const PictureUploadForm = ({ onClose }) => {
   const { selectedFriend } = useContext(FriendContext);
   const { currentUserId } = useCurrentUser();
   const [uniqueKey, setUniqueKey] = useState(null);
+  const { refreshMessages } = useGetMessages({ selectedFriend });
 
 
   const handleFileChange = (event) => {
@@ -42,7 +44,9 @@ const PictureUploadForm = ({ onClose }) => {
       });
       console.log('Video message created:', videoMessageResult);
       alert("Content sent!");
-      // Reset form and state as necessary
+    
+      refreshMessages(); 
+
       setTitle('');
       setDescription('');
       setSelectedFile(null);
@@ -136,7 +140,7 @@ const PictureUploadForm = ({ onClose }) => {
         <div className="spinner-border" role="status">
           <span className="visually-hidden"></span>
         </div>
-        <div>Blurring...</div>
+        <div>Blurring... This may take a while :/</div>
       </div>
       ) : processedImageUrl ? (
         <div>
