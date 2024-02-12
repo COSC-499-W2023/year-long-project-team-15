@@ -167,6 +167,9 @@ Goals:
 - Worked on UI changes and correct navigation from the App.js page
 - Brainstormed and discussed in team meetings regaridn the chat feature and how to make it work, my implementation of chat feature is currently on halt as it requires backend changed and we are working on the video blurring feature before we implement chat feature.
 
+My implemented feature landing page:
+![Saksham's feature](./screenshots/welcomepage.png)
+
 Upcoming Week:
 
 - Work on the project and look for exception or error cases in order to have a smooth running project and figure the chat feature.
