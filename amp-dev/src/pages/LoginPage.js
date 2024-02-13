@@ -1,18 +1,19 @@
 // CustomLogin.js
 import React, { useState } from 'react';
-import { Auth } from 'aws-amplify';
+import { useAuth } from '../context/AuthContext';
 import { useNavigate } from 'react-router-dom';
 
-const CustomLogin = ({ onLoginSuccess }) => {
+const CustomLogin = () => {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const navigate = useNavigate();
+  const { signIn } = useAuth(); 
 
   const handleLogin = async () => {
     try {
-      await Auth.signIn(email, password);
+      await signIn(email, password); 
       console.log('Successfully logged in');
-      onLoginSuccess(); 
+      navigate('/');
     } catch (error) {
       console.error('Error during login:', error);
     }

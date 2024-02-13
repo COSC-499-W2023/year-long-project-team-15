@@ -1,14 +1,15 @@
 import React, { useState } from "react";
 import AccountCircleIcon from '@mui/icons-material/AccountCircle';
 import { useNavigate } from 'react-router-dom';
-import { useCurrentUser } from "../hooks/useCurrentUser"; // Adjust the path as necessary
-import { signOut } from "../services/AuthService"; // Adjust the path as necessary
+import { useCurrentUser } from "../hooks/useCurrentUser"; 
 import Menu from '@mui/material/Menu';
 import MenuItem from '@mui/material/MenuItem';
+import { useAuth } from '../context/AuthContext';
 
 const Header = () => {
   const { currentUserName } = useCurrentUser();
   const navigate = useNavigate();
+  const { signOut } = useAuth();
   const [anchorEl, setAnchorEl] = useState(null);
   const open = Boolean(anchorEl);
 

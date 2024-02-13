@@ -14,7 +14,7 @@ const ChatView = () => {
   if (!selectedFriend) {
     return (
       <div className="col-9 col-auto">
-        <h1 class="display-6">&emsp;Please select a friend to start chatting</h1>
+        <h1 className="display-6">&emsp;Please select a friend to start chatting</h1>
       </div>
     );
   }
