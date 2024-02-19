@@ -175,4 +175,22 @@ Upcoming Week:
 - Work on the project and look for exception or error cases in order to have a smooth running project and figure the chat feature.
 - Work on the UI.
 
+## Term 2 Week 5 (Feb 11th - Feb 18th)
+
+This week I participated in the following tasks:
+![Saksham's tasks t2 week 5](./screenshots/T2_week6_task.png)
+
+Goals:
+
+- I mostly worked refractoring and working on polishing my features
+- Retrieving and displaying the profile picture (need to give permissions for GET from S3 bucket)
+- Worked with mantaing flow from the landing page as there was a UI issue
+- Learning Materials UI in order to make more user friendly website for peer testing 2
+
+
+Upcoming Week:
+
+- Work on the project and look for exception or error cases in order to have a smooth running project.
+- Implementing the chat feature .
+- Work on the UI and make it more user friendly and  interactive.
 
