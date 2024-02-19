@@ -340,3 +340,33 @@ This week involved writing code and heuristics for our first peer evaluation and
 ## General Notes
 This week involved continuing writing code and heuristics for our first peer evaluation and adjusting our app based on the given feedback (That will be an ongoing set of tasks for the next couple weeks.). 
 Also writing more cypress tests for the newly implemented UI functions.
+
+# Individual Log: Kyle Keim (kyle-keim)(SN:46335485)
+## Feb.12th - Feb.18th 2024 / T2Week 6
+### Peer Review Tasks
+![Screenshot 2024-02-18 214358](https://github.com/COSC-499-W2023/year-long-project-team-15/assets/122824873/6ccfbc0b-f4b6-4dc8-8ffd-06c8ed55adb5)
+
+## Previous Goals:
+* Reveiw UI design and coding future components and feature development.
+* Work on test implementation for react componenets using Cypress.
+* Continuing coding/learning for AWS DynamoDB, Cognito, Amplify functionality.
+
+## Tasks Completed
+* Reveiw/Update UI design and coding future components and feature development.
+* Continuing documentation of coding for AWS DynamoDB, Cognito, Amplify and updating new AWS documentation.
+* Writing more Cypress tests for the newly implemented UI functions.
+  
+## Tasks In-Progress
+* Continue updating UI design and coding future components and feature development.
+* Continue working on test implementation for react componenets using Cypress.
+* Continuing coding for AWS DynamoDB, Cognito, Amplify functionality.
+* implement mp4 uploading, cognito functionality, and video blurring. 
+* Testing and reporting of several UI components.
+* Reviewing our peer evaluation and making adjustments to our app based on given feedback.
+* Writing code for a chat conversation box between two individuals.
+![Screenshot 2024-02-18 214634](https://github.com/COSC-499-W2023/year-long-project-team-15/assets/122824873/b802042d-2220-4162-9908-98bc82e4c5a1)
+
+
+## General Notes
+This week involved continuing writing code and heuristics for our first peer evaluation and adjusting our app based on the given feedback (That will be an ongoing set of tasks for the next couple weeks.). 
+Also writing more cypress tests for the newly implemented UI functions. Also writing code for developing a chat conversatino feature.
