@@ -1,21 +1,35 @@
+// CustomSignUp.js
 import React, { useState } from 'react';
 import { Auth } from 'aws-amplify';
 import { useNavigate } from 'react-router-dom';
+import Button from '@mui/material/Button';
+import Grid from '@mui/material/Grid';
+import IconButton from '@mui/material/IconButton';
+import VisibilityIcon from '@mui/icons-material/Visibility';
+import VisibilityOffIcon from '@mui/icons-material/VisibilityOff';
 
 const CustomSignUp = () => {
   const [name, setName] = useState('');
   const [password, setPassword] = useState('');
+  const [confirmPassword, setConfirmPassword] = useState('');
   const [email, setEmail] = useState('');
   const [confirmationCode, setConfirmationCode] = useState('');
   const [errorMessage, setErrorMessage] = useState('');
   const [isSignUpComplete, setIsSignUpComplete] = useState(false);
+  const [showPassword, setShowPassword] = useState(false);
+  const [showConfirmPassword, setShowConfirmPassword] = useState(false);
 
   const navigate = useNavigate();
 
   const handleSignUp = async () => {
     try {
+      if (password !== confirmPassword) {
+        setErrorMessage('Passwords do not match');
+        return;
+      }
+
       const signUpResponse = await Auth.signUp({
-        username: email, // Using email as the username, adjust based on your needs
+        username: email,
         password,
         attributes: {
           email,
@@ -25,7 +39,7 @@ const CustomSignUp = () => {
 
       console.log('Successfully signed up:', signUpResponse);
       setIsSignUpComplete(true);
-      setErrorMessage(''); // Clear any previous error message
+      setErrorMessage('');
     } catch (error) {
       console.error('Error during sign-up:', error);
       setErrorMessage(error.message || 'An error occurred during sign-up');
@@ -39,7 +53,9 @@ const CustomSignUp = () => {
       navigate('/login');
     } catch (error) {
       console.error('Error during confirmation:', error);
-      setErrorMessage(error.message || 'An error occurred during confirmation');
+      setErrorMessage(
+        error.message || 'An error occurred during confirmation'
+      );
     }
   };
 
@@ -71,11 +87,25 @@ const CustomSignUp = () => {
       fontSize: '0.9em',
       marginTop: '5px',
     },
+    button: {
+      width: '100%',
+      padding: '10px',
+      borderRadius: '4px',
+      border: 'none',
+      backgroundColor: '#white',
+      color: 'white',
+      cursor: 'pointer',
+      transition: 'background-color 0.3s',
+    },
+  };
+
+  // Use the same hover effect for the button
+  styles.button[':hover'] = {
+    backgroundColor: '#1bdde8',
   };
 
   return (
     <div style={styles.container}>
-      {/* <h2>Sign Up</h2> */}
       {!isSignUpComplete ? (
         <>
           <input
@@ -90,15 +120,49 @@ const CustomSignUp = () => {
             style={styles.input}
             onChange={(e) => setEmail(e.target.value)}
           />
-          <input
-            type="password"
-            placeholder="Password"
-            style={styles.input}
-            onChange={(e) => setPassword(e.target.value)}
-          />
-          <button style={styles.input} onClick={handleSignUp}>
+          <Grid container spacing={1} alignItems="flex-end">
+            <Grid item>
+              <input
+                type={showPassword ? 'text' : 'password'}
+                placeholder="Password"
+                style={styles.input}
+                onChange={(e) => setPassword(e.target.value)}
+              />
+            </Grid>
+            <Grid item>
+              <IconButton
+                size="small"
+                onClick={() => setShowPassword(!showPassword)}
+              >
+                {showPassword ? <VisibilityIcon /> : <VisibilityOffIcon />}
+              </IconButton>
+            </Grid>
+          </Grid>
+          <Grid container spacing={1} alignItems="flex-end">
+            <Grid item>
+              <input
+                type={showConfirmPassword ? 'text' : 'password'}
+                placeholder="Confirm Password"
+                style={styles.input}
+                onChange={(e) => setConfirmPassword(e.target.value)}
+              />
+            </Grid>
+            <Grid item>
+              <IconButton
+                size="small"
+                onClick={() => setShowConfirmPassword(!showConfirmPassword)}
+              >
+                {showConfirmPassword ? <VisibilityIcon /> : <VisibilityOffIcon />}
+              </IconButton>
+            </Grid>
+          </Grid>
+          <Button
+            variant="contained"
+            style={styles.button}
+            onClick={handleSignUp}
+          >
             Sign Up
-          </button>
+          </Button>
         </>
       ) : (
         <>
@@ -110,9 +174,13 @@ const CustomSignUp = () => {
             style={styles.input}
             onChange={(e) => setConfirmationCode(e.target.value)}
           />
-          <button style={styles.input} onClick={handleConfirmSignUp}>
+          <Button
+            variant="contained"
+            style={styles.button}
+            onClick={handleConfirmSignUp}
+          >
             Confirm Sign Up
-          </button>
+          </Button>
         </>
       )}
 
@@ -122,5 +190,3 @@ const CustomSignUp = () => {
 };
 
 export default CustomSignUp;
-
-
