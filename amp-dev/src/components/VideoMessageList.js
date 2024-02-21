@@ -1,18 +1,18 @@
 import React, { useEffect, useState } from 'react';
 import { Storage } from 'aws-amplify';
 import { Card, CardContent, Typography, Box } from '@mui/material';
-import { useGetMessages } from '../hooks/useGetMessages';
 import { useCurrentUser } from '../hooks/useCurrentUser';
+import { useGetMessages } from '../hooks/useGetMessages';
 
-const VideoMessagesList = ({selectedFriend}) => {
-  const { messages, loading, error } = useGetMessages({selectedFriend}); 
+const VideoMessagesList = ({ selectedFriend }) => {
   const { currentUserId } = useCurrentUser();
   const [enhancedMessages, setEnhancedMessages] = useState([]);
-    
+  const { messages, loading, error } = useGetMessages({ selectedFriend });
+
   useEffect(() => {
     const enhanceMessagesWithUrls = async () => {
       const enhanced = await Promise.all(messages.map(async (message) => {
-        const url = await fetchMediaUrl(message.id);
+        const url = message.message ? "" : await fetchMediaUrl(message.id);
         return { ...message, url };
       }));
       setEnhancedMessages(enhanced);
@@ -28,7 +28,7 @@ const VideoMessagesList = ({selectedFriend}) => {
       return await Storage.get(key, {
         bucket: 'blurvid-photos',
         region: 'ca-central-1',
-      }); 
+      });
     } catch (error) {
       console.error('Error fetching media from S3', error);
       return null;
@@ -58,22 +58,28 @@ const VideoMessagesList = ({selectedFriend}) => {
             marginBottom: '10px',
           }}
         >
-          <Card sx={{ maxWidth: '60%', width: '100%' }}>
+          <Card sx={{ maxWidth: '60%', width: message.message ? 'fit-content' : '100%' }}>
             <CardContent>
-              <Typography color="textSecondary" gutterBottom>
-                {message.title}
-              </Typography>
-              <Typography variant="body2" component="p">
-                {message.description}
-              </Typography>
-              {message.url && (
-                <Box display="flex" justifyContent="center">
-                  {message.url.endsWith('.mp4') ? (
-                    <video controls src={message.url} style={{ maxWidth: '100%', maxHeight: '300px' }} />
-                  ) : (
-                    <img src={message.url} alt={message.title} style={{ maxWidth: '100%', maxHeight: '300px' }} />
+              {message.message ? (
+                <Typography variant="body1" style={{ whiteSpace: 'pre-wrap', wordWrap: 'break-word' }}>{message.message}</Typography>
+              ) : (
+                <>
+                  <Typography color="textSecondary" gutterBottom>
+                    {message.title}
+                  </Typography>
+                  <Typography variant="body2" component="p">
+                    {message.description}
+                  </Typography>
+                  {message.url && (
+                    <Box display="flex" justifyContent="center">
+                      {message.url.endsWith('.mp4') ? (
+                        <video controls src={message.url} style={{ maxWidth: '100%', maxHeight: '300px' }} />
+                      ) : (
+                        <img src={message.url} alt={message.title} style={{ maxWidth: '100%', maxHeight: '300px' }} />
+                      )}
+                    </Box>
                   )}
-                </Box>
+                </>
               )}
             </CardContent>
           </Card>
@@ -81,7 +87,7 @@ const VideoMessagesList = ({selectedFriend}) => {
       ))}
     </Box>
   );
+  
 };
 
 export default VideoMessagesList;
-

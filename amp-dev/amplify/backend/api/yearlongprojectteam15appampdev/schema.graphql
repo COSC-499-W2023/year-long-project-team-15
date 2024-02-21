@@ -31,8 +31,11 @@ type VideoMessage @model @auth(rules: [{allow: public}]){
   date: AWSDateTime!
   title: String
   description: String
+  message: String
   sender: User @belongsTo(fields: ["senderID"])
   senderID: ID! @index(name: "bySender")
   receiver: User @belongsTo(fields: ["receiverID"])
   receiverID: ID! @index(name: "byReceiver")
 }
+
+

@@ -188,6 +188,7 @@ export const getVideoMessage = /* GraphQL */ `
       date
       title
       description
+      message
       sender {
         id
         email
@@ -234,6 +235,7 @@ export const listVideoMessages = /* GraphQL */ `
         date
         title
         description
+        message
         senderID
         receiverID
         createdAt
@@ -265,6 +267,7 @@ export const videoMessagesBySenderID = /* GraphQL */ `
         date
         title
         description
+        message
         senderID
         receiverID
         createdAt
@@ -296,6 +299,7 @@ export const videoMessagesByReceiverID = /* GraphQL */ `
         date
         title
         description
+        message
         senderID
         receiverID
         createdAt

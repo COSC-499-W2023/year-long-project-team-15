@@ -9,6 +9,7 @@ import FriendContext from '../context/FriendContext';
 import { useCurrentUser } from '../hooks/useCurrentUser';
 import { useGetMessages } from '../hooks/useGetMessages';
 
+
 const PictureUploadForm = ({ onClose }) => {
   const [selectedFile, setSelectedFile] = useState(null);
   const [isLoading, setIsLoading] = useState(false);
@@ -18,8 +19,7 @@ const PictureUploadForm = ({ onClose }) => {
   const { selectedFriend } = useContext(FriendContext);
   const { currentUserId } = useCurrentUser();
   const [uniqueKey, setUniqueKey] = useState(null);
-  const { refreshMessages } = useGetMessages({ selectedFriend });
-
+  const { fetchMessages } = useGetMessages({ selectedFriend });
 
   const handleFileChange = (event) => {
     setSelectedFile(event.target.files[0]);
@@ -40,12 +40,14 @@ const PictureUploadForm = ({ onClose }) => {
             description, 
             date: new Date().toISOString(),
           }
-        }
+        },
       });
-      console.log('Video message created:', videoMessageResult);
-      alert("Content sent!");
     
-      refreshMessages(); 
+
+      console.log('Video message created:', videoMessageResult);
+      alert("Content sent!"); 
+
+      fetchMessages();
 
       setTitle('');
       setDescription('');

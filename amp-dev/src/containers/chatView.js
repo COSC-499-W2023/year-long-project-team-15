@@ -1,4 +1,6 @@
 import React, { useContext, useState } from 'react';
+import { gql } from '@apollo/client';
+import client from '../apolloClient';
 import { TextField, IconButton } from '@mui/material';
 import SendIcon from '@mui/icons-material/Send';
 import PhotoCameraIcon from '@mui/icons-material/PhotoCamera';
@@ -6,11 +8,16 @@ import FriendContext from '../context/FriendContext';
 import Modal from '../components/Modal';
 import PictureUploadForm from './PictureUploadForm';
 import VideoMessagesList from '../components/VideoMessageList';
+import { createVideoMessage } from '../graphql/mutations';
+import { useGetMessages } from '../hooks/useGetMessages';
+import { useCurrentUser } from '../hooks/useCurrentUser';
 
 const ChatView = () => {
   const { selectedFriend } = useContext(FriendContext);
   const [message, setMessage] = useState('');
-  const [showModal, setShowModal] = useState(false);
+  const [showModal, setShowModal] = useState(false); 
+  const { fetchMessages } = useGetMessages({ selectedFriend });
+  const { currentUserId } = useCurrentUser();
 
   if (!selectedFriend) {
     return (
@@ -19,17 +26,33 @@ const ChatView = () => {
       </div>
     );
   }
+   
+  const handleSendMessage = async (event) => {
+    event.preventDefault();
+    try {
+      const videoMessageResult = await client.mutate({
+        mutation: gql(createVideoMessage),
+        variables: {
+          input: {
+            senderID: currentUserId,
+            receiverID: selectedFriend.id, 
+            message,
+            date: new Date().toISOString(),
+          }
+        },
+      });
+    
 
-  const handleSendMessage = () => {
-    // logic to send a message here
-    console.log('Message to send:', message);
-    setMessage('');
+      console.log('message created:', videoMessageResult);
+      fetchMessages();
+      setMessage('');
+    } catch (error) {
+      console.error('Error sending message:', error);
+    }
   };
 
-  // const handleUploadVideo = () => {
-  //   // logic to upload a video here
-  //   console.log('Uploading video...');
-  // };
+  const handleShowModal = () => setShowModal(true); 
+  const handleCloseModal = () => setShowModal(false); 
 
   return (
     <div className="col-9 col-auto d-flex flex-column">
@@ -46,19 +69,19 @@ const ChatView = () => {
           className="flex-grow-1 me-2"
           value={message}
           onChange={(e) => setMessage(e.target.value)}
-          onKeyPress={(e) => e.key === 'Enter' && handleSendMessage()}
+          onKeyPress={(e) => e.key === 'Enter' && handleSendMessage(e)}
         />
-        <div style={{transform: 5}}> 
+        <div> 
           <IconButton color="primary" onClick={handleSendMessage}>
             <SendIcon style={{ fontSize: 40 }}/>
           </IconButton>
-          <IconButton color="secondary" onClick={() => setShowModal(true)}>
+          <IconButton color="secondary" onClick={handleShowModal}>
             <PhotoCameraIcon style={{ fontSize: 40 }}/>
           </IconButton>
         </div>
       </div>
-      <Modal show={showModal} onClose={() => setShowModal(false)} modalName = "Blur Picture">
-            <PictureUploadForm />
+      <Modal show={showModal} onClose={handleCloseModal} modalName="Blur Picture">
+        <PictureUploadForm onClose={handleCloseModal} />
       </Modal>
     </div>
   );
