@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useRef, useState } from 'react';
 import { Storage } from 'aws-amplify';
 import { Card, CardContent, Typography, Box } from '@mui/material';
 import { useCurrentUser } from '../hooks/useCurrentUser';
@@ -7,12 +7,20 @@ import { useGetMessages } from '../hooks/useGetMessages';
 const VideoMessagesList = ({ selectedFriend }) => {
   const { currentUserId } = useCurrentUser();
   const [enhancedMessages, setEnhancedMessages] = useState([]);
-  const { messages, loading, error } = useGetMessages({ selectedFriend });
+  const { messages, loading, error, fetchMessages } = useGetMessages({ selectedFriend });
+  const messagesEndRef = useRef(null); 
+
+  
+  const scrollToBottom = () => {
+    setTimeout(() => {
+      messagesEndRef.current?.scrollIntoView({ behavior: "smooth" });
+    }, 100); 
+  };
 
   useEffect(() => {
     const enhanceMessagesWithUrls = async () => {
       const enhanced = await Promise.all(messages.map(async (message) => {
-        const url = message.message ? "" : await fetchMediaUrl(message.id);
+        const url = await fetchMediaUrl(message.id);
         return { ...message, url };
       }));
       setEnhancedMessages(enhanced);
@@ -21,14 +29,18 @@ const VideoMessagesList = ({ selectedFriend }) => {
     if (messages.length > 0) {
       enhanceMessagesWithUrls();
     }
-  }, [messages]);
+  }, [messages, fetchMessages]);
+
+  useEffect(() => {
+    scrollToBottom();
+  }, [enhancedMessages]); 
 
   const fetchMediaUrl = async (key) => {
     try {
       return await Storage.get(key, {
         bucket: 'blurvid-photos',
         region: 'ca-central-1',
-      });
+      }); 
     } catch (error) {
       console.error('Error fetching media from S3', error);
       return null;
@@ -85,6 +97,7 @@ const VideoMessagesList = ({ selectedFriend }) => {
           </Card>
         </Box>
       ))}
+      <div ref={messagesEndRef} />
     </Box>
   );
   
