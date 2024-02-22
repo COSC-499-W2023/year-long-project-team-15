@@ -1,4 +1,3 @@
-// CustomLogin.js
 import React, { useState } from 'react';
 import { useAuth } from '../context/AuthContext';
 import { useNavigate } from 'react-router-dom';
@@ -6,94 +5,82 @@ import IconButton from '@mui/material/IconButton';
 import VisibilityIcon from '@mui/icons-material/Visibility';
 import VisibilityOffIcon from '@mui/icons-material/VisibilityOff';
 import Button from '@mui/material/Button';
+import TextField from '@mui/material/TextField';
+import Container from '@mui/material/Container';
+import InputAdornment from '@mui/material/InputAdornment';
+import Typography from '@mui/material/Typography';
+import CircularProgress from '@mui/material/CircularProgress';
+import Alert from '@mui/material/Alert';
 
 const CustomLogin = () => {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [showPassword, setShowPassword] = useState(false);
+  const [loading, setLoading] = useState(false);
+  const [error, setError] = useState('');
   const navigate = useNavigate();
   const { signIn } = useAuth();
 
   const handleLogin = async () => {
     try {
+      setLoading(true);
+      setError(''); // Reset error message before attempting to log in
       await signIn(email, password);
       console.log('Successfully logged in');
       navigate('/');
     } catch (error) {
       console.error('Error during login:', error);
+      setError(error.message || 'Failed to login. Please check your credentials.');
+    } finally {
+      setLoading(false);
     }
   };
 
-  const styles = {
-    container: {
-      padding: '20px',
-      margin: '20px',
-      backgroundColor: '#87CEEB',
-      borderRadius: '8px',
-      boxShadow: '0 2px 4px rgba(0, 0, 0, 0.1)',
-      maxWidth: '400px',
-    },
-    label: {
-      display: 'block',
-      marginBottom: '5px',
-      marginTop: '10px',
-      color: '#333',
-    },
-    input: {
-      width: '100%',
-      padding: '10px',
-      margin: '10px 0',
-      borderRadius: '4px',
-      border: '1px solid #ccc',
-      boxSizing: 'border-box',
-    },
-    errorMessage: {
-      color: 'red',
-      fontSize: '0.9em',
-      marginTop: '5px',
-    },
-    button: {
-      width: '100%',
-      padding: '10px',
-      borderRadius: '4px',
-      border: 'none',
-      backgroundColor: '#white',
-      color: 'white',
-      cursor: 'pointer',
-      transition: 'background-color 0.3s',
-    },
-  };
-
-  // Use the same hover effect for the button
-  styles.button[':hover'] = {
-    backgroundColor: '#1bdde8',
-  };
-
   return (
-    <div style={styles.container}>
-      <input
-        type="text"
-        placeholder="Email"
-        style={styles.input}
+    <Container maxWidth="sm" sx={{ mt: 4, display: 'flex', flexDirection: 'column', alignItems: 'center', padding: 2, backgroundColor: 'white', borderRadius: 2, boxShadow: 3 }}>
+      <Typography variant="h5" sx={{ color: 'black', fontWeight: 'bold' }}>
+        Login
+      </Typography>
+      {error && <Alert severity="error" sx={{ width: '100%', mb: 2 }}>{error}</Alert>}
+      <TextField
+        label="Email"
+        variant="outlined"
+        fullWidth
+        margin="normal"
+        value={email}
         onChange={(e) => setEmail(e.target.value)}
       />
-
-      <div style={{ display: 'flex', alignItems: 'center' }}>
-        <input
-          type={showPassword ? 'text' : 'password'}
-          placeholder="Password"
-          style={{ ...styles.input, marginRight: '5px' }}
-          onChange={(e) => setPassword(e.target.value)}
-        />
-        <IconButton size="small" onClick={() => setShowPassword(!showPassword)}>
-          {showPassword ? <VisibilityIcon /> : <VisibilityOffIcon />}
-        </IconButton>
-      </div>
-
-      <Button variant="contained" style={styles.button} onClick={handleLogin}>
-        Login
+      <TextField
+        label="Password"
+        variant="outlined"
+        fullWidth
+        margin="normal"
+        type={showPassword ? 'text' : 'password'}
+        value={password}
+        onChange={(e) => setPassword(e.target.value)}
+        InputProps={{
+          endAdornment: (
+            <InputAdornment position="end">
+              <IconButton
+                aria-label="toggle password visibility"
+                onClick={() => setShowPassword(!showPassword)}
+              >
+                {showPassword ? <VisibilityIcon /> : <VisibilityOffIcon />}
+              </IconButton>
+            </InputAdornment>
+          ),
+        }}
+      />
+      <Button
+        variant="contained"
+        fullWidth
+        sx={{ mt: 2, bgcolor: 'primary.main', ':hover': { bgcolor: 'primary.dark' } }}
+        onClick={handleLogin}
+        disabled={loading}
+      >
+        {loading ? <CircularProgress size={24} color="inherit" /> : 'Login'}
       </Button>
-    </div>
+    </Container>
   );
 };
 
