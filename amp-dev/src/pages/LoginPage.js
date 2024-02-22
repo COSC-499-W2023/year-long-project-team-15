@@ -41,7 +41,7 @@ const CustomLogin = () => {
       <Typography variant="h5" sx={{ color: 'black', fontWeight: 'bold' }}>
         Login
       </Typography>
-      {error && <Alert severity="error" sx={{ width: '100%', mb: 2 }}>{error}</Alert>}
+      {error && <Alert severity="error" sx={{ width: '100%' }}>{error}</Alert>}
       <TextField
         label="Email"
         variant="outlined"

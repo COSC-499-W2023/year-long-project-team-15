@@ -64,7 +64,7 @@ const CustomSignUp = () => {
         <>
           <Typography variant="h5" sx={{ color: 'black', fontWeight: 'bold' }}>Signup</Typography>
           {errorMessage && (
-            <Alert severity="error" sx={{ width: '100%', mb: 2 }}>
+            <Alert severity="error" sx={{ width: '100%' }}>
               {errorMessage}
             </Alert>
           )}

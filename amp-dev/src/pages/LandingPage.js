@@ -27,7 +27,6 @@ const LandingPage = () => {
         BlurVid
       </Typography>
       <Box sx={{ display: 'flex', '& button': { mx: 2, my: 0, fontSize: '1.25rem' } }}> 
-        {/* mx for horizontal margin, my for vertical margin */}
         <DeclineButton label="login" onClick={() => setShowLogin(true)} sx={{ mx: 2, my: 1 }}/>
         <DeclineButton label="signup" onClick={() => setShowLogin(false)} sx={{ mx: 2, my: 1 }}/>
       </Box>
