@@ -56,7 +56,7 @@ const ChatView = () => {
           </IconButton>
         </div>
       </div>
-      <Modal show={showModal} onClose={() => setShowModal(false)}>
+      <Modal show={showModal} onClose={() => setShowModal(false)} modalName = "Blur Picture">
             <PictureUploadForm />
       </Modal>
     </div>

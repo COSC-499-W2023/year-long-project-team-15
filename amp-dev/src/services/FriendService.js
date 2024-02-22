@@ -23,6 +23,42 @@ export const fetchFriendRequests = async (userId) => {
   };
 };
 
+export const fetchSpecificFriendRequest = async (currentUserId, friendId) => {
+  try {
+     const sentRequestsResponse = await client.query({
+      query: gql(friendRequestsBySenderID),
+      variables: { 
+        senderID: currentUserId, 
+        filter: { receiverID: { eq: friendId }, status: { eq: "Accepted" } }
+      },
+      fetchPolicy: 'network-only'
+    });
+
+    const receivedRequestsResponse = await client.query({
+      query: gql(friendRequestsByReceiverID),
+      variables: { 
+        receiverID: currentUserId, 
+        filter: { senderID: { eq: friendId }, status: { eq: "Accepted" } }
+      },
+      fetchPolicy: 'network-only'
+    });
+
+    const combinedRequests = [
+      ...sentRequestsResponse.data.friendRequestsBySenderID.items,
+      ...receivedRequestsResponse.data.friendRequestsByReceiverID.items,
+    ];
+
+    const requestIds = combinedRequests.map(request => request.id);
+    
+    return requestIds;
+  } catch (error) {
+    console.error("Error fetching specific friend request:", error);
+    throw new Error("Failed to fetch friend request IDs.");
+  }
+};
+
+
+
 export const fetchFriendDetails = async (friendIds) => {
   const friendDetailsPromises = friendIds.map(friendId =>
     client.query({
