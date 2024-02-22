@@ -16,10 +16,6 @@ export const onCreateUser = /* GraphQL */ `
         nextToken
         __typename
       }
-      uploadedVideos {
-        nextToken
-        __typename
-      }
       sentVideoMessages {
         nextToken
         __typename
@@ -49,10 +45,6 @@ export const onUpdateUser = /* GraphQL */ `
         nextToken
         __typename
       }
-      uploadedVideos {
-        nextToken
-        __typename
-      }
       sentVideoMessages {
         nextToken
         __typename
@@ -79,10 +71,6 @@ export const onDeleteUser = /* GraphQL */ `
         __typename
       }
       receivedFriendRequests {
-        nextToken
-        __typename
-      }
-      uploadedVideos {
         nextToken
         __typename
       }
@@ -202,90 +190,6 @@ export const onDeleteFriendRequest = /* GraphQL */ `
     }
   }
 `;
-export const onCreateVideo = /* GraphQL */ `
-  subscription OnCreateVideo($filter: ModelSubscriptionVideoFilterInput) {
-    onCreateVideo(filter: $filter) {
-      id
-      uploadDate
-      videoKey
-      title
-      description
-      uploader {
-        id
-        email
-        name
-        dateJoined
-        createdAt
-        updatedAt
-        __typename
-      }
-      uploaderID
-      videoMessages {
-        nextToken
-        __typename
-      }
-      createdAt
-      updatedAt
-      __typename
-    }
-  }
-`;
-export const onUpdateVideo = /* GraphQL */ `
-  subscription OnUpdateVideo($filter: ModelSubscriptionVideoFilterInput) {
-    onUpdateVideo(filter: $filter) {
-      id
-      uploadDate
-      videoKey
-      title
-      description
-      uploader {
-        id
-        email
-        name
-        dateJoined
-        createdAt
-        updatedAt
-        __typename
-      }
-      uploaderID
-      videoMessages {
-        nextToken
-        __typename
-      }
-      createdAt
-      updatedAt
-      __typename
-    }
-  }
-`;
-export const onDeleteVideo = /* GraphQL */ `
-  subscription OnDeleteVideo($filter: ModelSubscriptionVideoFilterInput) {
-    onDeleteVideo(filter: $filter) {
-      id
-      uploadDate
-      videoKey
-      title
-      description
-      uploader {
-        id
-        email
-        name
-        dateJoined
-        createdAt
-        updatedAt
-        __typename
-      }
-      uploaderID
-      videoMessages {
-        nextToken
-        __typename
-      }
-      createdAt
-      updatedAt
-      __typename
-    }
-  }
-`;
 export const onCreateVideoMessage = /* GraphQL */ `
   subscription OnCreateVideoMessage(
     $filter: ModelSubscriptionVideoMessageFilterInput
@@ -293,7 +197,9 @@ export const onCreateVideoMessage = /* GraphQL */ `
     onCreateVideoMessage(filter: $filter) {
       id
       date
-      status
+      title
+      description
+      message
       sender {
         id
         email
@@ -314,18 +220,6 @@ export const onCreateVideoMessage = /* GraphQL */ `
         __typename
       }
       receiverID
-      video {
-        id
-        uploadDate
-        videoKey
-        title
-        description
-        uploaderID
-        createdAt
-        updatedAt
-        __typename
-      }
-      videoID
       createdAt
       updatedAt
       __typename
@@ -339,7 +233,9 @@ export const onUpdateVideoMessage = /* GraphQL */ `
     onUpdateVideoMessage(filter: $filter) {
       id
       date
-      status
+      title
+      description
+      message
       sender {
         id
         email
@@ -360,18 +256,6 @@ export const onUpdateVideoMessage = /* GraphQL */ `
         __typename
       }
       receiverID
-      video {
-        id
-        uploadDate
-        videoKey
-        title
-        description
-        uploaderID
-        createdAt
-        updatedAt
-        __typename
-      }
-      videoID
       createdAt
       updatedAt
       __typename
@@ -385,7 +269,9 @@ export const onDeleteVideoMessage = /* GraphQL */ `
     onDeleteVideoMessage(filter: $filter) {
       id
       date
-      status
+      title
+      description
+      message
       sender {
         id
         email
@@ -406,18 +292,6 @@ export const onDeleteVideoMessage = /* GraphQL */ `
         __typename
       }
       receiverID
-      video {
-        id
-        uploadDate
-        videoKey
-        title
-        description
-        uploaderID
-        createdAt
-        updatedAt
-        __typename
-      }
-      videoID
       createdAt
       updatedAt
       __typename

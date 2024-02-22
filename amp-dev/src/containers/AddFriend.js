@@ -88,7 +88,7 @@ const AddFriend = () => {
   return (
     <div>
         <SearchBar searchTerm={searchTerm} onSearchChange={handleSearchChange} />
-        <List>
+        <List >
             {filteredUsers.map(user => (
                 <ListItem key={user.id} style={{ display: 'flex', alignItems: 'center' }}>
                     <Box style={{ flexGrow: 1, display: 'flex', justifyContent: 'space-between', width: '100%' }}>

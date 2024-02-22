@@ -19,10 +19,6 @@ export const createUser = /* GraphQL */ `
         nextToken
         __typename
       }
-      uploadedVideos {
-        nextToken
-        __typename
-      }
       sentVideoMessages {
         nextToken
         __typename
@@ -55,10 +51,6 @@ export const updateUser = /* GraphQL */ `
         nextToken
         __typename
       }
-      uploadedVideos {
-        nextToken
-        __typename
-      }
       sentVideoMessages {
         nextToken
         __typename
@@ -88,10 +80,6 @@ export const deleteUser = /* GraphQL */ `
         __typename
       }
       receivedFriendRequests {
-        nextToken
-        __typename
-      }
-      uploadedVideos {
         nextToken
         __typename
       }
@@ -144,8 +132,7 @@ export const createFriendRequest = /* GraphQL */ `
     }
   }
 `;
-
-export const updateFriendRequest =  /* GraphQL */ `
+export const updateFriendRequest = /* GraphQL */ `
   mutation UpdateFriendRequest(
     $input: UpdateFriendRequestInput!
     $condition: ModelFriendRequestConditionInput
@@ -215,99 +202,6 @@ export const deleteFriendRequest = /* GraphQL */ `
     }
   }
 `;
-export const createVideo = /* GraphQL */ `
-  mutation CreateVideo(
-    $input: CreateVideoInput!
-    $condition: ModelVideoConditionInput
-  ) {
-    createVideo(input: $input, condition: $condition) {
-      id
-      uploadDate
-      videoKey
-      title
-      description
-      uploader {
-        id
-        email
-        name
-        dateJoined
-        createdAt
-        updatedAt
-        __typename
-      }
-      uploaderID
-      videoMessages {
-        nextToken
-        __typename
-      }
-      createdAt
-      updatedAt
-      __typename
-    }
-  }
-`;
-export const updateVideo = /* GraphQL */ `
-  mutation UpdateVideo(
-    $input: UpdateVideoInput!
-    $condition: ModelVideoConditionInput
-  ) {
-    updateVideo(input: $input, condition: $condition) {
-      id
-      uploadDate
-      videoKey
-      title
-      description
-      uploader {
-        id
-        email
-        name
-        dateJoined
-        createdAt
-        updatedAt
-        __typename
-      }
-      uploaderID
-      videoMessages {
-        nextToken
-        __typename
-      }
-      createdAt
-      updatedAt
-      __typename
-    }
-  }
-`;
-export const deleteVideo = /* GraphQL */ `
-  mutation DeleteVideo(
-    $input: DeleteVideoInput!
-    $condition: ModelVideoConditionInput
-  ) {
-    deleteVideo(input: $input, condition: $condition) {
-      id
-      uploadDate
-      videoKey
-      title
-      description
-      uploader {
-        id
-        email
-        name
-        dateJoined
-        createdAt
-        updatedAt
-        __typename
-      }
-      uploaderID
-      videoMessages {
-        nextToken
-        __typename
-      }
-      createdAt
-      updatedAt
-      __typename
-    }
-  }
-`;
 export const createVideoMessage = /* GraphQL */ `
   mutation CreateVideoMessage(
     $input: CreateVideoMessageInput!
@@ -316,7 +210,9 @@ export const createVideoMessage = /* GraphQL */ `
     createVideoMessage(input: $input, condition: $condition) {
       id
       date
-      status
+      title
+      description
+      message
       sender {
         id
         email
@@ -337,18 +233,6 @@ export const createVideoMessage = /* GraphQL */ `
         __typename
       }
       receiverID
-      video {
-        id
-        uploadDate
-        videoKey
-        title
-        description
-        uploaderID
-        createdAt
-        updatedAt
-        __typename
-      }
-      videoID
       createdAt
       updatedAt
       __typename
@@ -363,7 +247,9 @@ export const updateVideoMessage = /* GraphQL */ `
     updateVideoMessage(input: $input, condition: $condition) {
       id
       date
-      status
+      title
+      description
+      message
       sender {
         id
         email
@@ -384,18 +270,6 @@ export const updateVideoMessage = /* GraphQL */ `
         __typename
       }
       receiverID
-      video {
-        id
-        uploadDate
-        videoKey
-        title
-        description
-        uploaderID
-        createdAt
-        updatedAt
-        __typename
-      }
-      videoID
       createdAt
       updatedAt
       __typename
@@ -410,7 +284,9 @@ export const deleteVideoMessage = /* GraphQL */ `
     deleteVideoMessage(input: $input, condition: $condition) {
       id
       date
-      status
+      title
+      description
+      message
       sender {
         id
         email
@@ -431,38 +307,9 @@ export const deleteVideoMessage = /* GraphQL */ `
         __typename
       }
       receiverID
-      video {
-        id
-        uploadDate
-        videoKey
-        title
-        description
-        uploaderID
-        createdAt
-        updatedAt
-        __typename
-      }
-      videoID
       createdAt
       updatedAt
       __typename
     }
   }
 `;
-
-export const AcceptFriendRequest =  `mutation AcceptFriendRequest($friendRequestId: ID!) {
-  acceptFriendRequest(input: { id: $friendRequestId, status: "Approved" }) {
-    id
-    status
-    # other fields you may want to fetch after accepting
-  }
-}`;
-
-
-export const declineFriendRequest = `mutation DeclineFriendRequest($friendRequestId: ID!) {
-  declineFriendRequest(id: $friendRequestId) {
-    id
-    status: Declined
-    # other fields you may want to fetch after declining
-  }
-}`;

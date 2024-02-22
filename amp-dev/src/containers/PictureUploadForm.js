@@ -1,11 +1,25 @@
-import React, { useState } from 'react';
+import React, { useContext, useState } from 'react';
 import Button from '../components/Button';
 import { Storage } from 'aws-amplify';
+import { v4 as uuidv4 } from 'uuid';
+import { createVideoMessage } from '../graphql/mutations';
+import { gql } from '@apollo/client';
+import client from '../apolloClient';
+import FriendContext from '../context/FriendContext';
+import { useCurrentUser } from '../hooks/useCurrentUser';
+import { useGetMessages } from '../hooks/useGetMessages';
+
 
 const PictureUploadForm = ({ onClose }) => {
   const [selectedFile, setSelectedFile] = useState(null);
   const [isLoading, setIsLoading] = useState(false);
   const [processedImageUrl, setProcessedImageUrl] = useState(null);
+  const [title, setTitle] = useState('');
+  const [description, setDescription] = useState('');
+  const { selectedFriend } = useContext(FriendContext);
+  const { currentUserId } = useCurrentUser();
+  const [uniqueKey, setUniqueKey] = useState(null);
+  const { fetchMessages } = useGetMessages({ selectedFriend });
 
   const handleFileChange = (event) => {
     setSelectedFile(event.target.files[0]);
@@ -14,37 +28,79 @@ const PictureUploadForm = ({ onClose }) => {
 
   const handleSend = async (event) => {
     event.preventDefault();
-      return;
+    try {
+      const videoMessageResult = await client.mutate({
+        mutation: gql(createVideoMessage),
+        variables: {
+          input: {
+            id: uniqueKey,
+            senderID: currentUserId,
+            receiverID: selectedFriend.id, 
+            title, 
+            description, 
+            date: new Date().toISOString(),
+          }
+        },
+      });
+    
+
+      console.log('Video message created:', videoMessageResult);
+      alert("Content sent!"); 
+
+      fetchMessages();
+
+      setTitle('');
+      setDescription('');
+      setSelectedFile(null);
+      setIsLoading(false);
+    } catch (error) {
+      console.error('Error creating video message:', error);
+
     }
+  
+    if (onClose) onClose(); // Close modal after submitting
+  };
+    
   const clearFile = async (event) => {
     event.preventDefault();
+      setTitle('');
+      setDescription('');
       setSelectedFile(null);
       setProcessedImageUrl(null);
       setIsLoading(false);
       if (pollingInterval) clearInterval(pollingInterval);
       return;
     }
-  const handleSubmit = async (event) => {
-    event.preventDefault();
-    if (!selectedFile) {
-      alert('Please select a file to upload.');
-      return;
-    }
+    const handleSubmit = async (event) => {
+      event.preventDefault();
+      if (!selectedFile) {
+        alert('Please select a file to upload.');
+        return;
+      }
+    
+      // Generate a unique file key using UUID
+      
+      const uniqueKey = uuidv4();
+      setUniqueKey(uniqueKey);
+    
+      console.log('Uploading file with unique key:', uniqueKey);
+      setIsLoading(true); // Start loading
+    
+      try {
+        const result = await Storage.put(uniqueKey, selectedFile, {
+        });
+        
+        console.log('Succeeded:', result);
+        // Use uniqueKey instead of selectedFile.name to start polling
+        startPollingForProcessedImage(uniqueKey);
 
-    console.log('Uploading file:', selectedFile.name);
-    setIsLoading(true); // Start loading
-
-    try {
-      const result = await Storage.put(selectedFile.name, selectedFile, {
-        // options here
-      });
-      console.log('Succeeded:', result);
-      startPollingForProcessedImage(selectedFile.name);
-    } catch (error) {
-      console.log('Error:', error);
-    }
-    if (onClose) onClose(); // Close modal after submitting
-  };
+      } catch (error) {
+        console.log('Error :', error);
+        setIsLoading(false);
+      }
+      
+      if (onClose) onClose(); // Close modal after submitting
+    };
   let pollingInterval = null;
 
   const startPollingForProcessedImage = (fileName) => {
@@ -86,7 +142,7 @@ const PictureUploadForm = ({ onClose }) => {
         <div className="spinner-border" role="status">
           <span className="visually-hidden"></span>
         </div>
-        <div>Blurring...</div>
+        <div>Blurring... This may take a while :/</div>
       </div>
       ) : processedImageUrl ? (
         <div>
@@ -116,6 +172,20 @@ const PictureUploadForm = ({ onClose }) => {
               id="pictureUpload"
               accept="image/*"
               onChange={handleFileChange}
+            />
+            <input
+              className="form-control"
+              type="text"
+              placeholder="Title"
+              value={title}
+              onChange={(e) => setTitle(e.target.value)}
+            />
+            <input
+              type="text"
+              className="form-control"
+              placeholder="Description"
+              value={description}
+              onChange={(e) => setDescription(e.target.value)}
             />
           </div>      
             <Button

@@ -16,10 +16,6 @@ export const getUser = /* GraphQL */ `
         nextToken
         __typename
       }
-      uploadedVideos {
-        nextToken
-        __typename
-      }
       sentVideoMessages {
         nextToken
         __typename
@@ -125,34 +121,6 @@ export const listFriendRequests = /* GraphQL */ `
     }
   }
 `;
-export const GetPotentialFriendsRequests = /* GraphQL */ `
-query GetPotentialFriendsRequests($currentUserId: ID!) {
-  sentRequests: listFriendRequests(filter: { senderID: { eq: $currentUserId }, status_in: ["Pending", "Accepted"] }) {
-    items {
-      id
-      receiverID
-      status
-      date
-      receiver {
-        id
-        name
-      }
-    }
-  }
-  receivedRequests: listFriendRequests(filter: { receiverID: { eq: $currentUserId }, status_in: ["Pending", "Accepted"] }) {
-    items {
-      id
-      senderID
-      status
-      date
-      sender {
-        id
-        name
-      }
-    }
-  }
-}
-`;
 export const friendRequestsBySenderID = /* GraphQL */ `
   query FriendRequestsBySenderID(
     $senderID: ID!
@@ -213,102 +181,14 @@ export const friendRequestsByReceiverID = /* GraphQL */ `
     }
   }
 `;
-export const getVideo = /* GraphQL */ `
-  query GetVideo($id: ID!) {
-    getVideo(id: $id) {
-      id
-      uploadDate
-      videoKey
-      title
-      description
-      uploader {
-        id
-        email
-        name
-        dateJoined
-        createdAt
-        updatedAt
-        __typename
-      }
-      uploaderID
-      videoMessages {
-        nextToken
-        __typename
-      }
-      createdAt
-      updatedAt
-      __typename
-    }
-  }
-`;
-export const listVideos = /* GraphQL */ `
-  query ListVideos(
-    $id: ID
-    $filter: ModelVideoFilterInput
-    $limit: Int
-    $nextToken: String
-    $sortDirection: ModelSortDirection
-  ) {
-    listVideos(
-      id: $id
-      filter: $filter
-      limit: $limit
-      nextToken: $nextToken
-      sortDirection: $sortDirection
-    ) {
-      items {
-        id
-        uploadDate
-        videoKey
-        title
-        description
-        uploaderID
-        createdAt
-        updatedAt
-        __typename
-      }
-      nextToken
-      __typename
-    }
-  }
-`;
-export const videosByUploaderID = /* GraphQL */ `
-  query VideosByUploaderID(
-    $uploaderID: ID!
-    $sortDirection: ModelSortDirection
-    $filter: ModelVideoFilterInput
-    $limit: Int
-    $nextToken: String
-  ) {
-    videosByUploaderID(
-      uploaderID: $uploaderID
-      sortDirection: $sortDirection
-      filter: $filter
-      limit: $limit
-      nextToken: $nextToken
-    ) {
-      items {
-        id
-        uploadDate
-        videoKey
-        title
-        description
-        uploaderID
-        createdAt
-        updatedAt
-        __typename
-      }
-      nextToken
-      __typename
-    }
-  }
-`;
 export const getVideoMessage = /* GraphQL */ `
   query GetVideoMessage($id: ID!) {
     getVideoMessage(id: $id) {
       id
       date
-      status
+      title
+      description
+      message
       sender {
         id
         email
@@ -329,18 +209,6 @@ export const getVideoMessage = /* GraphQL */ `
         __typename
       }
       receiverID
-      video {
-        id
-        uploadDate
-        videoKey
-        title
-        description
-        uploaderID
-        createdAt
-        updatedAt
-        __typename
-      }
-      videoID
       createdAt
       updatedAt
       __typename
@@ -365,10 +233,11 @@ export const listVideoMessages = /* GraphQL */ `
       items {
         id
         date
-        status
+        title
+        description
+        message
         senderID
         receiverID
-        videoID
         createdAt
         updatedAt
         __typename
@@ -396,10 +265,11 @@ export const videoMessagesBySenderID = /* GraphQL */ `
       items {
         id
         date
-        status
+        title
+        description
+        message
         senderID
         receiverID
-        videoID
         createdAt
         updatedAt
         __typename
@@ -427,41 +297,11 @@ export const videoMessagesByReceiverID = /* GraphQL */ `
       items {
         id
         date
-        status
+        title
+        description
+        message
         senderID
         receiverID
-        videoID
-        createdAt
-        updatedAt
-        __typename
-      }
-      nextToken
-      __typename
-    }
-  }
-`;
-export const videoMessagesByVideoID = /* GraphQL */ `
-  query VideoMessagesByVideoID(
-    $videoID: ID!
-    $sortDirection: ModelSortDirection
-    $filter: ModelVideoMessageFilterInput
-    $limit: Int
-    $nextToken: String
-  ) {
-    videoMessagesByVideoID(
-      videoID: $videoID
-      sortDirection: $sortDirection
-      filter: $filter
-      limit: $limit
-      nextToken: $nextToken
-    ) {
-      items {
-        id
-        date
-        status
-        senderID
-        receiverID
-        videoID
         createdAt
         updatedAt
         __typename
