@@ -17,7 +17,6 @@ const CustomSignUp = ({ onSignUpSuccess }) => {
   const [showConfirmPassword, setShowConfirmPassword] = useState(false);
   const [loading, setLoading] = useState(false);
 
-  const navigate = useNavigate();
 
   const handleSignUp = async () => {
     setLoading(true);

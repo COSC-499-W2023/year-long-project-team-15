@@ -58,7 +58,7 @@ const PictureUploadForm = ({ onClose }) => {
 
     }
   
-    if (onClose) onClose(); // Close modal after submitting
+    if (onClose) onClose(); 
   };
     
   const clearFile = async (event) => {
@@ -98,8 +98,6 @@ const PictureUploadForm = ({ onClose }) => {
         console.log('Error :', error);
         setIsLoading(false);
       }
-      
-      if (onClose) onClose(); // Close modal after submitting
     };
   let pollingInterval = null;
 
