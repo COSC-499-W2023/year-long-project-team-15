@@ -1,11 +1,11 @@
-import React, { useContext, useState } from 'react';
+import React, { useState } from 'react';
 import Button from '../components/Button';
 import { Storage } from 'aws-amplify';
 import { v4 as uuidv4 } from 'uuid';
 import { createVideoMessage } from '../graphql/mutations';
 import { gql } from '@apollo/client';
 import client from '../apolloClient';
-import FriendContext from '../context/FriendContext';
+import { useFriend } from '../context/FriendContext';
 import { useCurrentUser } from '../hooks/useCurrentUser';
 import { useGetMessages } from '../hooks/useGetMessages';
 
@@ -16,7 +16,7 @@ const PictureUploadForm = ({ onClose }) => {
   const [processedImageUrl, setProcessedImageUrl] = useState(null);
   const [title, setTitle] = useState('');
   const [description, setDescription] = useState('');
-  const { selectedFriend } = useContext(FriendContext);
+  const { selectedFriend } = useFriend();
   const { currentUserId } = useCurrentUser();
   const [uniqueKey, setUniqueKey] = useState(null);
   const { fetchMessages } = useGetMessages({ selectedFriend });

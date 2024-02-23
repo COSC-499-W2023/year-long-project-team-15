@@ -1,10 +1,10 @@
-import React, { useContext, useState } from 'react';
+import React, { useState } from 'react';
 import { gql } from '@apollo/client';
 import client from '../apolloClient';
 import { TextField, IconButton } from '@mui/material';
 import SendIcon from '@mui/icons-material/Send';
 import PhotoCameraIcon from '@mui/icons-material/PhotoCamera';
-import FriendContext from '../context/FriendContext';
+import { useFriend } from '../context/FriendContext';
 import Modal from '../components/Modal';
 import PictureUploadForm from './PictureUploadForm';
 import VideoMessagesList from '../components/VideoMessageList';
@@ -13,7 +13,7 @@ import { useGetMessages } from '../hooks/useGetMessages';
 import { useCurrentUser } from '../hooks/useCurrentUser';
 
 const ChatView = () => {
-  const { selectedFriend } = useContext(FriendContext);
+  const { selectedFriend } = useFriend();
   const [message, setMessage] = useState('');
   const [showModal, setShowModal] = useState(false); 
   const { fetchMessages } = useGetMessages({ selectedFriend });

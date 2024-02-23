@@ -1,14 +1,14 @@
 
-import React, { useContext, useState } from 'react';
+import React, { useState } from 'react';
 import FriendList from '../components/FriendList';
 import SearchBar from '../components/SearchBar';
 import useFriends from '../hooks/useFriends';
-import FriendContext from '../context/FriendContext';
+import { useFriend } from '../context/FriendContext';
 
 const FriendSearchAndList = ({ showDeleteButtons, onDelete }) => {
   const [searchTerm, setSearchTerm] = useState('');
   const friendsData = useFriends();
-  const { setSelectedFriend } = useContext(FriendContext);
+  const { setSelectedFriend } = useFriend();
 
   const handleDeleteFriend = (friend) => {
     onDelete && onDelete(friend.id);

@@ -22,13 +22,13 @@ export const useGetMessages = ({ selectedFriend }) => {
       const sentMessagesResult = await client.query({
         query: gql(videoMessagesBySenderID),
         variables: { senderID: currentUserId, filter: { receiverID: { eq: selectedFriend.id } } },
-        fetchPolicy: 'network-only'
+        fetchPolicy: 'cache-first'
       });
 
       const receivedMessagesResult = await client.query({
         query: gql(videoMessagesByReceiverID),
         variables: { receiverID: currentUserId, filter: { senderID: { eq: selectedFriend.id } } },
-        fetchPolicy: 'network-only'
+        fetchPolicy: 'cache-first'
       });
 
       const combinedMessages = [
