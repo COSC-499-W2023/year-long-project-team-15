@@ -8,13 +8,12 @@ const VideoMessagesList = ({ selectedFriend }) => {
   const { currentUserId } = useCurrentUser();
   const [enhancedMessages, setEnhancedMessages] = useState([]);
   const { messages, loading, error, fetchMessages } = useGetMessages({ selectedFriend });
-  const messagesEndRef = useRef(null); 
+  const messagesEndRef = useRef(null);
 
-  
   const scrollToBottom = () => {
     setTimeout(() => {
       messagesEndRef.current?.scrollIntoView({ behavior: "smooth" });
-    }, 100); 
+    }, 100);
   };
 
   useEffect(() => {
@@ -33,14 +32,14 @@ const VideoMessagesList = ({ selectedFriend }) => {
 
   useEffect(() => {
     scrollToBottom();
-  }, [enhancedMessages]); 
+  }, [enhancedMessages]);
 
   const fetchMediaUrl = async (key) => {
     try {
       return await Storage.get(key, {
         bucket: 'blurvid-photos',
         region: 'ca-central-1',
-      }); 
+      });
     } catch (error) {
       console.error('Error fetching media from S3', error);
       return null;
@@ -70,7 +69,11 @@ const VideoMessagesList = ({ selectedFriend }) => {
             marginBottom: '10px',
           }}
         >
-          <Card sx={{ maxWidth: '60%', width: message.message ? 'fit-content' : '100%' }}>
+          <Card sx={{ 
+              maxWidth: '60%', 
+              width: message.message ? 'fit-content' : '100%',
+              bgcolor: message.senderID !== currentUserId ? '' : '#e9ecef', 
+           }}>
             <CardContent>
               {message.message ? (
                 <Typography variant="body1" style={{ whiteSpace: 'pre-wrap', wordWrap: 'break-word' }}>{message.message}</Typography>
@@ -100,7 +103,6 @@ const VideoMessagesList = ({ selectedFriend }) => {
       <div ref={messagesEndRef} />
     </Box>
   );
-  
 };
 
 export default VideoMessagesList;

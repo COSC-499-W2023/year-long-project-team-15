@@ -38,7 +38,7 @@ const CustomLogin = () => {
 
   return (
     <Container maxWidth="sm" sx={{ mt: 4, display: 'flex', flexDirection: 'column', alignItems: 'center', padding: 2, backgroundColor: 'white', borderRadius: 2, boxShadow: 3 }}>
-      <Typography variant="h5" sx={{ color: 'black', fontWeight: 'bold' }}>
+      <Typography variant="h5" sx={{ color: '#212529', fontWeight: 'bold' }}>
         Login
       </Typography>
       {error && <Alert severity="error" sx={{ width: '100%' }}>{error}</Alert>}

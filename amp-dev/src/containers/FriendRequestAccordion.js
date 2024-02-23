@@ -14,21 +14,27 @@ const FriendRequestsAccordion = ({ friendsData, updateFriendRequestStatus }) => 
         <Typography>Friend Requests</Typography>
       </AccordionSummary>
       <AccordionDetails>
-        <List>
-          {friendsData.map(friend => (
-            <ListItem key={friend.id} onClick={() => setSelectedFriend(friend)}>
-              <ListItemText primary={friend.name} />
-              <AcceptButton
-                label="Accept"
-                onClick={(e) => { e.stopPropagation(); updateFriendRequestStatus(friend.friendRequestId, "Accepted"); }}
-              />
-              <DeclineButton
-                label="Decline"
-                onClick={(e) => { e.stopPropagation(); updateFriendRequestStatus(friend.friendRequestId, "Declined"); }}
-              />
-            </ListItem>
-          ))}
-        </List>
+        {friendsData.length > 0 ? (
+          <List>
+            {friendsData.map(friend => (
+              <ListItem key={friend.id} onClick={() => setSelectedFriend(friend)}>
+                <ListItemText primary={friend.name} />
+                <AcceptButton
+                  label="Accept"
+                  onClick={(e) => { e.stopPropagation(); updateFriendRequestStatus(friend.friendRequestId, "Accepted"); }}
+                />
+                <DeclineButton
+                  label="Decline"
+                  onClick={(e) => { e.stopPropagation(); updateFriendRequestStatus(friend.friendRequestId, "Declined"); }}
+                />
+              </ListItem>
+            ))}
+          </List>
+        ) : (
+          <Typography variant="body1" sx={{ textAlign: 'center' }}>
+            You have no friends requests.
+          </Typography>
+        )}
       </AccordionDetails>
     </Accordion>
   );

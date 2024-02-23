@@ -5,7 +5,7 @@ import { Button, Container, TextField, InputAdornment, IconButton, Typography, C
 import VisibilityIcon from '@mui/icons-material/Visibility';
 import VisibilityOffIcon from '@mui/icons-material/VisibilityOff';
 
-const CustomSignUp = () => {
+const CustomSignUp = ({ onSignUpSuccess }) => {
   const [name, setName] = useState('');
   const [password, setPassword] = useState('');
   const [confirmPassword, setConfirmPassword] = useState('');
@@ -50,7 +50,7 @@ const CustomSignUp = () => {
     setLoading(true);
     try {
       await Auth.confirmSignUp(email, confirmationCode);
-      navigate('/login');
+      onSignUpSuccess();
       setLoading(false);
     } catch (error) {
       setErrorMessage(error.message || 'An error occurred during confirmation');
@@ -62,7 +62,7 @@ const CustomSignUp = () => {
     <Container maxWidth="sm" sx={{ mt: 4, display: 'flex', flexDirection: 'column', alignItems: 'center', padding: 2, backgroundColor: 'white', borderRadius: 2, boxShadow: 3 }}>
       {!isSignUpComplete ? (
         <>
-          <Typography variant="h5" sx={{ color: 'black', fontWeight: 'bold' }}>Signup</Typography>
+          <Typography variant="h5" sx={{ color: '#212529', fontWeight: 'bold' }}>Signup</Typography>
           {errorMessage && (
             <Alert severity="error" sx={{ width: '100%' }}>
               {errorMessage}

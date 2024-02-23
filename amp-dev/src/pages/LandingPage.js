@@ -2,14 +2,16 @@ import React, { useState } from "react";
 import { Box, Typography, CssBaseline } from "@mui/material";
 import CustomLogin from "./LoginPage";
 import CustomSignUp from "./SignUpPage";
-import DeclineButton from '../components/DeclineButton';
+import AcceptButton from "../components/AcceptButton";
 
 const LandingPage = () => {
   const [showLogin, setShowLogin] = useState(true);
 
+  const handleShowLogin = () => setShowLogin(true);
+
   return (
     <Box sx={{ 
-        bgcolor: '#2c313c', 
+        bgcolor: '#212529', 
         color: 'white', 
         height: '100vh', 
         width: '100vw',
@@ -27,11 +29,11 @@ const LandingPage = () => {
         BlurVid
       </Typography>
       <Box sx={{ display: 'flex', '& button': { mx: 2, my: 0, fontSize: '1.25rem' } }}> 
-        <DeclineButton label="login" onClick={() => setShowLogin(true)} sx={{ mx: 2, my: 1 }}/>
-        <DeclineButton label="signup" onClick={() => setShowLogin(false)} sx={{ mx: 2, my: 1 }}/>
+        <AcceptButton label="login" onClick={() => setShowLogin(true)} sx={{ mx: 2, my: 1 }}/>
+        <AcceptButton label="signup" onClick={() => setShowLogin(false)} sx={{ mx: 2, my: 1 }}/>
       </Box>
       <Box sx={{ mt: 1, width: '100%', maxWidth: 400 }}> 
-        {showLogin ? <CustomLogin /> : <CustomSignUp />}
+        {showLogin ? <CustomLogin /> : <CustomSignUp onSignUpSuccess={handleShowLogin}/>}
       </Box>
     </Box>
   );
