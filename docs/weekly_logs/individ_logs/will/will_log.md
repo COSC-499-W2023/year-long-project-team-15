@@ -225,3 +225,24 @@ From what I/we did this week there are just some holes to fill with regards to r
 **Done**
 
 ![wills T2 week5 done board](./screenshots/wills_done_T2_week5.png)
+
+## Week 6/7
+
+Goals:
+
+work on video proccessing, real time chatting
+
+**Tasks**
+
+![wills T2 week6/7 tasks](./screenshots/wills_tasks_T2_week5.png)
+
+This week Ive spent alot of time trying to get video messages to update in real time without refresh. However, I am going to have to keep working on this as it is not yet working despite my efforts of uing websocket connections and graphql subsrciptions. May try polling for data instead in next attempt. I also add chat messages to our app including database altering and logic for sending a chat and updated fetching and  conditional rendering for display of video/picture messages as well as chats. I also fixed issues with friend context so when switching pages and returning to a previous page, the context holds whatever frined you were chatting with so you dont have to find your last conversion again. I also spent some time completely re-designing and fixing some bugs with our new login/signup pages.
+
+**In Progress**
+
+- video proccessing
+- real-time chatting
+
+**Done**
+
+![wills T2 week5 done board](./screenshots/wills_done_T2_week6_7.png)
