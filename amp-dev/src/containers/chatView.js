@@ -55,6 +55,33 @@ const ChatView = () => {
     }
   };
 
+  const handleSendContent = async ( uniqueKey, title, description) => {
+    try {
+      const videoMessageResult = await client.mutate({
+        mutation: gql(createVideoMessage),
+        variables: {
+          input: {
+            id: uniqueKey,
+            senderID: currentUserId,
+            receiverID: selectedFriend.id, 
+            title, 
+            description, 
+            date: new Date().toISOString(),
+          }
+        },
+      });
+    
+      console.log('Video message created:', videoMessageResult);
+      setMessages((currentMessages) => [...currentMessages, videoMessageResult.data.createVideoMessage]);
+      alert("Content sent!"); 
+      
+    } catch (error) {
+      console.error('Error creating video message:', error);
+    }
+  
+    handleCloseModal();
+  };
+
   const handleShowModal = () => setShowModal(true); 
   const handleCloseModal = () => setShowModal(false); 
 
@@ -85,7 +112,7 @@ const ChatView = () => {
         </div>
       </div>
       <Modal show={showModal} onClose={handleCloseModal} modalName="Blur Picture">
-        <PictureUploadForm onClose={handleCloseModal} />
+        <PictureUploadForm handleSendContent={handleSendContent} />
       </Modal>
     </div>
   );
