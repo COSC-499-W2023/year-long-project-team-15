@@ -53,7 +53,6 @@ export const useGetMessages = ({ selectedFriend }) => {
         const subscription = API.graphql({
             query: onCreateVideoMessage,
             variables: {
-              // Assuming your subscription allows for filtering by sender and receiver IDs
               filter: {
                 senderID: { eq: selectedFriend.id },
                 receiverID: { eq: currentUserId },

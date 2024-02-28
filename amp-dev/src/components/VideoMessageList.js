@@ -143,7 +143,7 @@ const VideoMessagesList = ({ messages, error, loading }) => {
   const scrollToBottom = () => {
     setTimeout(() => {
       messagesEndRef.current?.scrollIntoView({ behavior: "smooth" });
-    }, 100);
+    }, 1000);
   };
 
   const fetchMediaUrl = async (key) => {
