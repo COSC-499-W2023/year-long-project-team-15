@@ -56,11 +56,14 @@ export const useGetMessages = ({ selectedFriend }) => {
               filter: {
                 senderID: { eq: selectedFriend.id },
                 receiverID: { eq: currentUserId },
+                //senderID: { eq: currentUserId },
+                //receiverID: { eq: selectedFriend.id },
               },
             },
           }).subscribe({
             next: ({ value }) => {
-              const newMessage = value.data.onCreateVideoMessage.items;
+              const newMessage = value.data.onCreateVideoMessage;
+              console.log("new message recieved: ", newMessage);
               if (newMessage) {
                 console.log("new message recieved: ", newMessage);
                 setMessages(currentMessages => [...currentMessages, newMessage]);
