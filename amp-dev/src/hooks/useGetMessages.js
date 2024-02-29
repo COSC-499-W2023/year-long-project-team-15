@@ -11,6 +11,25 @@ export const useGetMessages = ({ selectedFriend }) => {
   const [messages, setMessages] = useState([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
+  const [allMessages, setAllMessages] = useState([]); 
+  const [filterCriteria, setFilterCriteria] = useState({ date: '', includeContentMessagesOnly: false });
+
+  const applyFilters = useCallback(() => {
+    console.log("appling filter", filterCriteria);
+   
+    const filtered = allMessages.filter(message => {
+      if (filterCriteria.includeContentMessagesOnly && message.message) {
+        return false;
+      }
+      if (filterCriteria.date) {
+        const messageDate = new Date(message.date).toDateString();
+        const filterDate = new Date(filterCriteria.date).toDateString();
+        return messageDate === filterDate;
+      }
+      return true;
+    });
+    setMessages(filtered);
+  }, [allMessages, filterCriteria]);
   
   const fetchMessages = useCallback(async () => {
     if (!currentUserId || !selectedFriend?.id) {
@@ -38,7 +57,7 @@ export const useGetMessages = ({ selectedFriend }) => {
         ...receivedMessagesResult.data.videoMessagesByReceiverID.items,
       ].sort((a, b) => new Date(a.date) - new Date(b.date));
 
-      setMessages(combinedMessages);
+      setAllMessages(combinedMessages);
     } catch (error) {
       console.error("Failed to fetch messages:", error);
       setError(error);
@@ -49,8 +68,11 @@ export const useGetMessages = ({ selectedFriend }) => {
 
   useEffect(() => {
     fetchMessages();
+
+    let subscription;
+
     if(selectedFriend){
-        const subscription = API.graphql({
+        subscription = API.graphql({
             query: onCreateVideoMessage,
             variables: {
               filter: {
@@ -63,7 +85,7 @@ export const useGetMessages = ({ selectedFriend }) => {
               const newMessage = value.data.onCreateVideoMessage;
               if (newMessage) {
                 console.log("new message recieved: ", newMessage);
-                setMessages(currentMessages => [...currentMessages, newMessage]);
+                setAllMessages(currentMessages => [...currentMessages, newMessage]);
             }
             },
             error: (error) => console.warn(error),
@@ -76,5 +98,13 @@ export const useGetMessages = ({ selectedFriend }) => {
     }
 }, [selectedFriend, currentUserId, fetchMessages]);
 
-  return { messages, setMessages, loading, error, fetchMessages };
+useEffect(() => {
+  applyFilters();
+}, [allMessages, filterCriteria, applyFilters]);
+
+const updateFilterCriteria = useCallback((newCriteria) => {
+  setFilterCriteria(newCriteria);
+}, []);
+
+  return { messages, setAllMessages, loading, error, fetchMessages, updateFilterCriteria };
 };

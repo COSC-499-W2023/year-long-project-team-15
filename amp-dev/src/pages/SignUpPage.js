@@ -1,6 +1,5 @@
 import React, { useState } from 'react';
 import { Auth } from 'aws-amplify';
-import { useNavigate } from 'react-router-dom';
 import { Button, Container, TextField, InputAdornment, IconButton, Typography, CircularProgress, Alert } from '@mui/material';
 import VisibilityIcon from '@mui/icons-material/Visibility';
 import VisibilityOffIcon from '@mui/icons-material/VisibilityOff';

@@ -12,22 +12,19 @@ import { createVideoMessage } from '../graphql/mutations';
 import { useGetMessages } from '../hooks/useGetMessages';
 import { useCurrentUser } from '../hooks/useCurrentUser';
 import { v4 as uuidv4 } from 'uuid';
+import FilterMessages from "../components/FilterMessages";
 
 const ChatView = () => {
   const { selectedFriend } = useFriend();
   const [message, setMessage] = useState('');
   const [showModal, setShowModal] = useState(false); 
-  const { messages, setMessages, loading, error, fetchMessages } = useGetMessages({ selectedFriend });
+  const { messages, setAllMessages, loading, error, updateFilterCriteria} = useGetMessages({ selectedFriend });
   const { currentUserId } = useCurrentUser();
 
-  if (!selectedFriend) {
-    return (
-      <div className="col-9 col-auto">
-        <h1 className="display-6">&emsp;Please select a friend to start chatting</h1>
-      </div>
-    );
-  }
-   
+  const handleFilterChange = (criteria) => {
+    updateFilterCriteria(criteria);
+  };
+
   const handleSendMessage = async (event) => {
     event.preventDefault();
 
@@ -48,7 +45,7 @@ const ChatView = () => {
       });
 
       console.log('message created:', videoMessageResult);
-      setMessages((currentMessages) => [...currentMessages, videoMessageResult.data.createVideoMessage]);
+      setAllMessages((currentMessages) => [...currentMessages, videoMessageResult.data.createVideoMessage]);
       setMessage('');
     } catch (error) {
       console.error('Error sending message:', error);
@@ -72,7 +69,7 @@ const ChatView = () => {
       });
     
       console.log('Video message created:', videoMessageResult);
-      setMessages((currentMessages) => [...currentMessages, videoMessageResult.data.createVideoMessage]);
+      setAllMessages((currentMessages) => [...currentMessages, videoMessageResult.data.createVideoMessage]);
       alert("Content sent!"); 
       
     } catch (error) {
@@ -85,13 +82,21 @@ const ChatView = () => {
   const handleShowModal = () => setShowModal(true); 
   const handleCloseModal = () => setShowModal(false); 
 
+  if (!selectedFriend) {
+    return (
+      <div className="col-9 col-auto">
+        <h1 className="display-6">&emsp;Please select a friend to start chatting</h1>
+      </div>
+    );
+  }
+
   return (
     <div className="col-9 col-auto d-flex flex-column">
       <div className="overflow-auto px-2 py-1 flex-grow-1">
         <div>
-          <p>&emsp;Chatting with: {selectedFriend.name}</p>
+          <FilterMessages selectedFriend={selectedFriend} onFilterChange={handleFilterChange} />
         </div>
-        <VideoMessagesList key={selectedFriend.id} selectedFriend={selectedFriend} messages={messages} loadig={loading} error={error} />
+        <VideoMessagesList key={selectedFriend.id} selectedFriend={selectedFriend} messages={messages} loading={loading} error={error} />
       </div>
       <div className="d-flex align-items-center p-2 mt-auto">
         <TextField
