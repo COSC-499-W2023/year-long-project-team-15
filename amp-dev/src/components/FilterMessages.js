@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useMemo, useState } from 'react';
 import { AppBar, Toolbar, Typography, IconButton, Menu, MenuItem, ListItemIcon, ListItemText, TextField, Button } from '@mui/material';
 import FilterListIcon from '@mui/icons-material/FilterList';
 import CalendarTodayIcon from '@mui/icons-material/CalendarToday';
@@ -25,6 +25,7 @@ const FilterMessages = ({ selectedFriend, onFilterChange }) => {
   const handleContentMessagesFilter = () => {
     // Trigger filter for content messages only
     onFilterChange({ includeContentMessagesOnly: true });
+    setDateFilter('');
     handleClose();
   };
   const handleClearFilters = () => {
@@ -33,8 +34,11 @@ const FilterMessages = ({ selectedFriend, onFilterChange }) => {
       date: null, 
     }); 
   };
-  
 
+  useMemo(() => {
+    handleClearFilters();
+  }, [selectedFriend])
+  
   return (
     <AppBar position="static" color="default" elevation={1}>
       <Toolbar>
