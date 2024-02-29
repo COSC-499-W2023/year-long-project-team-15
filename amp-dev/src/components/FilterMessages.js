@@ -40,7 +40,7 @@ const FilterMessages = ({ selectedFriend, onFilterChange }) => {
   }, [selectedFriend])
   
   return (
-    <AppBar position="static" color="default" elevation={1}>
+    <AppBar position="static" color="default" elevation={1} sx={{ marginBottom: '1.5px'}}>
       <Toolbar>
         <Typography variant="h6" component="div" sx={{ flexGrow: 1 }}>
           {selectedFriend.name}
