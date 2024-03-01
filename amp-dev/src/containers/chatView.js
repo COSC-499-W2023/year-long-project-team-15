@@ -52,7 +52,7 @@ const ChatView = () => {
     }
   };
 
-  const handleSendContent = async ( uniqueKey, title, description) => {
+  const handleSendContent = async ( uniqueKey, title, description, contentType) => {
     try {
       const videoMessageResult = await client.mutate({
         mutation: gql(createVideoMessage),
@@ -63,6 +63,7 @@ const ChatView = () => {
             receiverID: selectedFriend.id, 
             title, 
             description, 
+            contentType,
             date: new Date().toISOString(),
           }
         },

@@ -8,13 +8,36 @@ const VideoMessagesList = ({ messages, error, loading }) => {
   const [enhancedMessages, setEnhancedMessages] = useState([]);
   const messagesEndRef = useRef(null);
 
+  const fetchMediaUrl = async (message) => {
+    let bucket = {};
+    let region = {};
+
+    if (message.contentType == 'video') {
+      bucket = 'rekognitionvideofaceblurr-outputimagebucket1311836-seosn2svhtxh';
+      region = 'us-west-2';
+    } else {
+      bucket = 'blurvid-photos';
+      region = 'ca-central-1';
+    }
+
+    try {
+      return await Storage.get(message.id, {
+        bucket,
+        region,
+      });
+    } catch (error) {
+      console.error('Error fetching media from S3', error);
+      return null;
+    }
+  };
+
   useEffect(() => {
     const enhanceMessagesWithUrls = async () => {
       const enhanced = await Promise.all(messages.map(async (message) => {
         if(message.message){
           return { ...message };
         }else{
-          const url = await fetchMediaUrl(message.id);
+          const url = await fetchMediaUrl(message);
           return { ...message, url };
         }
       }));
@@ -34,18 +57,6 @@ const VideoMessagesList = ({ messages, error, loading }) => {
     setTimeout(() => {
       messagesEndRef.current?.scrollIntoView({ behavior: "smooth" });
     }, 1000);
-  };
-
-  const fetchMediaUrl = async (key) => {
-    try {
-      return await Storage.get(key, {
-        bucket: 'blurvid-photos',
-        region: 'ca-central-1',
-      });
-    } catch (error) {
-      console.error('Error fetching media from S3', error);
-      return null;
-    }
   };
 
   if (loading) return <div>Loading...</div>;
@@ -89,7 +100,7 @@ const VideoMessagesList = ({ messages, error, loading }) => {
                       </Typography>
                       {message.url && (
                         <Box display="flex" justifyContent="center">
-                          {message.url.endsWith('.mp4') ? (
+                          {message.contentType == 'video' ? (
                             <video controls src={message.url} style={{ maxWidth: '100%', maxHeight: '300px' }} />
                           ) : (
                             <img src={message.url} alt={message.title} style={{ maxWidth: '100%', maxHeight: '300px' }} />

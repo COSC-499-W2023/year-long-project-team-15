@@ -212,6 +212,7 @@ export const createVideoMessage = /* GraphQL */ `
       date
       title
       description
+      contentType
       message
       sender {
         id
@@ -249,6 +250,7 @@ export const updateVideoMessage = /* GraphQL */ `
       date
       title
       description
+      contentType
       message
       sender {
         id
@@ -286,6 +288,7 @@ export const deleteVideoMessage = /* GraphQL */ `
       date
       title
       description
+      contentType
       message
       sender {
         id

@@ -5,34 +5,52 @@ import { v4 as uuidv4 } from 'uuid';
 
 const PictureUploadForm = ({ handleSendContent}) => {
   const [selectedFile, setSelectedFile] = useState(null);
+  const [fileType, setFileType] = useState(null);
   const [isLoading, setIsLoading] = useState(false);
-  const [processedImageUrl, setProcessedImageUrl] = useState(null);
+  const [processedUrl, setProcessedUrl] = useState(null);
   const [title, setTitle] = useState('');
   const [description, setDescription] = useState('');
   const [uniqueKey, setUniqueKey] = useState(null);
+  const [bucketConfig, setBucketConfig] = useState({ name: '', region: ''});
 
   const handleFileChange = (event) => {
-    setSelectedFile(event.target.files[0]);
-    setProcessedImageUrl(null);
+    const file = event.target.files[0];
+    if (file) {
+      setSelectedFile(file);
+      setProcessedUrl(null);
+      determineBucket(file); 
+    }
   };
 
-  const handleSend = (event) => {
+  const determineBucket = (file) => {
+    console.log('file', file);
+    console.log(file.type);
+    if (file.type.startsWith("image/") && !file.type.startsWith("image/gif")) {
+      setBucketConfig({ name: 'blurvid-photos', region: 'ca-central-1'});
+      setFileType('image');
+    } else if (file.type.startsWith("video/") || file.type.startsWith("image/gif")) {
+      setBucketConfig({ name: 'rekognitionvideofaceblurr-inputimagebucket20b2ba6b-kfbjqw5ifll4', region: 'us-west-2'});
+      setFileType('video');
+    }
+  };
+
+  const handleSend = async (event) => {
     event.preventDefault();
 
-    handleSendContent(uniqueKey, title, description);
+    handleSendContent(uniqueKey, title, description, fileType);
 
     setTitle('');
     setDescription('');
     setSelectedFile(null);
     setIsLoading(false);
-  }
+  };
     
   const clearFile = async (event) => {
     event.preventDefault();
       setTitle('');
       setDescription('');
       setSelectedFile(null);
-      setProcessedImageUrl(null);
+      setProcessedUrl(null);
       setIsLoading(false);
       if (pollingInterval) clearInterval(pollingInterval);
       return;
@@ -48,17 +66,24 @@ const PictureUploadForm = ({ handleSendContent}) => {
       
       const uniqueKey = uuidv4();
       setUniqueKey(uniqueKey);
+
+      if (!bucketConfig) {
+        alert('Unsupported file type');
+        return;
+      }
     
       console.log('Uploading file with unique key:', uniqueKey);
       setIsLoading(true); // Start loading
     
       try {
         const result = await Storage.put(uniqueKey, selectedFile, {
+          bucket: bucketConfig.name,
+          region: bucketConfig.region,
         });
         
         console.log('Succeeded:', result);
-        // Use uniqueKey instead of selectedFile.name to start polling
-        startPollingForProcessedImage(uniqueKey);
+      
+        startPollingForProcessedContent(uniqueKey);
 
       } catch (error) {
         console.log('Error :', error);
@@ -67,34 +92,28 @@ const PictureUploadForm = ({ handleSendContent}) => {
     };
   let pollingInterval = null;
 
-  const startPollingForProcessedImage = (fileName) => {
+  const startPollingForProcessedContent = (fileName) => {
     const pollingFrequency = 5000; // Poll every 5 seconds
-    pollingInterval = setInterval(() => checkImageStatus(fileName), pollingFrequency);
+    pollingInterval = setInterval(() => checkStatus(fileName), pollingFrequency);
   };
 
-  const checkImageStatus = async (fileName) => {
+  const checkStatus = async (fileName) => {
     try {
-      // Example: Checking the image directly from S3
-      // This could be replaced with an API call
+     
       const url = await Storage.get((fileName), {
-        bucket: 'blurvid-photos',
-        region: 'ca-central-1',
+        bucket: bucketConfig.name,
+        region: bucketConfig.region,
       });
-      const img = new Image();
 
-      // Set up onload event
-      img.onload = () => {
-        // Image has loaded, update state
-        setProcessedImageUrl(url);
+      setProcessedUrl(url);
+      if(processedUrl){
+        console.log(processedUrl);
         setIsLoading(false);
         clearInterval(pollingInterval);
-      };
-      img.src = url;
-
-      // Set the source of the image
-      console.log(processedImageUrl);
+      }
+      
     } catch (error) {
-      console.log('Image not ready yet:', error.message);
+      console.log('content not ready yet:', error.message);
       // Optionally implement a retry limit or error handling logic
     }
   };
@@ -108,10 +127,14 @@ const PictureUploadForm = ({ handleSendContent}) => {
         </div>
         <div>Blurring... This may take a while :/</div>
       </div>
-      ) : processedImageUrl ? (
+      ) : processedUrl ? (
         <div>
           <div className="image-container">
-              <img src={processedImageUrl} alt="Processed" />
+          {fileType === 'video' ? (
+              <video controls src={processedUrl} style={{ maxWidth: '100%' }} />
+            ) : (
+              <img src={processedUrl} alt="Processed" />
+            )}
           </div>
           <div className="d-flex justify-content-end">
             <Button
@@ -133,8 +156,8 @@ const PictureUploadForm = ({ handleSendContent}) => {
             <input
               type="file"
               className="form-control"
-              id="pictureUpload"
-              accept="image/*"
+              id="ContentUpload"
+              accept="image/*,video/*"
               onChange={handleFileChange}
             />
             <input
