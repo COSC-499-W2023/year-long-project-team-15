@@ -11,12 +11,13 @@ const PictureUploadForm = ({ handleSendContent}) => {
   const [title, setTitle] = useState('');
   const [description, setDescription] = useState('');
   const [uniqueKey, setUniqueKey] = useState(null);
-  const [bucketConfig, setBucketConfig] = useState({ name: '', region: ''});
+  const [bucketConfig, setBucketConfig] = useState({ level: '', name: '', region: ''});
+  const [outputBucketConfig, setOutputBucketConfig] = useState({ level: '', name: '', region: ''});
 
   const handleFileChange = (event) => {
     const file = event.target.files[0];
     if (file) {
-      setSelectedFile(file);
+      setSelectedFile({file, name: ''});
       setProcessedUrl(null);
       determineBucket(file); 
     }
@@ -25,12 +26,20 @@ const PictureUploadForm = ({ handleSendContent}) => {
   const determineBucket = (file) => {
     console.log('file', file);
     console.log(file.type);
+    console.log(file.name);
+
     if (file.type.startsWith("image/") && !file.type.startsWith("image/gif")) {
-      setBucketConfig({ name: 'blurvid-photos', region: 'ca-central-1'});
+      setBucketConfig({ level: 'public', name: 'blurvid-content204708-staging', region: 'ca-central-1'});
       setFileType('image');
+      setOutputBucketConfig({level: 'public', name: 'blurvid-photos', region: 'ca-central-1'});
+      const uniqueKey = uuidv4() + file.name;
+      setUniqueKey(uniqueKey);
     } else if (file.type.startsWith("video/") || file.type.startsWith("image/gif")) {
-      setBucketConfig({ name: 'rekognitionvideofaceblurr-inputimagebucket20b2ba6b-kfbjqw5ifll4', region: 'us-west-2'});
+      setBucketConfig({ level:'guest', name: 'rekognitionvideofaceblurr-inputimagebucket20b2ba6b-kfbjqw5ifll4', region: 'us-west-2'});
       setFileType('video');
+      setOutputBucketConfig({level:'guest', name: 'rekognitionvideofaceblurr-outputimagebucket1311836-seosn2svhtxh', region: 'us-west-2'});
+      const uniqueKey = uuidv4() + file.name;
+      setUniqueKey(uniqueKey);
     }
   };
 
@@ -64,8 +73,7 @@ const PictureUploadForm = ({ handleSendContent}) => {
     
       // Generate a unique file key using UUID
       
-      const uniqueKey = uuidv4();
-      setUniqueKey(uniqueKey);
+   
 
       if (!bucketConfig) {
         alert('Unsupported file type');
@@ -77,6 +85,7 @@ const PictureUploadForm = ({ handleSendContent}) => {
     
       try {
         const result = await Storage.put(uniqueKey, selectedFile, {
+          level: bucketConfig.level,
           bucket: bucketConfig.name,
           region: bucketConfig.region,
         });
@@ -99,18 +108,24 @@ const PictureUploadForm = ({ handleSendContent}) => {
 
   const checkStatus = async (fileName) => {
     try {
-     
+     console.log(outputBucketConfig.name);
+     console.log(outputBucketConfig.region);
+
       const url = await Storage.get((fileName), {
-        bucket: bucketConfig.name,
-        region: bucketConfig.region,
+        bucket: outputBucketConfig.name,
+        region: outputBucketConfig.region,
       });
 
-      setProcessedUrl(url);
-      if(processedUrl){
-        console.log(processedUrl);
+      const img = new Image();
+
+      // Set up onload event
+      img.onload = () => {
+        // Image has loaded, update state
+        setProcessedUrl(url);
         setIsLoading(false);
         clearInterval(pollingInterval);
-      }
+      };
+      img.src = url;
       
     } catch (error) {
       console.log('content not ready yet:', error.message);
