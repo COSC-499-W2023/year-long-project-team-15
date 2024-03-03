@@ -11,6 +11,7 @@ import InputAdornment from '@mui/material/InputAdornment';
 import Typography from '@mui/material/Typography';
 import CircularProgress from '@mui/material/CircularProgress';
 import Alert from '@mui/material/Alert';
+import ForgotPasswordForm from '../containers/ForgotPasswordForm';
 
 const CustomLogin = () => {
   const [email, setEmail] = useState('');
@@ -18,13 +19,14 @@ const CustomLogin = () => {
   const [showPassword, setShowPassword] = useState(false);
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState('');
+  const [showForgotPasswordForm, setShowForgotPasswordForm] = useState(false);
   const navigate = useNavigate();
   const { signIn } = useAuth();
 
   const handleLogin = async () => {
     try {
       setLoading(true);
-      setError(''); // Reset error message before attempting to log in
+      setError('');
       await signIn(email, password);
       console.log('Successfully logged in');
       navigate('/');
@@ -35,7 +37,16 @@ const CustomLogin = () => {
       setLoading(false);
     }
   };
-  
+
+  const handleForgotPasswordClick = () => {
+    // Show the Forgot Password form
+    setShowForgotPasswordForm(true);
+  };
+
+  const handleCloseForgotPasswordForm = () => {
+    // Close the Forgot Password form
+    setShowForgotPasswordForm(false);
+  };
 
   return (
     <Container maxWidth="sm" sx={{ mt: 4, display: 'flex', flexDirection: 'column', alignItems: 'center', padding: 2, backgroundColor: 'white', borderRadius: 2, boxShadow: 3 }}>
@@ -87,12 +98,16 @@ const CustomLogin = () => {
         sx={{ mt: 1, bgcolor: 'white', color: 'black', ':hover': { bgcolor: '#C0C0C0' }, width: '50%', height: '30px', 
               mx: 'auto', fontSize: '12px',
             }}
-        onClick={handleLogin}
+        onClick={handleForgotPasswordClick}
         disabled={loading}
       >
         {loading ? <CircularProgress size={24} color="inherit" /> : 'Forgot Password?'}
       </Button>
 
+      {/* Forgot Password Form */}
+      {showForgotPasswordForm && (
+        <ForgotPasswordForm onClose={handleCloseForgotPasswordForm} />
+      )}
     </Container>
   );
 };
