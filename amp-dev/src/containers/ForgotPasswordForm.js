@@ -28,6 +28,7 @@ const ForgotPasswordForm = ({ onClose }) => {
     }
   };
 
+
   const handleVerifyCode = async () => {
     try {
       setLoading(true);
@@ -45,6 +46,9 @@ const ForgotPasswordForm = ({ onClose }) => {
       setLoading(false);
     }
   };
+
+  // Debugging logs
+  console.log('ForgotPasswordForm rendering with onClose:', onClose);
 
   return (
     <div>

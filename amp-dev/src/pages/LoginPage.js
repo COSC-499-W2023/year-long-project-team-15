@@ -40,13 +40,15 @@ const CustomLogin = () => {
 
   const handleForgotPasswordClick = () => {
     // Show the Forgot Password form
+    navigate('/ForgotPasswordForm');
     setShowForgotPasswordForm(true);
   };
-
+  
   const handleCloseForgotPasswordForm = () => {
     // Close the Forgot Password form
     setShowForgotPasswordForm(false);
   };
+  
 
   return (
     <Container maxWidth="sm" sx={{ mt: 4, display: 'flex', flexDirection: 'column', alignItems: 'center', padding: 2, backgroundColor: 'white', borderRadius: 2, boxShadow: 3 }}>
@@ -95,16 +97,13 @@ const CustomLogin = () => {
       <Button
         variant="contained"
         fullWidth
-        sx={{ mt: 1, bgcolor: 'white', color: 'black', ':hover': { bgcolor: '#C0C0C0' }, width: '50%', height: '30px', 
-              mx: 'auto', fontSize: '12px',
-            }}
+        sx={{ mt: 1, bgcolor: 'white', color: 'black', ':hover': { bgcolor: '#C0C0C0' }, width: '50%', height: '30px', mx: 'auto', fontSize: '12px' }}
         onClick={handleForgotPasswordClick}
         disabled={loading}
       >
-        {loading ? <CircularProgress size={24} color="inherit" /> : 'Forgot Password?'}
+        {'Forgot Password?'}
       </Button>
 
-      {/* Forgot Password Form */}
       {showForgotPasswordForm && (
         <ForgotPasswordForm onClose={handleCloseForgotPasswordForm} />
       )}
