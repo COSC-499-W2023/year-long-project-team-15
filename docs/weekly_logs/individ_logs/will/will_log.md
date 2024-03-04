@@ -246,3 +246,23 @@ This week Ive spent alot of time trying to get video messages to update in real 
 **Done**
 
 ![wills T2 week5 done board](./screenshots/wills_done_T2_week6_7.png)
+
+## Week 8
+
+Goals:
+
+complete video proccessing and real time chatting
+
+**Tasks**
+
+![wills T2 week8 tasks](./screenshots/wills_tasks_T2_week8.png)
+
+this weke I completed realtime chat and content messaging and worked with mac to set up the video processing pipeline and implememnting video upload and incorporate them with our chatting functions. we just have an issue with the way AWS uploads to s3 for the pipline to grab and process the videos. I also added a filtering feature so users can filter there conversations by date or only display picture/video messages (filter out chat messages).
+
+**In Progress**
+
+- fix bug with amplify and s3 working together with video processing pipline.
+
+**Done**
+
+![wills T2 week8 done board](./screenshots/wills_done_T2_week8.png)
