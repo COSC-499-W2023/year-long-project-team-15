@@ -175,10 +175,10 @@ Upcoming Week:
 - Work on the project and look for exception or error cases in order to have a smooth running project and figure the chat feature.
 - Work on the UI.
 
-## Term 2 Week 5 (Feb 11th - Feb 18th)
+## Term 2 Week 6 (Feb 11th - Feb 18th)
 
 This week I participated in the following tasks:
-![Saksham's tasks t2 week 5](./screenshots/T2_week6_task.png)
+![Saksham's tasks t2 week 6](./screenshots/T2_week6_task.png)
 
 Goals:
 
@@ -194,3 +194,25 @@ Upcoming Week:
 - Implementing the chat feature .
 - Work on the UI and make it more user friendly and  interactive.
 
+## Term 2 Week 7 (Feb 18th - Feb 25th)
+
+Reading Week
+
+
+## Term 2 Week 8 (Feb 25th - March 3rd)
+
+This week I participated in the following tasks:
+![Saksham's tasks t2 week 8](./screenshots/T2_week8_task.png)
+
+Goals:
+
+- I worked refractoring and working on polishing my features
+- Forgot Password Feature
+- Manual testing
+
+
+Upcoming Week:
+
+- Work on the project and look for exception or error cases in order to have a smooth running project.
+- Work on the testing of the software and making automated test reports.
+- Add/change features according to peer-testing 2 reviews.
