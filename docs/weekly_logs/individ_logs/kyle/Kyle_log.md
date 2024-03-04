@@ -370,3 +370,39 @@ Also writing more cypress tests for the newly implemented UI functions.
 ## General Notes
 This week involved continuing writing code and heuristics for our first peer evaluation and adjusting our app based on the given feedback (That will be an ongoing set of tasks for the next couple weeks.). 
 Also writing more cypress tests for the newly implemented UI functions. Also writing code for developing a chat conversatino feature.
+
+# Individual Log: Kyle Keim (kyle-keim)(SN:46335485)
+## Feb.19th - Mar.3rd 2024 / T2Week 7 & 8
+### Peer Review Tasks
+![Screenshot 2024-03-03 205333](https://github.com/COSC-499-W2023/year-long-project-team-15/assets/122824873/3be3158c-9003-447b-b139-63b6b77b997b)
+
+
+## Previous Goals:
+* Reveiw UI design and coding future components and feature development.
+* Work on test implementation for react componenets using Cypress.
+* Continuing coding/learning for AWS DynamoDB, Cognito, Amplify functionality.
+* Reviewing our peer evaluation and making adjustments to our app based on given feedback.
+* Writing code for a chat conversation box between two individuals.
+
+## Tasks Completed
+* Reveiw/Update UI design and coding future components and feature development.
+* Continuing documentation of coding for AWS DynamoDB, Cognito, Amplify and updating new AWS documentation.
+* Writing more Cypress tests for the newly implemented UI functions.
+* Reviewing our peer evaluation and making adjustments to our app based on given feedback.
+* Writing code for a chat conversation box between two individuals.
+  
+## Tasks In-Progress
+* Continue updating UI design and coding future components and feature development.
+* Continue working on test implementation for react componenets using Cypress.
+* Continuing coding for AWS DynamoDB, Cognito, Amplify functionality.
+* implement mp4 uploading, cognito functionality, and video blurring. 
+* Testing and reporting of several UI components.
+* Writing out tasks for evaluators to try out in our app.
+* Finalizing components for 2nd in-class peer evaluation.
+
+![Screenshot 2024-03-03 205800](https://github.com/COSC-499-W2023/year-long-project-team-15/assets/122824873/a271b885-da02-40eb-b189-fc3949262fe7)
+
+
+## General Notes
+This week involved finalizing components for the 2nd in-class peer evaluation and writing out questions/tasks for people to try with our app. Also need to fix up the cypress aumoated testing feature
+so that we can improve our test writing for newly implemented UI functions. Continuing to work on the chat conversatino feature as well to get it working synchronously with our s3 buckets for videos.
