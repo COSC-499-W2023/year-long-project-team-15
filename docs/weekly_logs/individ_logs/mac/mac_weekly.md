@@ -174,3 +174,14 @@ Tasks:
 
 This week I worked with Will to implement sharing files through the chat view. We pair programmed (will made commits). We got the mutation working to add videoMessage elements to the table contaitaing file keys for s3 and the user and receiver creds. Manually tested all our implementaions before making any commits. Another productive week! 
 
+# Individual Log T2 W8: Mac Vibert (mvibert88)
+
+Goals:
+- Get video blurring working
+- Integrate with app
+
+Tasks: 
+
+![Mac's tasks t2 week 5](./screenshots/tasks_t2_week8.png)
+
+This week I got the video blurring app up and running on AWS. This took a significant amount of time trouble shooting version compatabiity and building all parts on the right os. Finally got it working though. We ar ejust having some issues with the way amplify adds files to the S3 bucket which is causing problems with the lambdas. Once that is resolved then our app is pretty much fuly functional! 
