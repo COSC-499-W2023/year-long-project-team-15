@@ -12,7 +12,7 @@ const VideoMessagesList = ({ messages, error, loading }) => {
     let bucket = {};
     let region = {};
 
-    if (message.contentType == 'video') {
+    if (message.contentType === 'video') {
       bucket = 'rekognitionvideofaceblurr-outputimagebucket1311836-seosn2svhtxh';
       region = 'us-west-2';
     } else {
@@ -100,7 +100,7 @@ const VideoMessagesList = ({ messages, error, loading }) => {
                       </Typography>
                       {message.url && (
                         <Box display="flex" justifyContent="center">
-                          {message.contentType == 'video' ? (
+                          {message.contentType === 'video' ? (
                             <video controls src={message.url} style={{ maxWidth: '100%', maxHeight: '300px' }} />
                           ) : (
                             <img src={message.url} alt={message.title} style={{ maxWidth: '100%', maxHeight: '300px' }} />
