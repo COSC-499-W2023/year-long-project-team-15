@@ -27,7 +27,9 @@ const ChatView = () => {
 
   const handleSendMessage = async (event) => {
     event.preventDefault();
-
+     if (message == ''){
+      return;
+     }
     const uniqueKey = uuidv4();
 
     try {

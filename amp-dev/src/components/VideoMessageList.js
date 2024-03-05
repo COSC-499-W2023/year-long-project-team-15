@@ -56,7 +56,7 @@ const VideoMessagesList = ({ messages, error, loading }) => {
   const scrollToBottom = () => {
     setTimeout(() => {
       messagesEndRef.current?.scrollIntoView({ behavior: "smooth" });
-    }, 1000);
+    }, 3000);
   };
 
   if (loading) return <div>Loading...</div>;
@@ -103,7 +103,7 @@ const VideoMessagesList = ({ messages, error, loading }) => {
                           {message.contentType === 'video' ? (
                             <video controls src={message.url} style={{ maxWidth: '100%', maxHeight: '300px' }} />
                           ) : (
-                            <img src={message.url} alt={message.title} style={{ maxWidth: '100%', maxHeight: '300px' }} />
+                            <img src={message.url} alt={message.title} style={{ maxWidth: '100%', width: 'fit-content' }} />
                           )}
                         </Box>
                       )}
