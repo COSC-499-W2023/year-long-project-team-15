@@ -1,4 +1,5 @@
 import { useState, useEffect, useCallback } from 'react';
+import { API } from 'aws-amplify';
 import client from '../apolloClient';
 import { gql } from '@apollo/client';
 import { useCurrentUser } from '../hooks/useCurrentUser';
@@ -19,6 +20,7 @@ export const useGetMessages = ({ selectedFriend }) => {
 
     setLoading(true);
     try {
+    console.log("fetchng messages");
       const sentMessagesResult = await client.query({
         query: gql(videoMessagesBySenderID),
         variables: { senderID: currentUserId, filter: { receiverID: { eq: selectedFriend.id } } },
@@ -47,31 +49,32 @@ export const useGetMessages = ({ selectedFriend }) => {
 
   useEffect(() => {
     fetchMessages();
+    if(selectedFriend){
+        const subscription = API.graphql({
+            query: onCreateVideoMessage,
+            variables: {
+              filter: {
+                senderID: { eq: selectedFriend.id },
+                receiverID: { eq: currentUserId },
+              },
+            },
+          }).subscribe({
+            next: ({ value }) => {
+              const newMessage = value.data.onCreateVideoMessage;
+              if (newMessage) {
+                console.log("new message recieved: ", newMessage);
+                setMessages(currentMessages => [...currentMessages, newMessage]);
+            }
+            },
+            error: (error) => console.warn(error),
+          });
+      
+          // Clean up the subscription on component unmount
+          return () => {
+            subscription.unsubscribe();
+          };
+    }
+}, [selectedFriend, currentUserId, fetchMessages]);
 
-    const unsubscribe = client.subscribe({
-        query: gql(onCreateVideoMessage),
-  
-      }).subscribe({
-        next(response) {
-          const newMessage = response.data.onCreateVideoMessage;
-          console.log("New message: ", newMessage);
-          if ((newMessage.sender.id === currentUserId && newMessage.receiver.id === selectedFriend.id) || 
-              (newMessage.sender.id === selectedFriend.id && newMessage.receiver.id === currentUserId)) {
-            setMessages((prevMessages) => [...prevMessages, newMessage]);
-          }
-        },
-        error(err) { console.error('Subscription error:', err); },
-      });
-    
-
-    return () => {
-      setMessages([]);
-      setLoading(false);
-      setError(null);
-      unsubscribe.unsubscribe();
-    };
-  }, [selectedFriend, currentUserId, fetchMessages]);
-
-
-  return { messages, loading, error, fetchMessages };
+  return { messages, setMessages, loading, error, fetchMessages };
 };

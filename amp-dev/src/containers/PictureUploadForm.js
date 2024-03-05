@@ -10,7 +10,7 @@ import { useCurrentUser } from '../hooks/useCurrentUser';
 import { useGetMessages } from '../hooks/useGetMessages';
 
 
-const PictureUploadForm = ({ onClose }) => {
+const PictureUploadForm = ({ handleSendContent}) => {
   const [selectedFile, setSelectedFile] = useState(null);
   const [isLoading, setIsLoading] = useState(false);
   const [processedImageUrl, setProcessedImageUrl] = useState(null);
@@ -19,47 +19,23 @@ const PictureUploadForm = ({ onClose }) => {
   const { selectedFriend } = useFriend();
   const { currentUserId } = useCurrentUser();
   const [uniqueKey, setUniqueKey] = useState(null);
-  const { fetchMessages } = useGetMessages({ selectedFriend });
+  const { messages, setMessages, fetchMessages } = useGetMessages({ selectedFriend });
 
   const handleFileChange = (event) => {
     setSelectedFile(event.target.files[0]);
     setProcessedImageUrl(null);
   };
 
-  const handleSend = async (event) => {
+  const handleSend = (event) => {
     event.preventDefault();
-    try {
-      const videoMessageResult = await client.mutate({
-        mutation: gql(createVideoMessage),
-        variables: {
-          input: {
-            id: uniqueKey,
-            senderID: currentUserId,
-            receiverID: selectedFriend.id, 
-            title, 
-            description, 
-            date: new Date().toISOString(),
-          }
-        },
-      });
-    
 
-      console.log('Video message created:', videoMessageResult);
-      alert("Content sent!"); 
+    handleSendContent(uniqueKey, title, description);
 
-      fetchMessages();
-
-      setTitle('');
-      setDescription('');
-      setSelectedFile(null);
-      setIsLoading(false);
-    } catch (error) {
-      console.error('Error creating video message:', error);
-
-    }
-  
-    if (onClose) onClose(); 
-  };
+    setTitle('');
+    setDescription('');
+    setSelectedFile(null);
+    setIsLoading(false);
+  }
     
   const clearFile = async (event) => {
     event.preventDefault();

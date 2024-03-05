@@ -11,12 +11,13 @@ import VideoMessagesList from '../components/VideoMessageList';
 import { createVideoMessage } from '../graphql/mutations';
 import { useGetMessages } from '../hooks/useGetMessages';
 import { useCurrentUser } from '../hooks/useCurrentUser';
+import { v4 as uuidv4 } from 'uuid';
 
 const ChatView = () => {
   const { selectedFriend } = useFriend();
   const [message, setMessage] = useState('');
   const [showModal, setShowModal] = useState(false); 
-  const { fetchMessages } = useGetMessages({ selectedFriend });
+  const { messages, setMessages, loading, error, fetchMessages } = useGetMessages({ selectedFriend });
   const { currentUserId } = useCurrentUser();
 
   if (!selectedFriend) {
@@ -29,11 +30,15 @@ const ChatView = () => {
    
   const handleSendMessage = async (event) => {
     event.preventDefault();
+
+    const uniqueKey = uuidv4();
+
     try {
       const videoMessageResult = await client.mutate({
         mutation: gql(createVideoMessage),
         variables: {
           input: {
+            id: uniqueKey,
             senderID: currentUserId,
             receiverID: selectedFriend.id, 
             message,
@@ -41,14 +46,40 @@ const ChatView = () => {
           }
         },
       });
-    
 
       console.log('message created:', videoMessageResult);
-      fetchMessages();
+      setMessages((currentMessages) => [...currentMessages, videoMessageResult.data.createVideoMessage]);
       setMessage('');
     } catch (error) {
       console.error('Error sending message:', error);
     }
+  };
+
+  const handleSendContent = async ( uniqueKey, title, description) => {
+    try {
+      const videoMessageResult = await client.mutate({
+        mutation: gql(createVideoMessage),
+        variables: {
+          input: {
+            id: uniqueKey,
+            senderID: currentUserId,
+            receiverID: selectedFriend.id, 
+            title, 
+            description, 
+            date: new Date().toISOString(),
+          }
+        },
+      });
+    
+      console.log('Video message created:', videoMessageResult);
+      setMessages((currentMessages) => [...currentMessages, videoMessageResult.data.createVideoMessage]);
+      alert("Content sent!"); 
+      
+    } catch (error) {
+      console.error('Error creating video message:', error);
+    }
+  
+    handleCloseModal();
   };
 
   const handleShowModal = () => setShowModal(true); 
@@ -60,7 +91,7 @@ const ChatView = () => {
         <div>
           <p>&emsp;Chatting with: {selectedFriend.name}</p>
         </div>
-        <VideoMessagesList key={selectedFriend.id} selectedFriend={selectedFriend} />
+        <VideoMessagesList key={selectedFriend.id} selectedFriend={selectedFriend} messages={messages} loadig={loading} error={error} />
       </div>
       <div className="d-flex align-items-center p-2 mt-auto">
         <TextField
@@ -81,7 +112,7 @@ const ChatView = () => {
         </div>
       </div>
       <Modal show={showModal} onClose={handleCloseModal} modalName="Blur Picture">
-        <PictureUploadForm onClose={handleCloseModal} />
+        <PictureUploadForm handleSendContent={handleSendContent} />
       </Modal>
     </div>
   );
