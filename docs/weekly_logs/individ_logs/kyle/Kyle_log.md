@@ -406,3 +406,40 @@ Also writing more cypress tests for the newly implemented UI functions. Also wri
 ## General Notes
 This week involved finalizing components for the 2nd in-class peer evaluation and writing out questions/tasks for people to try with our app. Also need to fix up the cypress aumoated testing feature
 so that we can improve our test writing for newly implemented UI functions. Continuing to work on the chat conversatino feature as well to get it working synchronously with our s3 buckets for videos.
+
+# Individual Log: Kyle Keim (kyle-keim)(SN:46335485)
+## Mar.4th - Mar.10th 2024 / T2Week 9
+### Peer Review Tasks
+![Screenshot 2024-03-10 225745](https://github.com/COSC-499-W2023/year-long-project-team-15/assets/122824873/ba0c5006-c676-4d75-b4a4-a897fa17738d)
+
+
+
+## Previous Goals:
+* Reveiw UI design and coding future components and feature development.
+* Work on test implementation for react componenets using Cypress.
+* Continuing coding/learning for AWS DynamoDB, Cognito, Amplify functionality.
+* Reviewing our peer evaluation and making adjustments to our app based on given feedback.
+* Finalize components for 2nd peer evaluation
+
+
+## Tasks Completed
+* Reveiw/Update UI design and coding future components and feature development.
+* Continuing documentation of coding for AWS DynamoDB, Cognito, Amplify and updating new AWS documentation.
+* Writing code for a chat conversation box between two individuals.
+* Finalize components for 2nd peer evaluation.
+  
+## Tasks In-Progress
+* Continue updating UI design and coding future components and feature development.
+* Continuing coding for AWS DynamoDB, Cognito, AWS Rekognition functionality.
+* implement mp4 uploading, cognito functionality, and video blurring. 
+* Fixing Cypress for testing and reporting of several UI components.
+* Reviewing our peer evaluation and making adjustments to our app based on given feedback.
+* Writing code for a chat conversation box between two individuals.
+
+![Screenshot 2024-03-10 230447](https://github.com/COSC-499-W2023/year-long-project-team-15/assets/122824873/8c8bff24-c20a-403f-b011-3b7178ab8fb7)
+
+
+
+## General Notes
+This week involved finalizing components for the 2nd in-class peer evaluation and reviewing the results from said evaluation. Still working on fixing up the automated cypress testing for the new UI components, and helping to 
+theorize how to best implement the transfer of video files between the various S3 buckets in oder to get AWS rekognition blurring our videos.
