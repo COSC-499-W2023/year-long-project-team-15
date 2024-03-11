@@ -216,3 +216,21 @@ Upcoming Week:
 - Work on the project and look for exception or error cases in order to have a smooth running project.
 - Work on the testing of the software and making automated test reports.
 - Add/change features according to peer-testing 2 reviews.
+
+## Term 2 Week 9 (March 3rd - March 10th)
+
+This week I participated in the following tasks:
+![Saksham's tasks t2 week 9](./screenshots/T2_week9_task.png)
+
+Goals:
+
+- I worked on the suggestions given in peer testing regarding UI flow, edit profile and other features
+- Manual testing
+
+
+Upcoming Week:
+
+- Work on the project and look for exception or error cases in order to have a smooth running project.
+- Work on the testing of the software and making automated test reports.
+- Keep working on features according to peer-testing 2 reviews.
+- Add features of notification (extra feature) that works as a notification bar for the user
