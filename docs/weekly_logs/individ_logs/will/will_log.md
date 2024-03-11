@@ -266,3 +266,24 @@ this weke I completed realtime chat and content messaging and worked with mac to
 **Done**
 
 ![wills T2 week8 done board](./screenshots/wills_done_T2_week8.png)
+
+
+## Week 9
+
+Goals:
+
+complete video proccessing 
+
+**Tasks**
+
+![wills T2 week8 tasks](./screenshots/wills_T2_week9_tasks.png)
+
+This week I completed peer testing and continued to try and debug a problem we are having when the app triggers the video-processing pipeline.
+
+**In Progress**
+
+- fix bug with amplify and s3 working together with video processing pipline.
+
+**Done**
+
+![wills T2 week9 done board](./screenshots/wills_done_T2_week8.png)
