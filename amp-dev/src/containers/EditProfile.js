@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { API, Auth, Storage, graphqlOperation } from 'aws-amplify';
 import { updateUser } from '../graphql/mutations';
-import AcceptButton from '../components/AcceptButton';
+import { TextField, Button, Dialog, DialogTitle, DialogContent, DialogActions, Avatar, Typography, } from '@mui/material';
 import ProfilePictureUploadForm from './ProfilePictureUploadForm';
 
 function EditProfileForm({ userId }) {
@@ -17,6 +17,7 @@ function EditProfileForm({ userId }) {
   const [verificationCode, setVerificationCode] = useState('');
   const [verificationError, setVerificationError] = useState('');
   const [dynamicS3URL, setDynamicS3URL] = useState('');
+  const [isEditing, setIsEditing] = useState(false);
 
   useEffect(() => {
     const fetchUserData = async () => {
@@ -28,63 +29,58 @@ function EditProfileForm({ userId }) {
         setDateJoined(authenticatedUser.attributes.dateJoined);
         setSentFriendRequests(authenticatedUser.attributes.sentFriendRequests || []);
 
-        // Retrieve the user's profile picture URL from Cognito custom attribute or any other source
         const userAttributes = await Auth.userAttributes(authenticatedUser);
         const profilePictureAttribute = userAttributes.find(attr => attr.Name === 'custom:ProfilePictureURL');
         if (profilePictureAttribute) {
-          setProfilePictureURL(constructedS3URL);
-
+          setProfilePictureURL(profilePictureAttribute.Value);
         }
 
-        // Dynamically set the S3 URL based on the authenticated user's username and a dynamic image filename
-        // s3://blurvid-profile-pics/public/profilepic.png
-        const s3Region = 'ca-central-1'; 
-        const s3BucketName = 'blurvid-profile-pics'; 
-        //const dynamicImageFilename = generateDynamicImageFilename();
-        const s3Key = `public/profilepic.png`;
-        const constructedS3URL = `https://s3-${s3Region}.amazonaws.com/${s3BucketName}/${s3Key}`;
-        console.log('Constructed S3 URL:', constructedS3URL);
+        const s3BucketName = 'blurvid-profile-pics';
+        const s3Key = `public/${authenticatedUser.username}/profilepic.png`;
+        const constructedS3URL = `https://${s3BucketName}.s3.amazonaws.com/${s3Key}`;
         setDynamicS3URL(constructedS3URL);
       } catch (error) {
-        console.error('Error constructing S3 URL:', error);
+        console.error('Error fetching user data:', error);
       } finally {
         setIsLoading(false);
       }
     };
-  
+
     fetchUserData();
   }, []);
-  
 
   const handleUpdateProfile = async () => {
     const formErrors = {};
     if (!email.trim()) formErrors.email = 'Email is required';
     else if (!/\S+@\S+\.\S+/.test(email)) formErrors.email = 'Email address is invalid';
-
+  
     if (Object.keys(formErrors).length > 0) {
       setErrors(formErrors);
       return;
     }
-
+  
     try {
       // Update user in DynamoDB
-      await API.graphql(graphqlOperation(updateUser, { input: { id, email, name, dateJoined} }));
-
+      await API.graphql(graphqlOperation(updateUser, { input: { id, email, name, dateJoined } }));
+  
       // Update email in Cognito
       const cognitoUser = await Auth.currentAuthenticatedUser();
       const currentEmail = cognitoUser.attributes.email;
-
+  
       // Send email verification code for any update (both name and email)
       await Auth.verifyCurrentUserAttribute('email');
-      setShowVerifyEmailPopup(true); // Show verification code input
-
+      setShowVerifyEmailPopup(true);
+  
       if (email !== currentEmail) {
         await Auth.updateUserAttributes(cognitoUser, { email });
       }
+  
+      setIsEditing(false);
     } catch (error) {
       console.error('Error updating user profile:', error);
     }
   };
+  
 
   const handleVerifyEmail = async () => {
     if (!verificationCode.trim()) {
@@ -104,32 +100,60 @@ function EditProfileForm({ userId }) {
     }
   };
 
-  if (isLoading) {
-    return <div>Loading user data...</div>;
-  }
+  const handleCloseVerifyEmailPopup = () => {
+    setShowVerifyEmailPopup(false);
+  };
+
+  const handleEdit = () => {
+    setIsEditing(true);
+  };
+
+  const handleCancelEdit = () => {
+    setIsEditing(false);
+    setErrors({});
+    setEmail('');
+    setName('');
+  };
 
   const styles = {
     container: {
       padding: '20px',
       margin: '20px',
-      backgroundColor: '#87CEEB',
+      backgroundColor: '#282c34',
       borderRadius: '8px',
       boxShadow: '0 2px 4px rgba(0, 0, 0, 0.1)',
       maxWidth: '400px',
+      color: 'white',
     },
-    label: {
-      display: 'block',
-      marginBottom: '5px',
-      marginTop: '10px',
-      color: '#333',
+    greeting: {
+      textAlign: 'center',
+      marginBottom: '20px',
+      fontFamily: 'cursive',  
+      fontSize: '1.5em',  
+    },
+    avatarContainer: {
+      display: 'flex',
+      flexDirection: 'column',
+      alignItems: 'center',
+      marginBottom: '20px',
+    },
+    avatar: {
+      width: '150px',
+      height: '150px',
+    },
+    button: {
+      color: 'white',
+      borderColor: 'white',
+      marginBottom: '10px',
+      fontSize: '0.5em', 
     },
     input: {
       width: '100%',
       padding: '10px',
       margin: '10px 0',
       borderRadius: '4px',
-      border: '1px solid #ccc',
       boxSizing: 'border-box',
+      color: 'white',
     },
     errorMessage: {
       color: 'red',
@@ -137,85 +161,109 @@ function EditProfileForm({ userId }) {
       marginTop: '5px',
     },
     profilePicture: {
-      maxWidth: '100%',
-      maxHeight: '150px',
-      marginBottom: '10px',
-    },
-    imageHolder: {
-      textAlign: 'center',
-      marginBottom: '20px',
-    },
-    defaultImage: {
       width: '150px',
       height: '150px',
-      border: '1px solid #ccc',
-      display: 'flex',
-      alignItems: 'center',
-      justifyContent: 'center',
     },
   };
+  
 
   return (
-    console.log('Profile Picture URL:', dynamicS3URL),
     <div style={styles.container}>
-      <div style={styles.imageHolder}>
-        {dynamicS3URL ? (
-          <img src={dynamicS3URL} alt="Profile" style={styles.profilePicture} />
-        ) : (
-          <div style={styles.defaultImage}>
-            No Profile Picture
-          </div>
+      <div style={styles.greeting}>
+      </div>
+      <div style={styles.avatarContainer}>
+        <Avatar alt="Profile" src={dynamicS3URL} style={styles.avatar} />
+        {isEditing && (
+          <ProfilePictureUploadForm userId={id} />
         )}
       </div>
-  
-      <div>
-        <ProfilePictureUploadForm userId={id} />
+
+      {!isEditing && (
+        <div style={styles.button}>
+        <Button
+          variant="outlined"
+          onClick={handleEdit}
+          style={{ color: 'white', borderColor: 'white', fontSize: '1.5em', 
+          '&:hover': {
+            backgroundColor: '#063e93',
+            borderColor: '#063e93',
+          },}}
+        >
+          Edit Profile
+        </Button>
       </div>
-  
-      <label style={styles.label}>
-        Name:
-        <input
-          style={styles.input}
-          type="text"
-          value={name}
-          readOnly // ID field is read-only
-        />
-        {errors.name && <p style={styles.errorMessage}>{errors.name}</p>}
-      </label>
-  
-      <label style={styles.label}>
-        Email:
-        <input
-          style={styles.input}
-          type="email"
-          value={email}
-          onChange={(e) => setEmail(e.target.value)}
-        />
-        {errors.email && <p style={styles.errorMessage}>{errors.email}</p>}
-      </label>
-  
-      <AcceptButton label="Update Profile" onClick={handleUpdateProfile} />
-  
+      )}
+
+      {isEditing && (
+        <div>
+          <TextField
+            label="Name"
+            value={name}
+            onChange={(e) => setName(e.target.value)}
+            style={styles.input}
+          />
+          {errors.name && <p style={styles.errorMessage}>{errors.name}</p>}
+
+          <TextField
+            label="Email"
+            type="email"
+            value={email}
+            onChange={(e) => setEmail(e.target.value)}
+            style={styles.input}
+          />
+          {errors.email && <p style={styles.errorMessage}>{errors.email}</p>}
+
+          <Dialog open={showVerifyEmailPopup} onClose={handleCloseVerifyEmailPopup}>
+            <DialogTitle>Verify Email</DialogTitle>
+            <DialogContent>
+              <TextField
+                label="Verification Code"
+                value={verificationCode}
+                onChange={(e) => setVerificationCode(e.target.value)}
+                style={styles.input}
+              />
+            </DialogContent>
+            <DialogActions>
+            <Button onClick={handleCloseVerifyEmailPopup} style={{ color: 'white', borderColor: 'white', fontSize: '0.8em' }}>
+              Cancel
+            </Button>
+            <Button onClick={handleVerifyEmail} style={{ color: 'white', borderColor: 'white', fontSize: '0.8em' }}>
+              Verify
+            </Button>
+            </DialogActions>
+          </Dialog>
+
+          <div>
+          <Button variant="outlined" onClick={handleCancelEdit} style={{ color: 'white', borderColor: 'white', fontSize: '0.8em' }}>
+            Cancel
+          </Button>
+          <Button variant="outlined" onClick={handleUpdateProfile} style={{ color: 'white', borderColor: 'white', fontSize: '0.8em', marginLeft: '10px' }}>
+            Save
+          </Button>
+          </div>
+        </div>
+      )}
+
       {showVerifyEmailPopup && (
         <div>
           <h4>Verify Email</h4>
-          <input
+          <TextField
             type="text"
             placeholder="Verification Code"
             value={verificationCode}
             onChange={(e) => setVerificationCode(e.target.value)}
+            style={styles.input}
           />
-          <button onClick={handleVerifyEmail}>
+          <Button onClick={handleVerifyEmail} style={{ marginTop: '10px' }}>
             Verify
-          </button>
+          </Button>
           {verificationError && (
-            <p>{verificationError}</p>
+            <p style={styles.errorMessage}>{verificationError}</p>
           )}
         </div>
       )}
     </div>
   );
-  
 }
 
 export default EditProfileForm;

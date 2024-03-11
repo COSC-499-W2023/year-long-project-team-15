@@ -43,7 +43,7 @@ const ProfilePictureUploadForm = ({ onClose }) => {
     <div>
       <form>
         <div className="mb-3">
-          <label htmlFor="pictureUpload" className="form-label">Upload Profile Picture:</label>
+          <label htmlFor="pictureUpload" className="form-label"></label>
           <input
             type="file"
             className="form-control"
@@ -53,10 +53,12 @@ const ProfilePictureUploadForm = ({ onClose }) => {
           />
         </div>
         <Button
-          label="Submit"
-          onClick={handleSubmit}
-          className="btn btn-secondary custom-button"
-        />
+  label="Upload Profile Picture"
+  onClick={handleSubmit}
+  className="btn btn-secondary custom-button"
+  style={{ border: '1px solid white' }}
+/>
+
       </form>
     </div>
   );
