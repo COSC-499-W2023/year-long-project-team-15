@@ -61,20 +61,20 @@ const PictureUploadForm = ({ handleSendContent }) => {
         name: "blurvid-photos",
         region: "ca-central-1",
       });
-      const uniqueKey = uuidv4();
+      const uniqueKey = uuidv4() + file.name;
       setUniqueKey(uniqueKey);
     } else if (
       file.type.startsWith("video/") ||
       file.type.startsWith("image/gif")
     ) {
       setBucketConfig({
-        level: "guest",
+        level: "public",
         name: "rekognitionvideofaceblurr-inputimagebucket20b2ba6b-kfbjqw5ifll4",
         region: "us-west-2",
       });
       setFileType("video");
       setOutputBucketConfig({
-        level: "guest",
+        level: "public",
         name: "rekognitionvideofaceblurr-outputimagebucket1311836-seosn2svhtxh",
         region: "us-west-2",
       });
@@ -161,29 +161,78 @@ const PictureUploadForm = ({ handleSendContent }) => {
     try {
       console.log(outputBucketConfig.name);
       console.log(outputBucketConfig.region);
-
+      console.log(fileName);
       const url = await Storage.get(fileName, {
         bucket: outputBucketConfig.name,
         region: outputBucketConfig.region,
       });
-
-      const img = new Image();
-
-      // Set up onload event
-      img.onload = () => {
-        // Image has loaded, update state
-        setProcessedUrl(url);
-        setIsLoading(false);
-        clearInterval(pollingInterval);
-      };
-      img.src = url;
-
+      console.log(url);
+  
+      if (fileType === 'video') {
+        // Handle video files
+        const video = document.createElement('video');
+  
+        // Optional: add listeners for video-specific events here
+  
+        video.onloadeddata = () => {
+          // Video is loaded, update state
+          setProcessedUrl(url);
+          setIsLoading(false);
+          clearInterval(pollingInterval);
+        };
+        video.onerror = () => {
+          // Error handling for video loading
+          console.log('Error loading video');
+          // Optionally implement a retry limit or error handling logic here
+        };
+        video.src = url;
+        video.load(); // Start loading the video
+      } else if (fileType === 'image'){
+        // Handle image files as before
+        const img = new Image();
+        img.onload = () => {
+          // Image has loaded, update state
+          setProcessedUrl(url);
+          setIsLoading(false);
+          clearInterval(pollingInterval);
+        };
+        img.src = url;
+      }
+  
       console.log(processedUrl);
     } catch (error) {
       console.log("content not ready yet:", error.message);
-      // Optionally implement a retry limit or error handling logic
+      // Optionally implement a retry limit or error handling logic here
     }
   };
+  
+  // const checkStatus = async (fileName) => {
+  //   try {
+  //     console.log(outputBucketConfig.name);
+  //     console.log(outputBucketConfig.region);
+  //     console.log(fileName);
+  //     const url = await Storage.get(fileName, {
+  //       bucket: outputBucketConfig.name,
+  //       region: outputBucketConfig.region,
+  //     });
+  //     console.log(url)
+  //     const img = new Image();
+
+  //     // Set up onload event
+  //     img.onload = () => {
+  //       // Image has loaded, update state
+  //       setProcessedUrl(url);
+  //       setIsLoading(false);
+  //       clearInterval(pollingInterval);
+  //     };
+  //     img.src = url;
+
+  //     console.log(processedUrl);
+  //   } catch (error) {
+  //     console.log("content not ready yet:", error.message);
+  //     // Optionally implement a retry limit or error handling logic
+  //   }
+  // };
 
   const handleCloseSnackbar = () => {
     setOpenSnackbar(false);
@@ -200,7 +249,7 @@ const PictureUploadForm = ({ handleSendContent }) => {
         <div>
           <div className="image-container">
             {fileType === "video" ? (
-              <video controls src={processedUrl} style={{ maxWidth: "100%" }} />
+              <video controls src={processedUrl} style={{ maxWidth: '100%', maxHeight: '300px' }} />
             ) : (
               <img src={processedUrl} alt="Processed" />
             )}
