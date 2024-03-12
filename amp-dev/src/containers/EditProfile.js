@@ -28,26 +28,29 @@ function EditProfileForm({ userId }) {
         setEmail(authenticatedUser.attributes.email);
         setDateJoined(authenticatedUser.attributes.dateJoined);
         setSentFriendRequests(authenticatedUser.attributes.sentFriendRequests || []);
-
+  
         const userAttributes = await Auth.userAttributes(authenticatedUser);
         const profilePictureAttribute = userAttributes.find(attr => attr.Name === 'custom:ProfilePictureURL');
         if (profilePictureAttribute) {
           setProfilePictureURL(profilePictureAttribute.Value);
         }
-
+  
         const s3BucketName = 'blurvid-profile-pics';
-        const s3Key = `public/${authenticatedUser.username}/profilepic.png`;
-        const constructedS3URL = `https://${s3BucketName}.s3.amazonaws.com/${s3Key}`;
+        const s3Key = `public/public/${authenticatedUser.username}/profilepic`;
+        const constructedS3URL = `https://${s3BucketName}.s3.ca-central-1.amazonaws.com/${s3Key}`;
+        console.log('Constructed S3 URL:', constructedS3URL);
         setDynamicS3URL(constructedS3URL);
+
       } catch (error) {
         console.error('Error fetching user data:', error);
       } finally {
         setIsLoading(false);
       }
     };
-
+  
     fetchUserData();
   }, []);
+  
 
   const handleUpdateProfile = async () => {
     const formErrors = {};
