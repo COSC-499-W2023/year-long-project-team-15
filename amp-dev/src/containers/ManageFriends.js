@@ -12,6 +12,7 @@ import { fetchSpecificFriendRequest } from '../services/FriendService';
 import ConfirmationDialog from '../components/ConfirmDialog';
 import { fetchFriendDetails } from '../services/FriendService';
 import AddFriend from './AddFriend';
+import { FriendProvider } from '../context/FriendContext';
 
 const ManageFriends = ({ onFriendDeleted }) => {
     const [expanded, setExpanded] = useState(false);
