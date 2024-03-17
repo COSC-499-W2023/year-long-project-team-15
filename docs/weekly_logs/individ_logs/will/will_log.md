@@ -287,3 +287,23 @@ This week I completed peer testing and continued to try and debug a problem we a
 **Done**
 
 ![wills T2 week9 done board](./screenshots/wills_done_T2_week8.png)
+
+## Week 10
+
+Goals:
+
+- complete video proccessing 
+
+**Tasks**
+
+![wills T2 week10 tasks](./screenshots/wills_tasks_T2_week10.png)
+
+This week Mac fixed our bug with the video proccessing so I was able to correct and add the displaying of videos and paybak window.
+
+**In Progress**
+
+- implemented peer testing feedback 
+
+**Done**
+
+![wills T2 week9 done board](./screenshots/wills_done_T2_week8.png)
