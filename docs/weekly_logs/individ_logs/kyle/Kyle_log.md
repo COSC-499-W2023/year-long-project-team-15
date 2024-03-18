@@ -439,7 +439,37 @@ so that we can improve our test writing for newly implemented UI functions. Cont
 ![Screenshot 2024-03-10 230447](https://github.com/COSC-499-W2023/year-long-project-team-15/assets/122824873/8c8bff24-c20a-403f-b011-3b7178ab8fb7)
 
 
+# Individual Log: Kyle Keim (kyle-keim)(SN:46335485)
+## Mar.11th - Mar.17th 2024 / T2Week 10
+### Peer Review Tasks
+
+![Screenshot 2024-03-17 213436](https://github.com/COSC-499-W2023/year-long-project-team-15/assets/122824873/ea1798bf-e493-4d09-a102-1c975568525c)
+
+
+## Previous Goals:
+* Reveiw UI design and coding future components and feature development.
+* Work on test implementation for react componenets using Cypress.
+* Continuing coding/learning for AWS DynamoDB, Cognito, Amplify functionality.
+* Finalize reviewing components/suggestions from 2nd peer evaluation
+
+
+## Tasks Completed
+* Reveiw/Update UI design and coding future components and feature development.
+* Continuing documentation of coding for AWS DynamoDB, Cognito, Amplify and updating new AWS documentation.
+* Writing code for a chat conversation box between two individuals.
+* Finalize components for 2nd peer evaluation.
+  
+## Tasks In-Progress
+* Continue updating UI design and coding future components and feature development.
+* Continuing coding for AWS DynamoDB, Cognito, AWS Rekognition functionality.
+* Fixing Cypress for testing and reporting of several UI components.
+* Reviewing our peer evaluation and making adjustments to our app based on given feedback.
+* Writing code for a chat conversation box between two individuals.
+* Beginning to plan out our final video submission and report writing.
+
+![planning flow chart](https://github.com/COSC-499-W2023/year-long-project-team-15/assets/122824873/5c225378-091b-4d7d-a34f-fc9fd944f590)
+
+
 
 ## General Notes
-This week involved finalizing components for the 2nd in-class peer evaluation and reviewing the results from said evaluation. Still working on fixing up the automated cypress testing for the new UI components, and helping to 
-theorize how to best implement the transfer of video files between the various S3 buckets in oder to get AWS rekognition blurring our videos.
+This week was pretty sick to the start of the week, so I missed check-in on teusday (03/12/24). Still working on getting the cypress automumated testing operational. Improving UI design and helping the others with implementing the video submission funtionality. We will start working on the final video submission and individual reports as well.
