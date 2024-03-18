@@ -187,7 +187,7 @@ Tasks:
 This week I got the video blurring app up and running on AWS. This took a significant amount of time trouble shooting version compatabiity and building all parts on the right os. Finally got it working though. We ar ejust having some issues with the way amplify adds files to the S3 bucket which is causing problems with the lambdas. Once that is resolved then our app is pretty much fuly functional! 
 
 
-# Individual Log T2 W8: Mac Vibert (mvibert88)
+# Individual Log T2 W9: Mac Vibert (mvibert88)
 
 Goals:
 - fix video blurring integration
@@ -197,3 +197,14 @@ Tasks:
 ![Mac's tasks t2 week 5](./screenshots/t2_week9_tasks.png)
 
 This week I worked with Will to try and fix our video blurring implementation. We're struggling to figure it out. No errors in logs to point us in the right direction. Trying to find resources or other people to help figure this out. Hoping to get it solved soon! All of this is deployed on AWS so no code commits on github from me this week.
+
+# Individual Log T2 W10: Mac Vibert (mvibert88)
+
+Goals:
+- fix video blurring integration
+
+Tasks: 
+
+![Mac's tasks t2 week 5](./screenshots/t2_week10_tasks.png)
+
+Finally fixed video blurring feature. Spent a lot of time reading logs and trying to find the issue with our lambda function. I ended up having to edit the code for the starting lambda so it would work properly with our folder structure in our aws s3 buckets. Now it works with the app no problem. Next week we have some caching bugs to fix and some other small stuff to polish everything up. Happy to have that main feature working now!
