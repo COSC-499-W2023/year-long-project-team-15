@@ -234,3 +234,25 @@ Upcoming Week:
 - Work on the testing of the software and making automated test reports.
 - Keep working on features according to peer-testing 2 reviews.
 - Add features of notification (extra feature) that works as a notification bar for the user
+
+## Term 2 Week 10 (March 10th - March 17th)
+
+This week I participated in the following tasks:
+![Saksham's tasks t2 week 9](./screenshots/T2_week10_task.png)
+
+Goals:
+
+- I worked on the suggestions given in peer testing regarding UI flow, edit profile and other features
+- Added notification bar in the header
+- Added UI changes for friend request count and number of friends count
+- Manual testing
+
+
+Upcoming Week:
+
+- Add Profile picture in the chat view and header
+- Implement live photo capture and blurring using system's camera
+- Change the delete friend logic to remove the friend from chat feature when they unfriend each other 
+- Work on the project and look for exception or error cases in order to have a smooth running project.
+- Work on the testing of the software and making automated test reports.
+- Keep working on features according to peer-testing 2 reviews.
