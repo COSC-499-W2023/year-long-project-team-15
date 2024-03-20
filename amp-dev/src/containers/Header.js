@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import AccountCircleIcon from '@mui/icons-material/AccountCircle';
 import NotificationsIcon from '@mui/icons-material/Notifications';
 import { useNavigate } from 'react-router-dom';
@@ -6,6 +6,7 @@ import { useCurrentUser } from "../hooks/useCurrentUser";
 import Menu from '@mui/material/Menu';
 import MenuItem from '@mui/material/MenuItem';
 import { useAuth } from '../context/AuthContext';
+import { Auth } from 'aws-amplify';
 
 const Header = () => {
   const { currentUserName } = useCurrentUser();
@@ -15,6 +16,29 @@ const Header = () => {
   const [notificationAnchorEl, setNotificationAnchorEl] = useState(null);
   const open = Boolean(anchorEl);
   const notificationOpen = Boolean(notificationAnchorEl);
+  const [dynamicS3URL, setDynamicS3URL] = useState('');
+  const [isLoading, setIsLoading] = useState(true);
+
+  useEffect(() => {
+    const fetchUserData = async () => {
+      try {
+        const authenticatedUser = await Auth.currentAuthenticatedUser();
+        const userAttributes = await Auth.userAttributes(authenticatedUser);
+        const s3BucketName = 'blurvid-profile-pics';
+        const s3Key = `public/public/${authenticatedUser.username}/profilepic`;
+        const constructedS3URL = `https://${s3BucketName}.s3.ca-central-1.amazonaws.com/${s3Key}`;
+        console.log('Constructed S3 URL:', constructedS3URL);
+        setDynamicS3URL(constructedS3URL);
+
+      } catch (error) {
+        console.error('Error fetching user data:', error);
+      } finally {
+        setIsLoading(false);
+      }
+    };
+  
+    fetchUserData();
+  }, []);
 
   const handleMenu = (event) => {
     setAnchorEl(event.currentTarget);
@@ -25,12 +49,12 @@ const Header = () => {
   };
 
   const handleAccountClick = () => {
-    handleClose(); // Close the account menu
+    handleClose(); 
     navigate('/accountpage');
   };
 
   const handleSignOutClick = async () => {
-    handleClose(); // Close the account menu
+    handleClose(); 
     try {
       await signOut();
     } catch (error) {
@@ -83,7 +107,6 @@ const Header = () => {
               open={notificationOpen}
               onClose={handleNotificationClose}
             >
-              {/* Add notification items here */}
               <MenuItem onClick={handleNotificationClose}>Notification 1</MenuItem>
               <MenuItem onClick={handleNotificationClose}>Notification 2</MenuItem>
             </Menu>
