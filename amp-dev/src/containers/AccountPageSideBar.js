@@ -27,7 +27,7 @@ const AccountPageSidebar = () => {
         friendsData={friendsData}
         updateFriendRequestStatus={updateFriendRequestStatus}
       />
-      <ManageFriends />
+      <ManageFriends key={friendsData}/>
       <AcceptButton label="Add Friends" onClick={() => setShowAddFriend(true)} />
       <Modal show={showAddFriend} onClose={() => setShowAddFriend(false)} modalName="Add Contact">
         <AddFriend />

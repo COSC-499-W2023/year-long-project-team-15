@@ -13,6 +13,7 @@ import ConfirmationDialog from '../components/ConfirmDialog';
 import { fetchFriendDetails } from '../services/FriendService';
 import useFriends from '../hooks/useFriends';
 import { useFriend } from '../context/FriendContext';
+import AddFriend from './AddFriend';
 
 const ManageFriends = () => {
     const [friendsData, setFriendsData] = useFriends();
@@ -61,7 +62,7 @@ const ManageFriends = () => {
           
           const updatedFriendsData = friendsData.filter(friends => friends.id !== friendId);
           setFriendsData(updatedFriendsData);
-          if(selectedFriend.id === friendId){
+          if(selectedFriend?.id === friendId){
             clearFriendContext();
           }
 
@@ -79,7 +80,8 @@ return (
         <Typography>My Friends</Typography>
       </AccordionSummary>
       <AccordionDetails>
-        <FriendSearchAndList friendsData={friendsData} showDeleteButtons={true} onDelete={handleDeleteFriend} />
+        {friendsData.length > 0 ? (<FriendSearchAndList friendsData={friendsData} showDeleteButtons={true} onDelete={handleDeleteFriend}/>
+        ) : (<Typography>You have no friends</Typography>)}
       </AccordionDetails>
     </Accordion>
     <ConfirmationDialog

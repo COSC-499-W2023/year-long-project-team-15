@@ -83,8 +83,11 @@ const AddFriend = () => {
     }
   };
 
-  const filteredUsers = potentialFriends.filter(user => user.name.toLowerCase().includes(searchTerm.toLowerCase()));
+  const filteredUsers = searchTerm.trim() ? potentialFriends.filter(user => 
+    user.name.toLowerCase().includes(searchTerm.toLowerCase())
+  ) : [];
 
+  
   return (
     <Box sx={{ maxHeight: '25em'}}>
         <SearchBar searchTerm={searchTerm} onSearchChange={handleSearchChange} />
