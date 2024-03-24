@@ -7,7 +7,14 @@ const FriendContext = createContext();
 function usePersistedContext(defaultValue, key) {
   const [state, setState] = useState(() => {
     const persistedValue = localStorage.getItem(key);
-    return persistedValue !== null ? JSON.parse(persistedValue) : defaultValue;
+    try {
+      return persistedValue !== null ? JSON.parse(persistedValue) : defaultValue;
+    } catch (error) {
+      console.error("Error parsing persisted context:", error);
+      
+      localStorage.removeItem(key);
+      return defaultValue;
+    }
   });
 
   useEffect(() => {
@@ -16,6 +23,7 @@ function usePersistedContext(defaultValue, key) {
 
   return [state, setState];
 }
+
 
 
 export const FriendProvider = ({ children }) => {

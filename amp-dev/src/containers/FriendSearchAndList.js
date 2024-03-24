@@ -2,12 +2,10 @@
 import React, { useState } from 'react';
 import FriendList from '../components/FriendList';
 import SearchBar from '../components/SearchBar';
-import useFriends from '../hooks/useFriends';
 import { useFriend } from '../context/FriendContext';
 
-const FriendSearchAndList = ({ showDeleteButtons, onDelete }) => {
+const FriendSearchAndList = ({ friendsData = [], showDeleteButtons, onDelete }) => {
   const [searchTerm, setSearchTerm] = useState('');
-  const friendsData = useFriends();
   const { setSelectedFriend } = useFriend();
 
   const handleDeleteFriend = (friend) => {
@@ -15,9 +13,9 @@ const FriendSearchAndList = ({ showDeleteButtons, onDelete }) => {
   };
 
   const filteredFriends = friendsData.filter(friend =>
-    friend && friend.name.toLowerCase().includes(searchTerm.toLowerCase())
+    friend && friend?.name?.toLowerCase().includes(searchTerm.toLowerCase())
   );
-
+  
   const handleSearchChange = (event) => {
     setSearchTerm(event.target.value);
   };

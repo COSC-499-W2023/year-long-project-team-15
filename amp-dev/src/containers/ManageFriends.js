@@ -11,15 +11,17 @@ import { useCurrentUser } from '../hooks/useCurrentUser';
 import { fetchSpecificFriendRequest } from '../services/FriendService';
 import ConfirmationDialog from '../components/ConfirmDialog';
 import { fetchFriendDetails } from '../services/FriendService';
-import AddFriend from './AddFriend';
+import useFriends from '../hooks/useFriends';
+import { useFriend } from '../context/FriendContext';
 
-const ManageFriends = ({ onFriendDeleted }) => {
+const ManageFriends = () => {
+    const [friendsData, setFriendsData] = useFriends();
     const [expanded, setExpanded] = useState(false);
     const { currentUserId } = useCurrentUser();
     const [confirmDialogOpen, setConfirmDialogOpen] = useState(false);
     const [pendingDeleteFriend, setPendingDeleteFriend] = useState({ id: null, name: "" });
-   
-
+    const { selectedFriend, clearFriendContext } = useFriend();
+  
     const handleDeleteFriend = async (friendId) => {
         try {
             const friendDetails = await fetchFriendDetails([friendId]);
@@ -56,10 +58,15 @@ const ManageFriends = ({ onFriendDeleted }) => {
                   })
                 ));
           }
-          AddFriend();
-        
+          
+          const updatedFriendsData = friendsData.filter(friends => friends.id !== friendId);
+          setFriendsData(updatedFriendsData);
+          if(selectedFriend.id === friendId){
+            clearFriendContext();
+          }
+
         console.log("Friend request(s) deleted for user ID:", friendId);
-        onFriendDeleted(friendId);
+        
       } catch (error) {
         console.error("Error deleting friend request:", error);
       }
@@ -72,7 +79,7 @@ return (
         <Typography>My Friends</Typography>
       </AccordionSummary>
       <AccordionDetails>
-        <FriendSearchAndList showDeleteButtons={true} onDelete={handleDeleteFriend} />
+        <FriendSearchAndList friendsData={friendsData} showDeleteButtons={true} onDelete={handleDeleteFriend} />
       </AccordionDetails>
     </Accordion>
     <ConfirmationDialog
