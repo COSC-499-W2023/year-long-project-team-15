@@ -307,3 +307,23 @@ This week Mac fixed our bug with the video proccessing so I was able to correct 
 **Done**
 
 ![wills T2 week9 done board](./screenshots/wills_done_T2_week8.png)
+
+## Week 11
+
+Goals:
+
+- work on bugs and improvements on user experience including perrtesting feedback.
+
+**Tasks**
+
+![wills T2 week11 tasks](./screenshots/wills_tasks_T2_week11.png)
+
+this week i started fixing bug/improving UX, some of which is based on peer feedback. So far I have done small things like changing the filtering labels to be more clear and highlighting the name of the friend the user has selected the conversation for. I spent most of my time trying to fix asyncrohnous updates when a friend is added and deleted. so far I have gotten the Friends list on the account page to update when a friend is deleted and clear the context if that friend was previously selected for conversation. I am having trouble making these updates push to other pages and not just the page that the action was done. I also updated the adding a friend feature so that this list of users that you can add only populates based on what you search so all potential users arent listed at once.
+
+**In Progress**
+
+- continue bug fixes and enhancing user experience
+
+**Done**
+
+![wills T2 week11 done board](./screenshots/wills_done_T2_week8.png)
