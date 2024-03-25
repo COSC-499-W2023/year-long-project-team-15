@@ -256,3 +256,23 @@ Upcoming Week:
 - Work on the project and look for exception or error cases in order to have a smooth running project.
 - Work on the testing of the software and making automated test reports.
 - Keep working on features according to peer-testing 2 reviews.
+
+## Term 2 Week 11 (March 17th - March 24th)
+
+This week I participated in the following tasks:
+![Saksham's tasks t2 week 9](./screenshots/T2_week11_task.png)
+
+Goals:
+
+- Manual testing
+- Add Profile picture in the chat view and header
+- Live photo capture in progress but not implemented completely
+
+
+Upcoming Week:
+
+- Implementing live photo capture and blurring using system's camera
+- Change the delete friend logic to remove the friend from chat feature when they unfriend each other 
+- Work on the project and look for exception or error cases in order to have a smooth running project.
+- Work on the testing of the software and making automated test reports.
+- Keep working on features according to peer-testing 2 reviews.
