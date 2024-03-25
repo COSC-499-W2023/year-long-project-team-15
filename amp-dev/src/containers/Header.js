@@ -8,7 +8,7 @@ import MenuItem from '@mui/material/MenuItem';
 import { useAuth } from '../context/AuthContext';
 import { Auth } from 'aws-amplify';
 
-const Header = (friendsData) => {
+const Header = ({ friendsData }) => {
   const { currentUserName } = useCurrentUser();
   const navigate = useNavigate();
   const { signOut } = useAuth();
@@ -17,7 +17,6 @@ const Header = (friendsData) => {
   const open = Boolean(anchorEl);
   const notificationOpen = Boolean(notificationAnchorEl);
   const [dynamicS3URL, setDynamicS3URL] = useState('');
-  const [isLoading, setIsLoading] = useState(true);
   const [pendingRequestsCount, setPendingRequestsCount] = useState(0); 
 
   useEffect(() => {
@@ -33,16 +32,13 @@ const Header = (friendsData) => {
         
         const simulatedPendingRequestsCount = friendsData.length; 
         setPendingRequestsCount(simulatedPendingRequestsCount);
-
       } catch (error) {
         console.error('Error fetching user data:', error);
-      } finally {
-        setIsLoading(false);
       }
     };
   
     fetchUserData();
-  }, []);
+  }, [friendsData]);
 
   const handleMenu = (event) => {
     setAnchorEl(event.currentTarget);
@@ -89,7 +85,7 @@ const Header = (friendsData) => {
           <li className="nav-item">
             <span className="nav-link" style={{ color: "white" }}>{currentUserName ? currentUserName : "Loading..."}</span>
           </li>
-          <li className="nav-item">
+          <li className="nav-item" style={{ position: 'relative' }}>
             <button 
               id="notification" 
               type="button" 
@@ -99,7 +95,6 @@ const Header = (friendsData) => {
               aria-haspopup="true"
               aria-expanded={notificationOpen ? 'true' : undefined}
             >
-              {/* Display notification with pending requests count */}
               <NotificationsIcon style={{ color: "white", fontSize: 30 }} />
               {pendingRequestsCount > 0 && (
                 <span style={{ marginLeft: 5 }}>{`(${pendingRequestsCount})`}</span>
@@ -120,8 +115,11 @@ const Header = (friendsData) => {
               open={notificationOpen}
               onClose={handleNotificationClose}
             >
-              <MenuItem onClick={handleFriendRequestsClick}>{`You have ${pendingRequestsCount} pending friend requests`}</MenuItem>
-              {/* Add other menu items as needed */}
+              {pendingRequestsCount > 0 ? (
+                <MenuItem onClick={handleFriendRequestsClick}>{`You have ${pendingRequestsCount} pending friend requests`}</MenuItem>
+              ) : (
+                <MenuItem disabled>No new notifications</MenuItem>
+              )}
             </Menu>
           </li>
           <li className="nav-item">
@@ -134,7 +132,8 @@ const Header = (friendsData) => {
               aria-haspopup="true"
               aria-expanded={open ? 'true' : undefined}
             >
-              <AccountCircleIcon style={{ color: "white", fontSize: 40 }} />
+              <img src={dynamicS3URL} alt="Profile" style={{ width: 40, height: 40, borderRadius: '50%', marginRight: 10 }} />
+              <AccountCircleIcon style={{ color: "white", fontSize: 30 }} />
             </button>
             <Menu
               id="menu-appbar"
@@ -162,3 +161,4 @@ const Header = (friendsData) => {
 };
 
 export default Header;
+
