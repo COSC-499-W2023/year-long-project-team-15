@@ -8,7 +8,7 @@ import MenuItem from '@mui/material/MenuItem';
 import { useAuth } from '../context/AuthContext';
 import { Auth } from 'aws-amplify';
 
-const Header = () => {
+const Header = (friendsData) => {
   const { currentUserName } = useCurrentUser();
   const navigate = useNavigate();
   const { signOut } = useAuth();
@@ -18,6 +18,7 @@ const Header = () => {
   const notificationOpen = Boolean(notificationAnchorEl);
   const [dynamicS3URL, setDynamicS3URL] = useState('');
   const [isLoading, setIsLoading] = useState(true);
+  const [pendingRequestsCount, setPendingRequestsCount] = useState(0); 
 
   useEffect(() => {
     const fetchUserData = async () => {
@@ -29,6 +30,9 @@ const Header = () => {
         const constructedS3URL = `https://${s3BucketName}.s3.ca-central-1.amazonaws.com/${s3Key}`;
         console.log('Constructed S3 URL:', constructedS3URL);
         setDynamicS3URL(constructedS3URL);
+        
+        const simulatedPendingRequestsCount = friendsData.length; 
+        setPendingRequestsCount(simulatedPendingRequestsCount);
 
       } catch (error) {
         console.error('Error fetching user data:', error);
@@ -63,11 +67,16 @@ const Header = () => {
   };
 
   const handleNotificationClick = (event) => {
-    setNotificationAnchorEl(event.currentTarget);
+    setNotificationAnchorEl(event.currentTarget); 
   };
 
   const handleNotificationClose = () => {
     setNotificationAnchorEl(null);
+  };
+
+  const handleFriendRequestsClick = () => {
+    navigate('/accountpage'); 
+    setNotificationAnchorEl(null); 
   };
 
   return (
@@ -90,7 +99,11 @@ const Header = () => {
               aria-haspopup="true"
               aria-expanded={notificationOpen ? 'true' : undefined}
             >
+              {/* Display notification with pending requests count */}
               <NotificationsIcon style={{ color: "white", fontSize: 30 }} />
+              {pendingRequestsCount > 0 && (
+                <span style={{ marginLeft: 5 }}>{`(${pendingRequestsCount})`}</span>
+              )}
             </button>
             <Menu
               id="notification-menu"
@@ -107,8 +120,8 @@ const Header = () => {
               open={notificationOpen}
               onClose={handleNotificationClose}
             >
-              <MenuItem onClick={handleNotificationClose}>Notification 1</MenuItem>
-              <MenuItem onClick={handleNotificationClose}>Notification 2</MenuItem>
+              <MenuItem onClick={handleFriendRequestsClick}>{`You have ${pendingRequestsCount} pending friend requests`}</MenuItem>
+              {/* Add other menu items as needed */}
             </Menu>
           </li>
           <li className="nav-item">

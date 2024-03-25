@@ -38,6 +38,12 @@ const CustomLogin = () => {
     }
   };
 
+  const handleKeyDown = (event) => {
+    if (event.key === 'Enter') {
+      handleLogin();
+    }
+  };
+
   const handleForgotPasswordClick = () => {
     // Show the Forgot Password form
     navigate('/ForgotPasswordForm');
@@ -51,7 +57,20 @@ const CustomLogin = () => {
   
 
   return (
-    <Container maxWidth="sm" sx={{ mt: 4, display: 'flex', flexDirection: 'column', alignItems: 'center', padding: 2, backgroundColor: 'white', borderRadius: 2, boxShadow: 3 }}>
+    <Container 
+      maxWidth="sm" 
+      sx={{ 
+        mt: 4, 
+        display: 'flex', 
+        flexDirection: 'column', 
+        alignItems: 'center', 
+        padding: 2, 
+        backgroundColor: 'white', 
+        borderRadius: 2, 
+        boxShadow: 3 
+      }}
+      onKeyDown={handleKeyDown} // Added event listener for Enter key
+    >
       <Typography variant="h5" sx={{ color: '#212529', fontWeight: 'bold' }}>
         Login
       </Typography>
