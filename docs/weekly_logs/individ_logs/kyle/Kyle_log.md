@@ -469,6 +469,38 @@ so that we can improve our test writing for newly implemented UI functions. Cont
 
 ![planning flow chart](https://github.com/COSC-499-W2023/year-long-project-team-15/assets/122824873/5c225378-091b-4d7d-a34f-fc9fd944f590)
 
+# Individual Log: Kyle Keim (kyle-keim)(SN:46335485)
+## Mar.18th - Mar.24th 2024 / T2Week 11
+### Peer Review Tasks
+
+![Screenshot 2024-03-24 224751](https://github.com/COSC-499-W2023/year-long-project-team-15/assets/122824873/57d7a813-a865-4c22-b622-cfc2450a8913)
+
+
+
+## Previous Goals:
+* Reveiw UI design and coding future components and feature development.
+* Work on test implementation for react componenets using Cypress.
+* Continuing coding/learning for AWS DynamoDB, Cognito, Amplify functionality.
+* Finalize reviewing components/suggestions from 2nd peer evaluation
+
+
+## Tasks Completed
+* Reveiw/Update UI design and coding future components and feature development.
+* Continuing documentation of coding for AWS DynamoDB, Cognito, Amplify and updating new AWS documentation.
+* Writing more fixes for the automated Cypress E2E testing..
+* Finalize components for 2nd peer evaluation.
+  
+## Tasks In-Progress
+* Continue updating UI design and coding future components and feature development.
+* Continuing coding for AWS DynamoDB, Cognito, AWS Rekognition functionality.
+* Fixing Cypress for testing and reporting of several UI components.
+* Reviewing our peer evaluation and making adjustments to our app based on given feedback.
+* Fixing bugs, looking into fixing a caching issue.
+* Beginning to plan out our final video submission and report writing.
+
+![Screenshot 2024-03-24 224840](https://github.com/COSC-499-W2023/year-long-project-team-15/assets/122824873/5d7d89b2-cf04-4ca8-a383-8ec334170584)
+
+
 
 
 ## General Notes
