@@ -208,3 +208,14 @@ Tasks:
 ![Mac's tasks t2 week 5](./screenshots/t2_week10_tasks.png)
 
 Finally fixed video blurring feature. Spent a lot of time reading logs and trying to find the issue with our lambda function. I ended up having to edit the code for the starting lambda so it would work properly with our folder structure in our aws s3 buckets. Now it works with the app no problem. Next week we have some caching bugs to fix and some other small stuff to polish everything up. Happy to have that main feature working now!
+
+# Individual Log T2 W11: Mac Vibert (mvibert88)
+
+Goals:
+- fix bucket permissions so they're protected 
+
+Tasks: 
+
+![Mac's tasks t2 week 5](./screenshots/t2_week11_tasks.png)
+
+This week I was working on fixing our S3 buckets. I made them public because we were having problems with permissions when testing video and photo uploads. Now that that is working I am working on making them secure. I am having some problems however, there's not much documentation on how the amplify auth roles work. I am working with our client Scott to figure this out. Hoping I can get everyhting sorted this coming week. All my work has been on AWS so no github code commits from me this week. 
