@@ -229,4 +229,5 @@ Tasks:
 
 ![Mac's tasks t2 week 12](./screenshots/t2_week12_tasks.png)
 
-Not a very productive week for me. Was feeling pretty under the weather and had lots of work to do with other classes. Gonna use this next week to finish up protecting our s3 buckets and preparing our final report. Pretty happy with our product considering all the complications we ran into this year. 
+Not a very productive week for me. Was feeling pretty under the weather and had lots of work to do with other classes. Gonna use this next week to finish up protecting our s3 buckets and preparing our final report. Pretty happy with our product considering all the complications we ran into this year. Still struggling with permissions issues, hard to figure out the flow with cognito ID's with input and output buckets. Waiting for help from Scott. 
+![error](./screenshots/permissions_error.png)
