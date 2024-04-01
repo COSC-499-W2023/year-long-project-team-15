@@ -267,6 +267,8 @@ Goals:
 - Manual testing
 - Add Profile picture in the chat view and header
 - Live photo capture in progress but not implemented completely
+- Live photo capture  and blurring functionality was added successfully
+- Need to add rekognition, will be taking help from Will & Mac 
 
 
 Upcoming Week:
@@ -276,3 +278,24 @@ Upcoming Week:
 - Work on the project and look for exception or error cases in order to have a smooth running project.
 - Work on the testing of the software and making automated test reports.
 - Keep working on features according to peer-testing 2 reviews.
+- Change the delete friend logic to remove the friend from chat feature when they unfriend each other 
+- Work on the project and look for exception or error cases in order to have a smooth running project.
+- Work on the testing of the software and making automated test reports.
+
+## Term 2 Week 12 (March 24th - March 31st)
+
+This week I participated in the following tasks:
+![Saksham's tasks t2 week 12](./screenshots/T2_week12_task.png)
+
+Goals:
+
+- Live photo capture  and blurring functionality was added successfully
+- Need to add rekognition, will be taking help from Will & Mac 
+
+
+Upcoming Week:
+
+- Change the delete friend logic to remove the friend from chat feature when they unfriend each other 
+- Work on the project and look for exception or error cases in order to have a smooth running project.
+- Work on the testing of the software and making automated test reports.
+- Start with Final report and project delivery
