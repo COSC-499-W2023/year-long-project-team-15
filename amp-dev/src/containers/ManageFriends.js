@@ -69,7 +69,7 @@ return (
     <>
     <Accordion expanded={expanded} onChange={() => setExpanded(!expanded)}>
       <AccordionSummary expandIcon={<ExpandMoreIcon />}>
-        <Typography>My Friends</Typography>
+        <Typography>My Contacts</Typography>
       </AccordionSummary>
       <AccordionDetails>
         <FriendSearchAndList showDeleteButtons={true} onDelete={handleDeleteFriend} />

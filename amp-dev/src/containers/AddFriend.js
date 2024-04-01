@@ -101,7 +101,7 @@ const AddFriend = () => {
                               size="small"
                               style={{ marginRight: 8 }}
                             >
-                                Send Friend Request
+                                Send Contact Request
                             </Button>
                         </Box>
                     </Box>
