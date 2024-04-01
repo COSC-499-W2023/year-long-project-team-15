@@ -219,3 +219,14 @@ Tasks:
 ![Mac's tasks t2 week 5](./screenshots/t2_week11_tasks.png)
 
 This week I was working on fixing our S3 buckets. I made them public because we were having problems with permissions when testing video and photo uploads. Now that that is working I am working on making them secure. I am having some problems however, there's not much documentation on how the amplify auth roles work. I am working with our client Scott to figure this out. Hoping I can get everyhting sorted this coming week. All my work has been on AWS so no github code commits from me this week. 
+
+# Individual Log T2 W12: Mac Vibert (mvibert88)
+
+Goals:
+- fix bucket permissions so they're protected 
+
+Tasks: 
+
+![Mac's tasks t2 week 12](./screenshots/t2_week12_tasks.png)
+
+Not a very productive week for me. Was feeling pretty under the weather and had lots of work to do with other classes. Gonna use this next week to finish up protecting our s3 buckets and preparing our final report. Pretty happy with our product considering all the complications we ran into this year. 
