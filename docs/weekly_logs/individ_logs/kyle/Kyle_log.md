@@ -500,8 +500,34 @@ so that we can improve our test writing for newly implemented UI functions. Cont
 
 ![Screenshot 2024-03-24 224840](https://github.com/COSC-499-W2023/year-long-project-team-15/assets/122824873/5d7d89b2-cf04-4ca8-a383-8ec334170584)
 
+# Individual Log: Kyle Keim (kyle-keim)(SN:46335485)
+## Mar.25th - Mar.31th 2024 / T2Week 12
+### Peer Review Tasks
 
+![Screenshot 2024-03-31 223013](https://github.com/COSC-499-W2023/year-long-project-team-15/assets/122824873/46bc43fc-1956-4335-b110-ad070daffacc)
+
+
+## Previous Goals:
+
+* Continue working on test implementation for react componenets using Cypress.
+* Continuing coding/learning for AWS DynamoDB, Cognito, Amplify functionality.
+* Finalize reviewing components/suggestions from 2nd peer evaluation
+
+
+## Tasks Completed
+* Reveiw/Update UI design and coding future components and feature development.
+* Continuing documentation of coding for AWS DynamoDB, Cognito, Amplify and updating new AWS documentation.
+* Writing more fixes for the automated Cypress E2E testing..
+* Finalize components for 2nd peer evaluation.
+  
+## Tasks In-Progress
+* Fixing Cypress for testing and reporting of several UI components.
+* Reviewing our peer evaluation and making adjustments to our app based on given feedback.
+* Fixing bugs, looking into fixing a caching issue.
+* Beginning to plan out our final video submission and report writing.
+
+![Screenshot 2024-03-31 221821](https://github.com/COSC-499-W2023/year-long-project-team-15/assets/122824873/ad494dc4-5eb3-4f7b-a249-7e1246e385ce)
 
 
 ## General Notes
-This week was pretty sick to the start of the week, so I missed check-in on teusday (03/12/24). Still working on getting the cypress automumated testing operational. Improving UI design and helping the others with implementing the video submission funtionality. We will start working on the final video submission and individual reports as well.
+  Improving UI design and fixing the final bugs for the project, trying to figure out some caching issues and finalizing testing. Also working on the final video submission and individual reports as well.
