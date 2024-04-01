@@ -12,6 +12,7 @@ import Alert from "@mui/material/Alert";
 import PhotoCamera from "@mui/icons-material/PhotoCamera";
 import AcceptButton from "../components/AcceptButton";
 import DeclineButton from "../components/DeclineButton";
+import LivephotoModal from "../components/LivephotoModal";
 
 const PictureUploadForm = ({ handleSendContent }) => {
   const [selectedFile, setSelectedFile] = useState(null);
@@ -34,21 +35,18 @@ const PictureUploadForm = ({ handleSendContent }) => {
   const [openSnackbar, setOpenSnackbar] = useState(false);
   const [snackbarMessage, setSnackbarMessage] = useState("");
   const [snackbarSeverity, setSnackbarSeverity] = useState("info");
+  const [showLivephotoModal, setShowLivephotoModal] = useState(false);
 
   const handleFileChange = (event) => {
     const file = event.target.files[0];
     if (file) {
-      setSelectedFile( file );
+      setSelectedFile(file);
       setProcessedUrl(null);
       determineBucket(file);
     }
   };
 
   const determineBucket = (file) => {
-    console.log("file", file);
-    console.log(file.type);
-    console.log(file.name);
-
     if (file.type.startsWith("image/") && !file.type.startsWith("image/gif")) {
       setBucketConfig({
         level: "public",
@@ -107,9 +105,9 @@ const PictureUploadForm = ({ handleSendContent }) => {
     setSelectedFile(null);
     setProcessedUrl(null);
     setIsLoading(false);
-    if (pollingInterval) clearInterval(pollingInterval);
     return;
   };
+
   const handleSubmit = async (event) => {
     event.preventDefault();
     if (!selectedFile) {
@@ -119,15 +117,7 @@ const PictureUploadForm = ({ handleSendContent }) => {
       return;
     }
 
-    // Generate a unique file key using UUID
-
-    if (!bucketConfig) {
-      alert("Unsupported file type");
-      return;
-    }
-
-    console.log("Uploading file with unique key:", uniqueKey);
-    setIsLoading(true); // Start loading
+    setIsLoading(true);
 
     try {
       const result = await Storage.put(uniqueKey, selectedFile, {
@@ -136,21 +126,18 @@ const PictureUploadForm = ({ handleSendContent }) => {
         region: bucketConfig.region,
       });
 
-      console.log("Succeeded:", result);
-
       startPollingForProcessedContent(uniqueKey);
     } catch (error) {
-      console.error("Upload error:", error);
       setSnackbarMessage("Upload failed");
       setSnackbarSeverity("error");
       setOpenSnackbar(true);
-    } 
+    }
   };
 
   let pollingInterval = null;
 
   const startPollingForProcessedContent = (fileName) => {
-    const pollingFrequency = 5000; // Poll every 5 seconds
+    const pollingFrequency = 5000;
     pollingInterval = setInterval(
       () => checkStatus(fileName),
       pollingFrequency
@@ -159,80 +146,52 @@ const PictureUploadForm = ({ handleSendContent }) => {
 
   const checkStatus = async (fileName) => {
     try {
-      console.log(outputBucketConfig.name);
-      console.log(outputBucketConfig.region);
-      console.log(fileName);
       const url = await Storage.get(fileName, {
         bucket: outputBucketConfig.name,
         region: outputBucketConfig.region,
       });
-      console.log(url);
-  
-      if (fileType === 'video') {
-        // Handle video files
-        const video = document.createElement('video');
-  
-        // Optional: add listeners for video-specific events here
-  
+
+      if (fileType === "video") {
+        const video = document.createElement("video");
+
         video.onloadeddata = () => {
-          // Video is loaded, update state
           setProcessedUrl(url);
           setIsLoading(false);
           clearInterval(pollingInterval);
         };
         video.onerror = () => {
-          // Error handling for video loading
-          console.log('Error loading video');
-          // Optionally implement a retry limit or error handling logic here
+          console.log("Error loading video");
         };
         video.src = url;
-        video.load(); // Start loading the video
-      } else if (fileType === 'image'){
-        // Handle image files as before
+        video.load();
+      } else if (fileType === "image") {
         const img = new Image();
         img.onload = () => {
-          // Image has loaded, update state
           setProcessedUrl(url);
           setIsLoading(false);
           clearInterval(pollingInterval);
         };
         img.src = url;
       }
-  
-      console.log(processedUrl);
     } catch (error) {
-      console.log("content not ready yet:", error.message);
-      // Optionally implement a retry limit or error handling logic here
+      console.log("Content not ready yet:", error.message);
     }
   };
-  
-  // const checkStatus = async (fileName) => {
-  //   try {
-  //     console.log(outputBucketConfig.name);
-  //     console.log(outputBucketConfig.region);
-  //     console.log(fileName);
-  //     const url = await Storage.get(fileName, {
-  //       bucket: outputBucketConfig.name,
-  //       region: outputBucketConfig.region,
-  //     });
-  //     console.log(url)
-  //     const img = new Image();
 
-  //     // Set up onload event
-  //     img.onload = () => {
-  //       // Image has loaded, update state
-  //       setProcessedUrl(url);
-  //       setIsLoading(false);
-  //       clearInterval(pollingInterval);
-  //     };
-  //     img.src = url;
+  const handleLivePhotoClick = () => {
+    setShowLivephotoModal(true);
+  };
 
-  //     console.log(processedUrl);
-  //   } catch (error) {
-  //     console.log("content not ready yet:", error.message);
-  //     // Optionally implement a retry limit or error handling logic
-  //   }
-  // };
+  const handleCaptureLivePhoto = (photoBlob) => {
+    if (photoBlob) {
+      handleSendContent(uuidv4(), "Live Photo", "", "image", photoBlob); // You may adjust the parameters as needed
+    }
+    setShowLivephotoModal(false);
+  };
+
+  const handleCloseLivephotoModal = () => {
+    setShowLivephotoModal(false);
+  };
 
   const handleCloseSnackbar = () => {
     setOpenSnackbar(false);
@@ -240,56 +199,66 @@ const PictureUploadForm = ({ handleSendContent }) => {
 
   return (
     <div>
+      <LivephotoModal
+        show={showLivephotoModal}
+        onClose={handleCloseLivephotoModal}
+        handleCaptureLivePhoto={handleCaptureLivePhoto}
+      />
+
       {isLoading ? (
         <div className="d-flex flex-column align-items-center">
-          <CircularProgress/>
+          <CircularProgress />
           <div>Blurring... This may take a while :/</div>
         </div>
       ) : processedUrl ? (
         <div>
           <div className="image-container">
             {fileType === "video" ? (
-              <video controls src={processedUrl} style={{ maxWidth: '100%', maxHeight: '300px' }} />
+              <video
+                controls
+                src={processedUrl}
+                style={{ maxWidth: "100%", maxHeight: "300px" }}
+              />
             ) : (
               <img src={processedUrl} alt="Processed" />
             )}
           </div>
           <div className="d-flex justify-content-end">
-            <DeclineButton
-              label="Cancel"
-              onClick={clearFile}
-            />
-            <AcceptButton
-              label="Send"
-              onClick={handleSend}
-            />
+            <DeclineButton label="Cancel" onClick={clearFile} />
+            <AcceptButton label="Send" onClick={handleSend} />
           </div>
         </div>
       ) : (
         <form>
           <Typography>Upload Content</Typography>
           <div className="d-flex justify-content-start">
-          <Button
-            variant="contained"
-            component="label"
-            startIcon={<PhotoCamera />}
-          >
-            Upload
-            <input
-              type="file"
-              hidden
-              accept="image/*,video/*"
-              onChange={handleFileChange}
-            />
-          </Button>
-          { selectedFile? (
-            <Typography
-              variant="caption"
-              sx={{mb:'0', mt:'1.5em'}}
+            <Button
+              variant="contained"
+              component="label"
+              startIcon={<PhotoCamera />}
             >
-              {selectedFile.name}
-            </Typography>
-          ) : (<Typography></Typography>)}
+              Upload
+              <input
+                type="file"
+                hidden
+                accept="image/*,video/*"
+                onChange={handleFileChange}
+              />
+            </Button>
+            <Button
+              variant="contained"
+              color="primary"
+              onClick={handleLivePhotoClick}
+            >
+              Live Photo
+            </Button>
+            {selectedFile ? (
+              <Typography variant="caption" sx={{ mb: "0", mt: "1.5em" }}>
+                {selectedFile.name}
+              </Typography>
+            ) : (
+              <Typography></Typography>
+            )}
           </div>
           <TextField
             fullWidth
@@ -310,14 +279,13 @@ const PictureUploadForm = ({ handleSendContent }) => {
             margin="normal"
           />
           <div className="d-flex justify-content-end">
-          { !selectedFile? (
-            <Typography
-             mt='auto'
-             mr='0.5em'
-            >
-              Upload a file to continue
-            </Typography>
-          ) : (<Typography></Typography>)}
+            {!selectedFile ? (
+              <Typography mt="auto" mr="0.5em">
+                Upload a file to continue
+              </Typography>
+            ) : (
+              <Typography></Typography>
+            )}
             <Button
               sx={{ flex: "flex-end" }}
               variant="contained"
