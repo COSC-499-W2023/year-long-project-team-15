@@ -8,6 +8,7 @@ describe('Login Tests', function() {
         cy.get('.MuiTextField-root input').eq(1).type('Password123!');
         cy.get('.MuiButton-contained').contains('Login').click();
         //cy.get('form[data-amplify-authenticator-signin]').should('be.visible')
+        //this is a test comment.
     });
 /*
     it('fails with a non-registered email', () => {
