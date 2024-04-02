@@ -11,7 +11,7 @@ jobs:
 
       # Change working directory to amp-dev
       - name: Set working directory to amp-dev
-        working-directory: amp-dev
+        working-directory: ./amp-dev
 
       # Setup Node.js
       - name: Setup Node.js
