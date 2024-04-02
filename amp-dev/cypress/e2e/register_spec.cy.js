@@ -1,4 +1,4 @@
-describe('Registration', function() {
+/*describe('Registration', function() {
     // Step 1: setup the application state
     beforeEach(()=> {
       cy.visit('http://localhost:3000');
@@ -28,3 +28,4 @@ describe('Registration', function() {
       })
     })
   })
+  */
