@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect } from 'react';
 import AccountCircleIcon from '@mui/icons-material/AccountCircle';
 import NotificationsIcon from '@mui/icons-material/Notifications';
 import { useNavigate } from 'react-router-dom';
@@ -97,7 +97,7 @@ const Header = ({ friendsData }) => {
             >
               <NotificationsIcon style={{ color: "white", fontSize: 30 }} />
               {pendingRequestsCount > 0 && (
-                <span style={{ marginLeft: 5 }}>{`(${pendingRequestsCount})`}</span>
+                <span className="notification-badge" style={{ position: 'absolute', top: 0, right: 0, background: 'red', color: 'white', borderRadius: '50%', padding: '4px 8px', fontSize: '12px' }}>{pendingRequestsCount}</span>
               )}
             </button>
             <Menu
@@ -115,11 +115,7 @@ const Header = ({ friendsData }) => {
               open={notificationOpen}
               onClose={handleNotificationClose}
             >
-              {pendingRequestsCount > 0 ? (
-                <MenuItem onClick={handleFriendRequestsClick}>{`You have ${pendingRequestsCount} pending friend requests`}</MenuItem>
-              ) : (
-                <MenuItem disabled>No new notifications</MenuItem>
-              )}
+              <MenuItem onClick={handleFriendRequestsClick}>{`You have ${pendingRequestsCount} pending friend requests`}</MenuItem>
             </Menu>
           </li>
           <li className="nav-item" style={{ marginLeft: 'auto' }}>
