@@ -1,13 +1,15 @@
 import React, { useState, useEffect } from 'react';
-import { Auth, API } from 'aws-amplify';
-import { Avatar, TextField } from '@mui/material';
+import { Auth, API, graphqlOperation } from 'aws-amplify';
+import { Avatar, Button, TextField } from '@mui/material';
 import ProfilePictureUploadForm from './ProfilePictureUploadForm';
-import { getUser } from '../graphql/queries'; 
+import { getUser } from '../graphql/queries';
+import { updateUser } from '../graphql/mutations';
 
 function EditProfileForm({ userId }) {
   const [dynamicS3URL, setDynamicS3URL] = useState('');
   const [userDetails, setUserDetails] = useState(null);
   const [isEditing, setIsEditing] = useState(false);
+  const [name, setName] = useState('');
 
   useEffect(() => {
     const fetchUserData = async () => {
@@ -18,6 +20,7 @@ function EditProfileForm({ userId }) {
           variables: { id: authenticatedUser.username },
         });
         setUserDetails(data.getUser);
+        setName(data.getUser.name || '');
         const s3BucketName = 'blurvid-profile-pics';
         const s3Key = `public/public/${authenticatedUser.username}/profilepic`;
         const constructedS3URL = `https://${s3BucketName}.s3.ca-central-1.amazonaws.com/${s3Key}`;
@@ -27,12 +30,27 @@ function EditProfileForm({ userId }) {
         console.error('Error fetching user data:', error);
       }
     };
-  
+
     fetchUserData();
   }, []);
 
   const handleEdit = () => {
     setIsEditing(true);
+  };
+
+  const handleNameChange = (event) => {
+    setName(event.target.value);
+  };
+
+  const handleSave = async () => {
+    try {
+      await Auth.updateUserAttributes(Auth.user, { name }); // Update name in AWS Cognito
+      const updatedUserData = { id: userId, name };
+      await API.graphql(graphqlOperation(updateUser, { input: updatedUserData })); // Update name in DynamoDB
+      setIsEditing(false);
+    } catch (error) {
+      console.error('Error updating user data:', error);
+    }
   };
 
   const styles = {
@@ -61,11 +79,14 @@ function EditProfileForm({ userId }) {
     },
     input: {
       width: '100%',
-      padding: '10px',
+      padding: '5px',
       margin: '10px 0',
       borderRadius: '4px',
       boxSizing: 'border-box',
-      color: 'white', // Change input text color to white
+      color: 'white', 
+    },
+    button: {
+      marginTop: '10px',
     },
   };
 
@@ -86,24 +107,40 @@ function EditProfileForm({ userId }) {
         <div>
           <TextField
             label="Name"
-            value={userDetails.name || ''}
-            onChange={() => {}}
+            value={name}
+            onChange={handleNameChange}
             style={styles.input}
+            InputLabelProps={{ style: styles.inputLabel }}
+            InputProps={{ style: styles.input }}
+          />
+          <Button variant="contained" color="primary" style={styles.button} onClick={handleSave}>
+            Save
+          </Button>
+        </div>
+      )}
+      {!isEditing && userDetails && (
+        <div>
+          <TextField
+            label="Name"
+            value={userDetails.name || ''}
+            InputProps={{ readOnly: true, style: styles.input }}
             InputLabelProps={{ style: styles.inputLabel }}
           />
           <TextField
             label="Email"
-            type="email"
             value={userDetails.email || ''}
-            onChange={() => {}}
-            style={styles.input}
+            InputProps={{ readOnly: true, style: styles.input }}
             InputLabelProps={{ style: styles.inputLabel }}
           />
         </div>
+      )}
+      {!isEditing && userDetails && (
+        <Button variant="contained" color="primary" style={styles.button} onClick={handleEdit}>
+          Edit Profile
+        </Button>
       )}
     </div>
   );
 }
 
 export default EditProfileForm;
-

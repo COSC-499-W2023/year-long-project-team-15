@@ -122,19 +122,32 @@ const Header = ({ friendsData }) => {
               )}
             </Menu>
           </li>
-          <li className="nav-item">
-            <button 
-              id="account" 
-              type="button" 
-              className="btn" 
-              onClick={handleMenu}
-              aria-controls="menu-appbar"
-              aria-haspopup="true"
-              aria-expanded={open ? 'true' : undefined}
-            >
-              <img src={dynamicS3URL} alt="Profile" style={{ width: 40, height: 40, borderRadius: '50%', marginRight: 10 }} />
-              <AccountCircleIcon style={{ color: "white", fontSize: 30 }} />
-            </button>
+          <li className="nav-item" style={{ marginLeft: 'auto' }}>
+            {dynamicS3URL ? (
+              <button 
+                id="account" 
+                type="button" 
+                className="btn" 
+                onClick={handleMenu}
+                aria-controls="menu-appbar"
+                aria-haspopup="true"
+                aria-expanded={open ? 'true' : undefined}
+              >
+                <img src={dynamicS3URL} alt="Profile" style={{ width: 40, height: 40, borderRadius: '50%', marginRight: 10 }} />
+              </button>
+            ) : (
+              <button 
+                id="account" 
+                type="button" 
+                className="btn" 
+                onClick={handleMenu}
+                aria-controls="menu-appbar"
+                aria-haspopup="true"
+                aria-expanded={open ? 'true' : undefined}
+              >
+                <AccountCircleIcon style={{ color: "white", fontSize: 30 }} />
+              </button>
+            )}
             <Menu
               id="menu-appbar"
               anchorEl={anchorEl}
@@ -161,4 +174,3 @@ const Header = ({ friendsData }) => {
 };
 
 export default Header;
-
