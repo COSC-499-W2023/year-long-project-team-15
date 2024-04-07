@@ -15,9 +15,9 @@ const FriendList = ({ friends, onFriendClick, onDeleteFriend }) => {
           sx={{ 
             display: 'flex', 
             justifyContent: 'space-between', 
-            backgroundColor: friend.id === selectedFriend.id ? '#f1f1f1' : 'transparent',
+            backgroundColor: friend.id === selectedFriend?.id ? '#f1f1f1' : 'transparent',
             '&:hover': {
-              backgroundColor: friend.id === selectedFriend.id ? '#f0f0f0' : '#e0e0e0',
+              backgroundColor: friend.id === selectedFriend?.id ? '#f0f0f0' : '#e0e0e0',
             },
           }}
         >
