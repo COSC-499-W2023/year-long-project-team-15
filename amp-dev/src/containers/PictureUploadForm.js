@@ -163,6 +163,7 @@ const PictureUploadForm = ({ handleSendContent }) => {
       console.log(outputBucketConfig.region);
       console.log(fileName);
       const url = await Storage.get(fileName, {
+        level: outputBucketConfig.level,
         bucket: outputBucketConfig.name,
         region: outputBucketConfig.region,
       });
