@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect } from "react";
 import AccountCircleIcon from '@mui/icons-material/AccountCircle';
 import NotificationsIcon from '@mui/icons-material/Notifications';
 import { useNavigate } from 'react-router-dom';
@@ -18,6 +18,7 @@ const Header = ({ friendsData }) => {
   const notificationOpen = Boolean(notificationAnchorEl);
   const [dynamicS3URL, setDynamicS3URL] = useState('');
   const [pendingRequestsCount, setPendingRequestsCount] = useState(0); 
+  const [profilePicError, setProfilePicError] = useState(false);
 
   useEffect(() => {
     const fetchUserData = async () => {
@@ -97,7 +98,7 @@ const Header = ({ friendsData }) => {
             >
               <NotificationsIcon style={{ color: "white", fontSize: 30 }} />
               {pendingRequestsCount > 0 && (
-                <span className="notification-badge" style={{ position: 'absolute', top: 0, right: 0, background: 'red', color: 'white', borderRadius: '50%', padding: '4px 8px', fontSize: '12px' }}>{pendingRequestsCount}</span>
+                <span style={{ marginLeft: 5 }}>{`(${pendingRequestsCount})`}</span>
               )}
             </button>
             <Menu
@@ -115,35 +116,29 @@ const Header = ({ friendsData }) => {
               open={notificationOpen}
               onClose={handleNotificationClose}
             >
-              <MenuItem onClick={handleFriendRequestsClick}>{`You have ${pendingRequestsCount} pending friend requests`}</MenuItem>
+              {pendingRequestsCount > 0 ? (
+                <MenuItem onClick={handleFriendRequestsClick}>{`You have ${pendingRequestsCount} pending friend requests`}</MenuItem>
+              ) : (
+                <MenuItem disabled>No new notifications</MenuItem>
+              )}
             </Menu>
           </li>
           <li className="nav-item" style={{ marginLeft: 'auto' }}>
-            {dynamicS3URL ? (
-              <button 
-                id="account" 
-                type="button" 
-                className="btn" 
-                onClick={handleMenu}
-                aria-controls="menu-appbar"
-                aria-haspopup="true"
-                aria-expanded={open ? 'true' : undefined}
-              >
-                <img src={dynamicS3URL} alt="Profile" style={{ width: 40, height: 40, borderRadius: '50%', marginRight: 10 }} />
-              </button>
-            ) : (
-              <button 
-                id="account" 
-                type="button" 
-                className="btn" 
-                onClick={handleMenu}
-                aria-controls="menu-appbar"
-                aria-haspopup="true"
-                aria-expanded={open ? 'true' : undefined}
-              >
-                <AccountCircleIcon style={{ color: "white", fontSize: 30 }} />
-              </button>
-            )}
+          <button 
+          id="account" 
+          type="button" 
+          className="btn" 
+          onClick={handleMenu}
+          aria-controls="menu-appbar"
+          aria-haspopup="true"
+          aria-expanded={open ? 'true' : undefined}
+        >
+          {dynamicS3URL && !profilePicError ? (
+            <img src={dynamicS3URL} alt="Profile" onError={() => setProfilePicError(true)} style={{ width: 40, height: 40, borderRadius: '50%', marginRight: 10 }} />
+          ) : (
+            <AccountCircleIcon style={{ color: "white", fontSize: 40 }} />
+          )}
+        </button>
             <Menu
               id="menu-appbar"
               anchorEl={anchorEl}
