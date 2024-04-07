@@ -31,9 +31,13 @@ const ProfilePictureUploadForm = ({ onClose }) => {
       // Get the current authenticated user
       const user = await Auth.currentAuthenticatedUser();
 
-      // Upload the file to S3 with a fixed key ("profilepic")
-      const key = `public/${user.username}/profilepic`;
-      const result = await Storage.put(key, selectedFile, {
+      // Delete the existing profile picture if it exists
+      const existingKey = `public/${user.username}/profilepic`;
+      await Storage.remove(existingKey);
+
+      // Upload the new file to S3 with the same key ("profilepic")
+      const newKey = existingKey;
+      const result = await Storage.put(newKey, selectedFile, {
         bucket: 'blurvid-profile-pics',
         region: 'ca-central-1',
       });
