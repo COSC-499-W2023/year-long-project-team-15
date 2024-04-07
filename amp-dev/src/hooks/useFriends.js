@@ -32,7 +32,7 @@ const useFriends = () => {
     fetchFriendsData();
   }, []);
 
-  return friendsData;
+  return [friendsData || [], setFriendsData];
 };
 
 export default useFriends;

@@ -68,7 +68,7 @@ const FilterMessages = ({ selectedFriend, onFilterChange }) => {
             <ListItemIcon>
               <MessageIcon fontSize="small" />
             </ListItemIcon>
-            <ListItemText primary="Content Messages Only" />
+            <ListItemText primary="Media Messages Only" />
           </MenuItem>
           <MenuItem>
             <ListItemIcon>
