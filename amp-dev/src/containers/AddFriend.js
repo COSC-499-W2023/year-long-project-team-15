@@ -83,12 +83,15 @@ const AddFriend = () => {
     }
   };
 
-  const filteredUsers = potentialFriends.filter(user => user.name.toLowerCase().includes(searchTerm.toLowerCase()));
+  const filteredUsers = searchTerm.trim() ? potentialFriends.filter(user => 
+    user.name.toLowerCase().includes(searchTerm.toLowerCase())
+  ) : [];
 
+  
   return (
-    <div>
+    <Box sx={{ maxHeight: '25em'}}>
         <SearchBar searchTerm={searchTerm} onSearchChange={handleSearchChange} />
-        <List >
+        <List sx={{ maxHeight: '20em', overflow: 'auto'}}>
             {filteredUsers.map(user => (
                 <ListItem key={user.id} style={{ display: 'flex', alignItems: 'center' }}>
                     <Box style={{ flexGrow: 1, display: 'flex', justifyContent: 'space-between', width: '100%' }}>
@@ -101,14 +104,14 @@ const AddFriend = () => {
                               size="small"
                               style={{ marginRight: 8 }}
                             >
-                                Send Friend Request
+                                Send Contact Request
                             </Button>
                         </Box>
                     </Box>
                 </ListItem>
             ))}
         </List>
-    </div>
+    </Box>
 );
 };
 

@@ -14,7 +14,7 @@ const FriendRequestsAccordion = ({ friendsData, updateFriendRequestStatus }) => 
     <Accordion>
       <AccordionSummary expandIcon={<ExpandMoreIcon />}>
         <Typography>
-          Friend Requests {friendRequestCount > 0 && `(${friendRequestCount})`} {/* Display count if greater than 0 */}
+          Contact Requests {friendRequestCount > 0 && `(${friendRequestCount})`} {/* Display count if greater than 0 */}
         </Typography>
       </AccordionSummary>
       <AccordionDetails>
@@ -36,7 +36,7 @@ const FriendRequestsAccordion = ({ friendsData, updateFriendRequestStatus }) => 
           </List>
         ) : (
           <Typography variant="body1" sx={{ textAlign: 'center' }}>
-            You have no friends requests.
+            You have no contact requests.
           </Typography>
         )}
       </AccordionDetails>

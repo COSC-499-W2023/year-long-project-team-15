@@ -12,14 +12,8 @@ import ManageFriends from './ManageFriends';
 const AccountPageSidebar = () => {
   const [showAddFriend, setShowAddFriend] = useState(false);
   const { currentUserId } = useCurrentUser();
-  const { friendsData, fetchFriendRequests, updateFriendRequestStatus, setFriendsDataExternally } = useFriendRequests(currentUserId);
+  const { friendsData, fetchFriendRequests, updateFriendRequestStatus } = useFriendRequests(currentUserId);
 
-  const removeFriendFromList = (friendId) => {
-    const updatedFriendsData = friendsData.filter(friend => friend.friendRequestId !== friendId);
-    setFriendsDataExternally(updatedFriendsData); 
-  
-    fetchFriendRequests();
-  };
   useEffect(() => {
     if (currentUserId) {
       fetchFriendRequests();
@@ -33,8 +27,8 @@ const AccountPageSidebar = () => {
         friendsData={friendsData}
         updateFriendRequestStatus={updateFriendRequestStatus}
       />
-      <ManageFriends onFriendDeleted={removeFriendFromList}/>
-      <AcceptButton label="Add Friends" onClick={() => setShowAddFriend(true)} />
+      <ManageFriends />
+      <AcceptButton label="Add Contact" onClick={() => setShowAddFriend(true)} />
       <Modal show={showAddFriend} onClose={() => setShowAddFriend(false)} modalName="Add Contact">
         <AddFriend />
       </Modal>
