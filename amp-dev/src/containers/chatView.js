@@ -27,7 +27,9 @@ const ChatView = () => {
 
   const handleSendMessage = async (event) => {
     event.preventDefault();
-
+     if (message == ''){
+      return;
+     }
     const uniqueKey = uuidv4();
 
     try {
@@ -52,7 +54,7 @@ const ChatView = () => {
     }
   };
 
-  const handleSendContent = async ( uniqueKey, title, description) => {
+  const handleSendContent = async ( uniqueKey, title, description, contentType) => {
     try {
       const videoMessageResult = await client.mutate({
         mutation: gql(createVideoMessage),
@@ -63,6 +65,7 @@ const ChatView = () => {
             receiverID: selectedFriend.id, 
             title, 
             description, 
+            contentType,
             date: new Date().toISOString(),
           }
         },
