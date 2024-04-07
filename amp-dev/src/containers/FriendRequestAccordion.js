@@ -8,13 +8,17 @@ import { useFriend } from '../context/FriendContext';
 const FriendRequestsAccordion = ({ friendsData, updateFriendRequestStatus }) => {
   const { setSelectedFriend } = useFriend();
 
+  const friendRequestCount = friendsData.length; // Calculate the count of friend requests
+
   return (
     <Accordion>
       <AccordionSummary expandIcon={<ExpandMoreIcon />}>
-        <Typography>Contact Requests</Typography>
+        <Typography>
+          Contact Requests {friendRequestCount > 0 && `(${friendRequestCount})`} {/* Display count if greater than 0 */}
+        </Typography>
       </AccordionSummary>
       <AccordionDetails>
-        {friendsData.length > 0 ? (
+        {friendRequestCount > 0 ? (
           <List>
             {friendsData.map(friend => (
               <ListItem key={friend.id} onClick={() => setSelectedFriend(friend)}>

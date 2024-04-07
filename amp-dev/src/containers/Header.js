@@ -1,17 +1,45 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import AccountCircleIcon from '@mui/icons-material/AccountCircle';
+import NotificationsIcon from '@mui/icons-material/Notifications';
 import { useNavigate } from 'react-router-dom';
-import { useCurrentUser } from "../hooks/useCurrentUser"; 
+import { useCurrentUser } from "../hooks/useCurrentUser";
 import Menu from '@mui/material/Menu';
 import MenuItem from '@mui/material/MenuItem';
 import { useAuth } from '../context/AuthContext';
+import { Auth } from 'aws-amplify';
 
-const Header = () => {
+const Header = ({ friendsData }) => {
   const { currentUserName } = useCurrentUser();
   const navigate = useNavigate();
   const { signOut } = useAuth();
   const [anchorEl, setAnchorEl] = useState(null);
+  const [notificationAnchorEl, setNotificationAnchorEl] = useState(null);
   const open = Boolean(anchorEl);
+  const notificationOpen = Boolean(notificationAnchorEl);
+  const [dynamicS3URL, setDynamicS3URL] = useState('');
+  const [pendingRequestsCount, setPendingRequestsCount] = useState(0); 
+  const [profilePicError, setProfilePicError] = useState(false);
+
+  useEffect(() => {
+    const fetchUserData = async () => {
+      try {
+        const authenticatedUser = await Auth.currentAuthenticatedUser();
+        const userAttributes = await Auth.userAttributes(authenticatedUser);
+        const s3BucketName = 'blurvid-profile-pics';
+        const s3Key = `public/public/${authenticatedUser.username}/profilepic`;
+        const constructedS3URL = `https://${s3BucketName}.s3.ca-central-1.amazonaws.com/${s3Key}`;
+        console.log('Constructed S3 URL:', constructedS3URL);
+        setDynamicS3URL(constructedS3URL);
+        
+        const simulatedPendingRequestsCount = friendsData.length; 
+        setPendingRequestsCount(simulatedPendingRequestsCount);
+      } catch (error) {
+        console.error('Error fetching user data:', error);
+      }
+    };
+  
+    fetchUserData();
+  }, [friendsData]);
 
   const handleMenu = (event) => {
     setAnchorEl(event.currentTarget);
@@ -22,17 +50,30 @@ const Header = () => {
   };
 
   const handleAccountClick = () => {
-    handleClose(); // Close the menu
+    handleClose(); 
     navigate('/accountpage');
   };
 
   const handleSignOutClick = async () => {
-    handleClose(); // Close the menu
+    handleClose(); 
     try {
       await signOut();
     } catch (error) {
       console.error("Error signing out:", error);
     }
+  };
+
+  const handleNotificationClick = (event) => {
+    setNotificationAnchorEl(event.currentTarget); 
+  };
+
+  const handleNotificationClose = () => {
+    setNotificationAnchorEl(null);
+  };
+
+  const handleFriendRequestsClick = () => {
+    navigate('/accountpage'); 
+    setNotificationAnchorEl(null); 
   };
 
   return (
@@ -45,18 +86,59 @@ const Header = () => {
           <li className="nav-item">
             <span className="nav-link" style={{ color: "white" }}>{currentUserName ? currentUserName : "Loading..."}</span>
           </li>
-          <li className="nav-item">
+          <li className="nav-item" style={{ position: 'relative' }}>
             <button 
-              id="account" 
+              id="notification" 
               type="button" 
               className="btn" 
-              onClick={handleMenu}
-              aria-controls="menu-appbar"
+              onClick={handleNotificationClick}
+              aria-controls="notification-menu"
               aria-haspopup="true"
-              aria-expanded={open ? 'true' : undefined}
+              aria-expanded={notificationOpen ? 'true' : undefined}
             >
-              <AccountCircleIcon style={{ color: "white", fontSize: 40 }} />
+              <NotificationsIcon style={{ color: "white", fontSize: 30 }} />
+              {pendingRequestsCount > 0 && (
+                <span style={{ marginLeft: 5 }}>{`(${pendingRequestsCount})`}</span>
+              )}
             </button>
+            <Menu
+              id="notification-menu"
+              anchorEl={notificationAnchorEl}
+              anchorOrigin={{
+                vertical: 'top',
+                horizontal: 'right',
+              }}
+              keepMounted
+              transformOrigin={{
+                vertical: 'top',
+                horizontal: 'right',
+              }}
+              open={notificationOpen}
+              onClose={handleNotificationClose}
+            >
+              {pendingRequestsCount > 0 ? (
+                <MenuItem onClick={handleFriendRequestsClick}>{`You have ${pendingRequestsCount} pending friend requests`}</MenuItem>
+              ) : (
+                <MenuItem disabled>No new notifications</MenuItem>
+              )}
+            </Menu>
+          </li>
+          <li className="nav-item" style={{ marginLeft: 'auto' }}>
+          <button 
+          id="account" 
+          type="button" 
+          className="btn" 
+          onClick={handleMenu}
+          aria-controls="menu-appbar"
+          aria-haspopup="true"
+          aria-expanded={open ? 'true' : undefined}
+        >
+          {dynamicS3URL && !profilePicError ? (
+            <img src={dynamicS3URL} alt="Profile" onError={() => setProfilePicError(true)} style={{ width: 40, height: 40, borderRadius: '50%', marginRight: 10 }} />
+          ) : (
+            <AccountCircleIcon style={{ color: "white", fontSize: 40 }} />
+          )}
+        </button>
             <Menu
               id="menu-appbar"
               anchorEl={anchorEl}

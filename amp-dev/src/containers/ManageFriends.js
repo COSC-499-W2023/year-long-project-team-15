@@ -1,5 +1,3 @@
-
-
 import React, { useState } from 'react';
 import { Accordion, AccordionSummary, AccordionDetails, Typography } from '@mui/material';
 import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
@@ -14,6 +12,7 @@ import { fetchFriendDetails } from '../services/FriendService';
 import useFriends from '../hooks/useFriends';
 import { useFriend } from '../context/FriendContext';
 import AddFriend from './AddFriend';
+import { FriendProvider } from '../context/FriendContext';
 
 const ManageFriends = () => {
     const [friendsData, setFriendsData] = useFriends();

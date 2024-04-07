@@ -12,6 +12,7 @@ import LandingPage from './pages/LandingPage';
 import { AuthProvider } from './context/AuthContext';
 import ProtectedRoute from './services/ProtectedRoute';
 import { FriendProvider } from './context/FriendContext';
+import ForgotPasswordForm from './containers/ForgotPasswordForm';
 
 Amplify.configure(awsExports);
 
@@ -20,23 +21,30 @@ const App = () => {
     <FriendProvider> 
       <AuthProvider>
         <Routes>
-          <Route path="/landing" element={ <LandingPage/>}/>
-          <Route path="/login" element={ <CustomLogin />}/>
+          <Route path="/landing" element={<LandingPage />} />
+          <Route path="/login" element={<CustomLogin />} />
           <Route path="/signup" element={<CustomSignUp />} />
-          <Route path="/" element={
-            <ProtectedRoute>
-              <Main />
-            </ProtectedRoute>
-          } />
-          <Route path="/accountpage" element={
-            <ProtectedRoute>
-              <Account />
-            </ProtectedRoute>
-          } />
+          <Route path="/forgotpasswordform" element={<ForgotPasswordForm />} />
+          <Route
+            path="/"
+            element={
+              <ProtectedRoute>
+                <Main />
+              </ProtectedRoute>
+            }
+          />
+          <Route
+            path="/accountpage"
+            element={
+              <ProtectedRoute>
+                <Account />
+              </ProtectedRoute>
+            }
+          />
         </Routes>
       </AuthProvider> 
     </FriendProvider>
-  )
+  );
 };
 
 export default App;
