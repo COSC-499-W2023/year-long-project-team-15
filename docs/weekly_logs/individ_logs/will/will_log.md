@@ -327,3 +327,7 @@ this week i started fixing bug/improving UX, some of which is based on peer feed
 **Done**
 
 ![wills T2 week11 done board](./screenshots/wills_done_T2_week8.png)
+
+## Week 9
+
+This week I worked on my final report and video demo and merged branches with team.
