@@ -531,3 +531,24 @@ so that we can improve our test writing for newly implemented UI functions. Cont
 
 ## General Notes
   Improving UI design and fixing the final bugs for the project, trying to figure out some caching issues and finalizing testing. Also working on the final video submission and individual reports as well.
+
+  # Individual Log: Kyle Keim (kyle-keim)(SN:46335485)
+## Apr.1st - Apr.7th 2024 / T2Week 13
+### Peer Review Tasks
+
+![Screenshot 2024-04-07 234811](https://github.com/COSC-499-W2023/year-long-project-team-15/assets/122824873/05330083-95c6-463f-8d87-4bbe5867edae)
+
+
+## Previous Goals:
+* Finalize reviewing components
+
+## Tasks Completed
+* Reveiw/Update UI design and coding future components and feature development.
+* Continuing documentation of coding for AWS DynamoDB, Cognito, Amplify and updating new AWS documentation.
+* Finalize components for writing the individual final reports and final individual video demo.
+  
+## Tasks In-Progress
+* Finalize our capstone project.
+
+## General Notes
+  Involves fixing minor bugs towards the end of our project and writing the individual final reports and final individual video demo.
